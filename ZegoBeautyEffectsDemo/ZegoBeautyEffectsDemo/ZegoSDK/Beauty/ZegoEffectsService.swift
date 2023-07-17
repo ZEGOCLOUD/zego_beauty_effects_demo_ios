@@ -42,13 +42,6 @@ public class ZegoEffectsService: NSObject {
                 
                 // step 4 enableAbilities
                 self.initBeautyAbilities()
-                
-//                for value in self.beautyAbilities.values {
-//                    if value.editor is FilterEditor { continue }
-//                    if value.editor is LipstickEditor { continue }
-//                    value.editor.enable(true)
-//                    value.editor.apply(value.defaultValue)
-//                }
             }
         }
     }

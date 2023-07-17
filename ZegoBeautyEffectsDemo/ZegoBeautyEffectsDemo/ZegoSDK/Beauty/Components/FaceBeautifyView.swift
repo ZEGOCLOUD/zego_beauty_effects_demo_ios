@@ -42,6 +42,7 @@ class FaceBeautifyView: UIView {
         titleCollectionView.backgroundColor = .clear
         titleCollectionView.dataSource = self
         titleCollectionView.delegate = self
+        titleCollectionView.showsHorizontalScrollIndicator = false
         return titleCollectionView
     }()
     
@@ -68,6 +69,8 @@ class FaceBeautifyView: UIView {
     
     var currentTypeItem: BeautyTypeItem!
     var currentAbility: BeautyAbility!
+        
+    var typeIndexDict: [BeautyItemType: IndexPath] = [:]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -168,17 +171,18 @@ extension FaceBeautifyView: UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        
         if collectionView == titleCollectionView {
             currentTypeItem = FaceBeautifyData.data[indexPath.row]
             slider.isHidden = true
-            beautyCollectionView.reloadData()
-            beautyCollectionView.scrollToItem(at: .init(row: 0, section: 0), at: .left, animated: true)
+            selectBeautyItem(currentTypeItem)
         } else {
             let item = currentTypeItem.items[indexPath.row]
             let type = item.info.type
+            
             if type.isReset {
                 collectionView.deselectItem(at: indexPath, animated: false)
-                slider.isHidden = true
                 
                 // reset to default value.
                 currentTypeItem.items.forEach({ $0.info.reset() })
@@ -191,12 +195,9 @@ extension FaceBeautifyView: UICollectionViewDataSource,
                 slider.setSliderValue(item.info.currentValue,
                                       min: item.info.minValue,
                                       max: item.info.maxValue)
-                if item.info.editor is stickerEditor {
-                    slider.isHidden = true
-                } else {
-                    slider.isHidden = false
-                }
             }
+            slider.isHidden = !item.hasSlider
+            updateCurrentIndex(currentTypeItem, index: indexPath)
         }
     }
     
@@ -226,6 +227,44 @@ extension FaceBeautifyView: UICollectionViewDataSource,
             return CGSize(width: w, height: 25)
         } else {
             return CGSize(width: 85, height: 68)
+        }
+    }
+}
+
+extension FaceBeautifyView {
+    func updateCurrentIndex(_ currentTypeItem: BeautyTypeItem, index: IndexPath) {
+        if currentTypeItem.type == .basic || currentTypeItem.type == .advanced {
+            return
+        }
+        typeIndexDict[currentTypeItem.type] = index
+        
+        if currentTypeItem.type == .style {
+            typeIndexDict[.lipstick] = .init(row: 0, section: 0)
+            typeIndexDict[.blusher] = .init(row: 0, section: 0)
+            typeIndexDict[.eyelash] = .init(row: 0, section: 0)
+            typeIndexDict[.eyeliner] = .init(row: 0, section: 0)
+            typeIndexDict[.eyeshadow] = .init(row: 0, section: 0)
+            typeIndexDict[.coloredContacts] = .init(row: 0, section: 0)
+            typeIndexDict[.sticker] = .init(row: 0, section: 0)
+        } else if currentTypeItem.type.rawValue >= BeautyItemType.lipstick.rawValue ||
+                    currentTypeItem.type.rawValue <= BeautyItemType.coloredContacts.rawValue {
+            typeIndexDict[.style] = .init(row: 0, section: 0)
+        } else if currentTypeItem.type == .sticker {
+            typeIndexDict[.style] = .init(row: 0, section: 0)
+        }
+    }
+    
+    func selectBeautyItem(_ currentTypeItem: BeautyTypeItem) {
+        beautyCollectionView.reloadData()
+        
+        var index: IndexPath = .init(row: 0, section: 0)
+        
+        if currentTypeItem.type != .basic && currentTypeItem.type != .advanced {
+            index = typeIndexDict[currentTypeItem.type] ?? .init(row: 0, section: 0)
+            beautyCollectionView.selectItem(at: index, animated: true, scrollPosition: .centeredHorizontally)
+            collectionView(beautyCollectionView, didSelectItemAt: index)
+        } else {
+            beautyCollectionView.scrollToItem(at: index, at: .centeredHorizontally, animated: true)
         }
     }
 }

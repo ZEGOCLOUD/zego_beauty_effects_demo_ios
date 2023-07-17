@@ -114,6 +114,12 @@ extension ZegoEffectsService {
         beautyAbilities[.stickerClown] = stickerAbility(.stickerClown)
         beautyAbilities[.stickerClawMachine] = stickerAbility(.stickerClawMachine)
         beautyAbilities[.stickerSailorMoon] = stickerAbility(.stickerSailorMoon)
+        
+        // Background
+        beautyAbilities[.backgroundReset] = BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: BackgroundResetEditor(effects: effects), type: .backgroundReset)
+        beautyAbilities[.backgroundPortraitSegmentation] = BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: PortraitSegmentationEditor(effects: effects, path: EffectsSDKHelper.portraitSegmentationImagePath), type: .backgroundPortraitSegmentation)
+        beautyAbilities[.backgroundMosaicing] = BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: MosaicEditor(effects: effects), type: .backgroundMosaicing)
+        beautyAbilities[.backgroundGaussianBlur] = BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: BlurEditor(effects: effects), type: .backgroundGaussianBlur)
     }
     
     private func filterAbility(_ type: BeautyType) -> BeautyAbility {
@@ -125,30 +131,30 @@ extension ZegoEffectsService {
     }
     
     private func blusherAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: blusherEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: BlusherMakeupEditor(effects: effects, path: type.path), type: type)
     }
     
     private func eyelashesAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: eyelashesEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: EyelashesEditor(effects: effects, path: type.path), type: type)
     }
     
     private func eyelinerAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: eyelinerEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: EyelinerEditor(effects: effects, path: type.path), type: type)
     }
     
     private func eyeshadowAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: eyeshadowEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: EyeshadowEditor(effects: effects, path: type.path), type: type)
     }
     
     private func coloredAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: coloredContactsEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: ColoredContactsEditor(effects: effects, path: type.path), type: type)
     }
     
     private func styleAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: styleMakeupEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: StyleMakeupEditor(effects: effects, path: type.path), type: type)
     }
     
     private func stickerAbility(_ type: BeautyType) -> BeautyAbility {
-        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: stickerEditor(effects: effects, path: type.path), type: type)
+        return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: StickerEditor(effects: effects, path: type.path), type: type)
     }
 }

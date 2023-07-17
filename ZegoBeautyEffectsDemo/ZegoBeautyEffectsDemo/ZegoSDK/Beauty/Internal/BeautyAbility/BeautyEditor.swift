@@ -16,6 +16,8 @@ public protocol BeautyEditor {
     func apply(_ value: Int32)
 }
 
+
+// MARK: - Beauty - Basic
 public struct SmoothingEditor: BeautyEditor {
     public var effects: ZegoEffects?
     
@@ -124,6 +126,7 @@ public struct DarkCirclesEditor: BeautyEditor {
     }
 }
 
+// MARK: - Beauty - Advanced
 public struct FaceSlimmingEditor: BeautyEditor {
     public var effects: ZegoEffects?
     
@@ -340,6 +343,30 @@ public struct ForeheadSlimmingEditor: BeautyEditor {
     }
 }
 
+// MARK: - Filters
+public struct FilterEditor: BeautyEditor {
+    public var effects: ZegoEffects?
+    
+    public var path: String
+    
+    public init(effects: ZegoEffects?, path: String) {
+        self.effects = effects
+        self.path = path
+    }
+    
+    public func enable(_ enable: Bool) {
+        let path = enable ? path : nil
+        effects?.setFilter(path)
+    }
+    
+    public func apply(_ value: Int32) {
+        let param = ZegoEffectsFilterParam()
+        param.intensity = value
+        effects?.setFilterParam(param)
+    }
+}
+
+// MARK: - Makeup
 public struct LipstickEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
@@ -362,7 +389,7 @@ public struct LipstickEditor: BeautyEditor {
     }
 }
 
-public struct blusherEditor: BeautyEditor {
+public struct BlusherMakeupEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -384,7 +411,7 @@ public struct blusherEditor: BeautyEditor {
     }
 }
 
-public struct eyelashesEditor: BeautyEditor {
+public struct EyelashesEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -406,7 +433,7 @@ public struct eyelashesEditor: BeautyEditor {
     }
 }
 
-public struct eyelinerEditor: BeautyEditor {
+public struct EyelinerEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -428,7 +455,7 @@ public struct eyelinerEditor: BeautyEditor {
     }
 }
 
-public struct eyeshadowEditor: BeautyEditor {
+public struct EyeshadowEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -450,7 +477,7 @@ public struct eyeshadowEditor: BeautyEditor {
     }
 }
 
-public struct coloredContactsEditor: BeautyEditor {
+public struct ColoredContactsEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -472,7 +499,8 @@ public struct coloredContactsEditor: BeautyEditor {
     }
 }
 
-public struct styleMakeupEditor: BeautyEditor {
+// MARK: - Style-Makeup
+public struct StyleMakeupEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -494,7 +522,8 @@ public struct styleMakeupEditor: BeautyEditor {
     }
 }
 
-public struct stickerEditor: BeautyEditor {
+// MARK: - Stickers
+public struct StickerEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -514,7 +543,8 @@ public struct stickerEditor: BeautyEditor {
     }
 }
 
-public struct backgroundEditor: BeautyEditor {
+// MARK: - Background
+public struct PortraitSegmentationEditor: BeautyEditor {
     public var effects: ZegoEffects?
     public var path: String
     
@@ -525,36 +555,55 @@ public struct backgroundEditor: BeautyEditor {
     
     public func enable(_ enable: Bool) {
         let path = enable ? path : nil
-        
-        debugPrint("setMakeup() called with: enable = [\(enable)], path: \(path ?? "")")
+        effects?.setPortraitSegmentationBackgroundPath(path, mode: .aspectFill)
+        effects?.enablePortraitSegmentation(enable)
+        effects?.enablePortraitSegmentationBackground(enable)
+        debugPrint("enablePortraitSegmentationBackground() called with: enable = [\(enable)], path: \(path ?? "")")
     }
     
     public func apply(_ value: Int32) {
-        let param = ZegoEffectsMakeupParam()
-        param.intensity = value
-        effects?.setMakeupParam(param)
+        
     }
 }
 
-public struct FilterEditor: BeautyEditor {
+public struct MosaicEditor: BeautyEditor {
     public var effects: ZegoEffects?
     
-    public var path: String
-    
-    public init(effects: ZegoEffects?, path: String) {
+    public init(effects: ZegoEffects?) {
         self.effects = effects
-        self.path = path
     }
     
     public func enable(_ enable: Bool) {
-        let path = enable ? path : nil
-        effects?.setFilter(path)
+        effects?.enablePortraitSegmentation(enable)
+        effects?.enablePortraitSegmentationBackgroundMosaic(enable)
+        debugPrint("enablePortraitSegmentationBackgroundMosaic() called with: enable = [\(enable)]")
     }
     
     public func apply(_ value: Int32) {
-        let param = ZegoEffectsFilterParam()
+        let param = ZegoEffectsMosaicParam()
         param.intensity = value
-        effects?.setFilterParam(param)
+        param.type = .square
+        effects?.setPortraitSegmentationBackgroundMosaicParam(param)
+    }
+}
+
+public struct BlurEditor: BeautyEditor {
+    public var effects: ZegoEffects?
+    
+    public init(effects: ZegoEffects?) {
+        self.effects = effects
+    }
+    
+    public func enable(_ enable: Bool) {
+        effects?.enablePortraitSegmentation(enable)
+        effects?.enablePortraitSegmentationBackgroundBlur(enable)
+        debugPrint("enablePortraitSegmentationBackgroundBlur() called with: enable = [\(enable)]")
+    }
+    
+    public func apply(_ value: Int32) {
+        let param = ZegoEffectsBlurParam()
+        param.intensity = value
+        effects?.setPortraitSegmentationBackgroundBlurParam(param)
     }
 }
 
@@ -584,6 +633,25 @@ public struct AdvancedResetEditor: BeautyEditor {
     
     public func enable(_ enable: Bool) {
         
+    }
+    
+    public func apply(_ value: Int32) {
+        
+    }
+}
+
+public struct BackgroundResetEditor: BeautyEditor {
+    public var effects: ZegoEffects?
+    
+    public init(effects: ZegoEffects?) {
+        self.effects = effects
+    }
+    
+    public func enable(_ enable: Bool) {
+        effects?.enablePortraitSegmentation(false)
+        effects?.enablePortraitSegmentationBackground(false)
+        effects?.enablePortraitSegmentationBackgroundMosaic(false)
+        effects?.enablePortraitSegmentationBackgroundBlur(false)
     }
     
     public func apply(_ value: Int32) {

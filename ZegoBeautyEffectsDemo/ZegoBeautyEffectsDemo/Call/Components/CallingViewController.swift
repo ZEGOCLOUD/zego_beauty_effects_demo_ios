@@ -36,6 +36,20 @@ class CallingViewController: UIViewController {
             bottomBar.backgroundColor = .init(hex: "#333437", alpha: 0.9)
         }
     }
+    
+    lazy var beautifyButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "icon_beauty"), for: .normal)
+        button.addTarget(self, action: #selector(beautifyAction), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var beautifyView: FaceBeautifyView = {
+        let beautifyView = FaceBeautifyView(frame: view.bounds)
+        view.addSubview(beautifyView)
+        return beautifyView
+    }()
+    
     var remoteUser: UserInfo?
     var localUser: UserInfo? {
         get {
@@ -88,6 +102,7 @@ class CallingViewController: UIViewController {
         ZegoSDKManager.shared.zimService.addEventHandler(self)
         setDeviceStatus()
         setUpBottomBar()
+        addBeautyButton()
         showLocalPreview()
     }
     
@@ -142,6 +157,11 @@ class CallingViewController: UIViewController {
         }
     }
     
+    func addBeautyButton() {
+        beautifyButton.frame = .init(x: 30, y: bottomBar.frame.minY - 60, width: 44, height: 44)
+        view.addSubview(beautifyButton)
+    }
+    
     @objc func buttonClick(_ sender: UIButton) {
         switch sender.tag {
         case 100:
@@ -163,6 +183,10 @@ class CallingViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc func beautifyAction(_ sender: UIButton) {
+        beautifyView.isHidden = false
     }
     
     

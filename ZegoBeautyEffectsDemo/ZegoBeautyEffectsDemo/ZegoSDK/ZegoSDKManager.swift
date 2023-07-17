@@ -23,7 +23,14 @@ public class ZegoSDKManager: NSObject {
     
     private var token: String? = nil
     
+    private var appID: UInt32 = 0
+    private var appSign: String = ""
+    
     public func initWith(appID: UInt32, appSign: String, enableBeauty: Bool = false) {
+        
+        self.appID = appID
+        self.appSign = appSign
+        
         expressService.initWithAppID(appID: appID, appSign: appSign)
         zimService.initWithAppID(appID, appSign: appSign)
         

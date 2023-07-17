@@ -305,7 +305,6 @@
 				8EBB67522A06045300832D8D /* Components */,
 				8EBB67512A06044A00832D8D /* Internal */,
 				8EBB674F2A06020000832D8D /* ZegoEffectsService.swift */,
-				8E4DD6702A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift */,
 			);
 			path = Beauty;
 			sourceTree = "<group>";
@@ -316,6 +315,7 @@
 				8EBB675A2A0647B000832D8D /* Network */,
 				8EEE4BF92A0898400051F6B2 /* BeautyAbility */,
 				8EBB67552A062DA500832D8D /* EffectsSDKHelper.swift */,
+				8E4DD6702A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";

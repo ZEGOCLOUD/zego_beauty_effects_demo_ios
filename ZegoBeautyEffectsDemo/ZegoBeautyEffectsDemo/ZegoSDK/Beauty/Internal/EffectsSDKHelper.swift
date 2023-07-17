@@ -11,15 +11,18 @@ import ZegoEffects
 private var requestTimestamp: TimeInterval = 0
 
 class EffectsSDKHelper {
+    
+    static var resourcesFolder: String = Bundle.main.path(forResource: "BeautyResources", ofType: nil)!
+    static var portraitSegmentationImagePath = resourcesFolder + "/BackgroundImages/image1.jpg"
 
     static func setResources() {
-        let faceDetectionModel = BeautyType.resourcesFolder + "/FaceDetection.model"
-        let commonResources = BeautyType.resourcesFolder + "/CommonResources.bundle"
+        let faceDetectionModel = resourcesFolder + "/FaceDetection.model"
+        let commonResources = resourcesFolder + "/CommonResources.bundle"
         let faceWhiteningResources = commonResources + "/FaceWhiteningResources"
         let rosyResources = commonResources + "/RosyResources"
         let teethWhiteningResources = commonResources + "/TeethWhiteningResources"
-        let stickerPath = BeautyType.resourcesFolder + "/StickerBaseResources.bundle"
-        let segmentationPath = BeautyType.resourcesFolder + "/BackgroundSegmentation.model"
+        let stickerPath = resourcesFolder + "/StickerBaseResources.bundle"
+        let segmentationPath = resourcesFolder + "/BackgroundSegmentation.model"
 
         ZegoEffects.setResources([faceDetectionModel,
                                   commonResources,

@@ -111,7 +111,7 @@ public enum BeautyType: String {
     case stickerSailorMoon
 
     // background
-    case backgroundGreenScreenSegmentation
+//    case backgroundGreenScreenSegmentation
     case backgroundPortraitSegmentation
     case backgroundMosaicing
     case backgroundGaussianBlur
@@ -129,8 +129,6 @@ public enum BeautyType: String {
     case filterReset
     case stickerReset
     case backgroundReset
-    
-    static var resourcesFolder: String = Bundle.main.path(forResource: "BeautyResources", ofType: nil)!
     
     var isReset: Bool {
         if self == .beautyBasicReset ||
@@ -157,6 +155,6 @@ public enum BeautyType: String {
         }
         
         // beauty basic and beauty advanced don't need resources
-        return BeautyType.resourcesFolder + "/AdvancedResources/" + rawValue + ".bundle"
+        return EffectsSDKHelper.resourcesFolder + "/AdvancedResources/" + rawValue + ".bundle"
     }
 }

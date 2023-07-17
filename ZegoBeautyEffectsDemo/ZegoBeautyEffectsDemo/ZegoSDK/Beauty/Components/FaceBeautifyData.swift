@@ -24,7 +24,7 @@ struct FaceBeautifyData {
             coloredContactsItem,
             styleMakeupItem,
             stickersItem,
-//            backgroundItem,
+            backgroundItem,
         ]
     }
     
@@ -40,10 +40,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyBasicReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Basic", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .basic,
+                                       items: items,
+                                       title: "Basic",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -61,14 +69,22 @@ struct FaceBeautifyData {
             .beautyAdvancedFaceShortening,
             .beautyAdvancedMandibleSlimming,
             .beautyAdvancedCheekboneSlimming,
-            .beautyAdvancedCheekboneSlimming,
+            .beautyAdvancedForeheadSlimming,
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyAdvancedReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Advanced", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .advanced,
+                                       items: items,
+                                       title: "Advanced",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -88,10 +104,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .filterReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Filters", titleWidth: 80.0, iconRadius: 5.0)
+        let titleItem = BeautyTypeItem(type: .filter,
+                                       items: items,
+                                       title: "Filters",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
         return titleItem
     }()
     
@@ -106,10 +130,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupLipstickReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Lipstick", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .lipstick,
+                                       items: items,
+                                       title: "Lipstick",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -125,10 +157,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupBlusherReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Blusher", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .blusher,
+                                       items: items,
+                                       title: "Blusher",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -144,10 +184,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyelashesReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Eyelashes", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .eyelash,
+                                       items: items,
+                                       title: "Eyelashes",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -163,10 +211,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyelinerReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Eyeliner", titleWidth: 80.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .eyeliner,
+                                       items: items,
+                                       title: "Eyeliner",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -182,10 +238,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyeshadowReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Eyeshadow", titleWidth: 90.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .eyeshadow,
+                                       items: items,
+                                       title: "Eyeshadow",
+                                       titleWidth: 90.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -201,10 +265,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupColoredContactsReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Colored Contacts", titleWidth: 140.0, iconRadius: 22.0)
+        let titleItem = BeautyTypeItem(type: .coloredContacts,
+                                       items: items,
+                                       title: "Colored Contacts",
+                                       titleWidth: 140.0,
+                                       iconRadius: 22.0)
         return titleItem
     }()
     
@@ -220,10 +292,18 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyStyleMakeupReset {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Style", titleWidth: 80.0, iconRadius: 5.0)
+        let titleItem = BeautyTypeItem(type: .style,
+                                       items: items,
+                                       title: "Style",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
         return titleItem
     }()
         
@@ -243,10 +323,16 @@ struct FaceBeautifyData {
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            item.hasSlider = false
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Stickers", titleWidth: 80.0, iconRadius: 5.0)
+        let titleItem = BeautyTypeItem(type: .sticker,
+                                       items: items,
+                                       title: "Stickers",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
         return titleItem
     }()
     
@@ -254,17 +340,24 @@ struct FaceBeautifyData {
         
         let types: [BeautyType] = [
             .backgroundReset,
-            .backgroundGreenScreenSegmentation,
             .backgroundPortraitSegmentation,
             .backgroundMosaicing,
             .backgroundGaussianBlur,
         ]
         
         let items = types.compactMap { type in
-            BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .backgroundReset || type == .backgroundPortraitSegmentation {
+                item.hasSlider = false
+            }
+            return item
         }
         
-        let titleItem = BeautyTypeItem(items: items, title: "Background", titleWidth: 80.0, iconRadius: 5.0)
+        let titleItem = BeautyTypeItem(type: .background,
+                                       items: items,
+                                       title: "Background",
+                                       titleWidth: 100.0,
+                                       iconRadius: 5.0)
         return titleItem
     }()
     
@@ -316,7 +409,7 @@ struct FaceBeautifyData {
         case .beautyMakeupBlusherPeach: return "Peach"
         case .beautyMakeupBlusherMilkyOrange: return "Milky Orange"
         case .beautyMakeupBlusherAprocitPink: return "Aprocit Pink"
-        case .beautyMakeupBlusherSweetOrange: return "SweetOrange"
+        case .beautyMakeupBlusherSweetOrange: return "Sweet Orange"
             
         case .beautyMakeupEyelashesReset: return "None"
         case .beautyMakeupEyelashesNatural: return "Natural"
@@ -336,8 +429,8 @@ struct FaceBeautifyData {
         case .beautyMakeupEyeshadowPinkMist: return "Pink Mist"
         case .beautyMakeupEyeshadowShimmerPink: return "Shimmer Pink"
         case .beautyMakeupEyeshadowTeaBrown: return "Tea Brown"
-        case .beautyMakeupEyeshadowBrightOrange: return "BrightOrange"
-        case .beautyMakeupEyeshadowMochaBrown: return "MochaBrown"
+        case .beautyMakeupEyeshadowBrightOrange: return "Bright Orange"
+        case .beautyMakeupEyeshadowMochaBrown: return "Mocha Brown"
             
         case .beautyMakeupColoredContactsReset: return "None"
         case .beautyMakeupColoredContactsDarknightBlack: return "Darknight Black"
@@ -359,14 +452,13 @@ struct FaceBeautifyData {
         case .stickerCat: return "Cat"
         case .stickerWatermelon: return "Watermelon"
         case .stickerDeer: return "Deer"
-        case .stickerCoolGirl: return "CoolGirl"
+        case .stickerCoolGirl: return "Cool Girl"
         case .stickerClown: return "Clown"
-        case .stickerClawMachine: return "ClawMachine"
-        case .stickerSailorMoon: return "SailorMoon"
+        case .stickerClawMachine: return "Claw Machine"
+        case .stickerSailorMoon: return "Sailor Moon"
             
         case .backgroundReset: return "None"
-        case .backgroundGreenScreenSegmentation: return "Green Screen Segmentation"
-        case .backgroundPortraitSegmentation: return "PortraitSegmentation"
+        case .backgroundPortraitSegmentation: return "Portrait Segmentation"
         case .backgroundMosaicing: return "Mosaicing"
         case .backgroundGaussianBlur: return "Gaussian Blur"
         }

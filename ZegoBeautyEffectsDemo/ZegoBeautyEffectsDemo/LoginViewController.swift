@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
         ZegoSDKManager.shared.connectUser(userID: userID, userName: userName) { code , message in
             if code == 0 {
                 self.performSegue(withIdentifier: "login", sender: sender)
-            }else{
+            } else {
                 self.view.makeToast("zim login failed:\(code)", duration: 2.0, position: .center)
             }
         }

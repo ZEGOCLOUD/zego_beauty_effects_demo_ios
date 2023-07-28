@@ -60,7 +60,7 @@ extension ZegoEffectsService {
         beautyAbilities[.beautyMakeupBlusherSlightlyDrunk] = blusherAbility(.beautyMakeupBlusherSlightlyDrunk)
         beautyAbilities[.beautyMakeupBlusherPeach] = blusherAbility(.beautyMakeupBlusherPeach)
         beautyAbilities[.beautyMakeupBlusherMilkyOrange] = blusherAbility(.beautyMakeupBlusherMilkyOrange)
-        beautyAbilities[.beautyMakeupBlusherAprocitPink] = blusherAbility(.beautyMakeupBlusherAprocitPink)
+        beautyAbilities[.beautyMakeupBlusherApricotPink] = blusherAbility(.beautyMakeupBlusherApricotPink)
         beautyAbilities[.beautyMakeupBlusherSweetOrange] = blusherAbility(.beautyMakeupBlusherSweetOrange)
         
         // Makeup - Eyelashes

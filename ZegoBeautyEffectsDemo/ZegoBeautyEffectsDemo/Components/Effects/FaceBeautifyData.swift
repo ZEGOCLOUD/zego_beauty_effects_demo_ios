@@ -152,7 +152,7 @@ struct FaceBeautifyData {
             .beautyMakeupBlusherSlightlyDrunk,
             .beautyMakeupBlusherPeach,
             .beautyMakeupBlusherMilkyOrange,
-            .beautyMakeupBlusherAprocitPink,
+            .beautyMakeupBlusherApricotPink,
             .beautyMakeupBlusherSweetOrange,
         ]
         
@@ -408,7 +408,7 @@ struct FaceBeautifyData {
         case .beautyMakeupBlusherSlightlyDrunk: return "Slightly Drunk"
         case .beautyMakeupBlusherPeach: return "Peach"
         case .beautyMakeupBlusherMilkyOrange: return "Milky Orange"
-        case .beautyMakeupBlusherAprocitPink: return "Aprocit Pink"
+        case .beautyMakeupBlusherApricotPink: return "Apricot Pink"
         case .beautyMakeupBlusherSweetOrange: return "Sweet Orange"
             
         case .beautyMakeupEyelashesReset: return "None"

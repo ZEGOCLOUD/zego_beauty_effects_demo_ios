@@ -44,7 +44,7 @@ public enum BeautyType: String {
     case beautyMakeupBlusherSlightlyDrunk
     case beautyMakeupBlusherPeach
     case beautyMakeupBlusherMilkyOrange
-    case beautyMakeupBlusherAprocitPink
+    case beautyMakeupBlusherApricotPink
     case beautyMakeupBlusherSweetOrange
 
     // Beauty - Makeup - Eyelashes

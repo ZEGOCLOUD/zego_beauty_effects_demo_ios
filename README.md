@@ -10,15 +10,21 @@ Before you begin, make sure you complete the following:
 
 ### Integrate the SDK
 
-Copy the entire ZegoSDK folder into your own project.
+Copy the entire `Internal` folder into your own project.
 
-<img src="https://storage.zego.im/sdk-doc/Pics/zegocloud/beauty/code_folder.png">
+<img src="https://storage.zego.im/sdk-doc/Pics/zegocloud/beauty/code_folder01.png">
 
 ### Add icon image resources.
 
 Copy the image resources from the `BeautyItem` folder into your own project.
 
 <img src="https://storage.zego.im/sdk-doc/Pics/zegocloud/beauty/icons.png">
+
+### Add UI Components
+
+Copy the entire `Components` folder into your own project.
+
+<img src='https://storage.zego.im/sdk-doc/Pics/zegocloud/beauty/components_folder.png'>
 
 ### Add beauty effects resources
 

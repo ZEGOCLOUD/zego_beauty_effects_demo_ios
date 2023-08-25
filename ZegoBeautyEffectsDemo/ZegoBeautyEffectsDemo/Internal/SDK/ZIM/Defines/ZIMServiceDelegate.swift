@@ -10,16 +10,16 @@ import ZIM
 
 @objc public protocol ZIMServiceDelegate: ZIMEventHandler {
     
-    @objc optional func onActionSendRoomRequest(errorCode: UInt, request: RoomRequest)
-    @objc optional func onActionCancelRoomRequest(errorCode: UInt, request: RoomRequest)
-    @objc optional func onOutgoingRoomRequestAccepted(request: RoomRequest)
-    @objc optional func onOutgoingRoomRequestRejected(request: RoomRequest)
+    @objc optional func onSendRoomRequest(errorCode: UInt, requestID: String, extendedData: String)
+    @objc optional func onCancelRoomRequest(errorCode: UInt, requestID: String, extendedData: String)
+    @objc optional func onOutgoingRoomRequestAccepted(requestID: String, extendedData: String)
+    @objc optional func onOutgoingRoomRequestRejected(requestID: String, extendedData: String)
     
     
-    @objc optional func onInComingRoomRequestReceived(request: RoomRequest)
-    @objc optional func onInComingRoomRequestCancelled(request: RoomRequest)
-    @objc optional func onActionAcceptIncomingRoomRequest(errorCode: UInt, request: RoomRequest)
-    @objc optional func onActionRejectIncomingRoomRequest(errorCode: UInt, request: RoomRequest)
+    @objc optional func onInComingRoomRequestReceived(requestID: String, extendedData: String)
+    @objc optional func onInComingRoomRequestCancelled(requestID: String, extendedData: String)
+    @objc optional func onAcceptIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String)
+    @objc optional func onRejectIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String)
     
     
     @objc optional func onInComingUserRequestReceived(requestID: String, inviter: String, extendedData: String)

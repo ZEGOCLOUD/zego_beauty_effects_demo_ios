@@ -53,7 +53,7 @@ extension ZIMService: ZIMEventHandler {
                             roomRequest.requestID = "\(commandMessage.messageID)"
                             roomRequestDict.updateValue(roomRequest, forKey: roomRequest.requestID)
                             for delegate in eventHandlers.allObjects {
-                                delegate.onInComingRoomRequestReceived?(request: roomRequest)
+                                delegate.onInComingRoomRequestReceived?(requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
                             }
                         case .accept:
                             let requestID: String = messageDict["request_id"] as! String
@@ -61,7 +61,7 @@ extension ZIMService: ZIMEventHandler {
                             if let roomRequest = roomRequest {
                                 roomRequestDict.removeValue(forKey: requestID)
                                 for delegate in eventHandlers.allObjects {
-                                    delegate.onOutgoingRoomRequestAccepted?(request: roomRequest)
+                                    delegate.onOutgoingRoomRequestAccepted?(requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
                                 }
                             }
                         case .reject:
@@ -70,7 +70,7 @@ extension ZIMService: ZIMEventHandler {
                             if let roomRequest = roomRequest {
                                 roomRequestDict.removeValue(forKey: requestID)
                                 for delegate in eventHandlers.allObjects {
-                                    delegate.onOutgoingRoomRequestRejected?(request: roomRequest)
+                                    delegate.onOutgoingRoomRequestRejected?(requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
                                 }
                             }
                         case .cancel:
@@ -79,7 +79,7 @@ extension ZIMService: ZIMEventHandler {
                             roomRequestDict.removeValue(forKey: requestID)
                             if let roomRequest = roomRequest {
                                 for delegate in eventHandlers.allObjects {
-                                    delegate.onInComingRoomRequestCancelled?(request: roomRequest)
+                                    delegate.onInComingRoomRequestCancelled?(requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
                                 }
                             }
                         }

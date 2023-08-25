@@ -36,7 +36,7 @@ class LiveAudioRoomViewController: UIViewController {
     var alterView: UIAlertController?
     var requestMemberVC: ApplyCoHostListViewController?
     let audioRoomManager = ZegoLiveAudioRoomManager.shared
-    var myRoomRequest: RoomRequest?
+    var currentRequestID: String?
     
     @IBOutlet weak var roomNameLabel: UILabel! {
         didSet {
@@ -136,8 +136,9 @@ class LiveAudioRoomViewController: UIViewController {
         ZegoSDKManager.shared.expressService.turnCameraOn(false);
         setupUI()
         
-        ZegoSDKManager.shared.joinRoom(liveID, scenario: .highQualityChatroom) { code, message in
+        ZegoSDKManager.shared.loginRoom(liveID, scenario: .highQualityChatroom) { code, message in
             if code == 0 {
+                ZegoSDKManager.shared.expressService.startSoundLevelMonitor()
                 self.joinRoomAfterUpdateRoomInfo()
             }
         }
@@ -187,7 +188,7 @@ class LiveAudioRoomViewController: UIViewController {
             ZegoLiveAudioRoomManager.shared.lockSeat(!ZegoLiveAudioRoomManager.shared.isSeatLocked())
         } else if mySelfRole == .coHost {
             for seat in ZegoLiveAudioRoomManager.shared.seatList {
-                if seat.currentUser?.id == ZegoSDKManager.shared.localUser?.id {
+                if seat.currentUser?.id == ZegoSDKManager.shared.currentUser?.id {
                     ZegoLiveAudioRoomManager.shared.leaveSeat(seatIndex: seat.seatIndex) { roomID, errorKeys, errorInfo in
                         if errorInfo.code == .success && !errorKeys.contains("\(seat.seatIndex)") {
                             self.updateRole(.audience)
@@ -206,17 +207,15 @@ class LiveAudioRoomViewController: UIViewController {
                 let commandDict: [String: AnyObject] = ["room_request_type": RoomRequestType.applyCoHost.rawValue as AnyObject]
                 ZegoSDKManager.shared.zimService.sendRoomRequest(host.id, extendedData: commandDict.jsonString) { code, message, messageID in
                     if code == 0 {
-                        self.myRoomRequest = ZegoSDKManager.shared.zimService.roomRequestDict[messageID ?? ""]
+                        self.currentRequestID = ZegoSDKManager.shared.zimService.roomRequestDict[messageID ?? ""]?.requestID
                         self.view.makeToast("send apply sucess~", duration: 1.0, position: .center)
                     }
                 }
             }
         } else {
             if let _ = audioRoomManager.getHostUser() {
-                let roomRequest: RoomRequest? = ZegoSDKManager.shared.zimService.getRoomRequestByRequestID(
-                    myRoomRequest?.requestID ?? "");
-                guard let roomRequest = roomRequest else { return }
-                ZegoSDKManager.shared.zimService.cancelRoomRequest(roomRequest) { code, message, messageID in
+                guard let currentRequestID = currentRequestID else { return }
+                ZegoSDKManager.shared.zimService.cancelRoomRequest(currentRequestID, extendedData: nil) { code, message, requestID in
                     if code != 0 {
                         self.view.makeToast("cancel apply fail", duration: 1.0, position: .center)
                     }
@@ -246,7 +245,7 @@ class LiveAudioRoomViewController: UIViewController {
             ZegoLiveAudioRoomManager.shared.setSelfHost()
             //take seat
             ZegoLiveAudioRoomManager.shared.takeSeat(seatIndex: 0) { roomID, errorKeys, errorInfo in
-                if errorInfo.code == .success && !errorKeys.contains(ZegoSDKManager.shared.localUser?.id ?? "") {
+                if errorInfo.code == .success && !errorKeys.contains(ZegoSDKManager.shared.currentUser?.id ?? "") {
                     self.openMicAndStartPublishStream()
                     ZegoLiveAudioRoomManager.shared.hostSeatIndex = 0
                     self.updateSeatView()
@@ -279,12 +278,13 @@ class LiveAudioRoomViewController: UIViewController {
     deinit {
         audioRoomManager.unInit()
     }
+
 }
 
 extension LiveAudioRoomViewController: ExpressServiceDelegate {
     
     func onMicrophoneOpen(_ userID: String, isMicOpen: Bool) {
-        if userID == ZegoSDKManager.shared.localUser?.id {
+        if userID == ZegoSDKManager.shared.currentUser?.id {
             isMicOn = isMicOpen
         }
     }
@@ -299,14 +299,14 @@ extension LiveAudioRoomViewController: ZegoSeatViewDelegate {
                 }
             }
         } else if mySelfRole == .host {
-            if roomSeat.currentUser?.id != nil && roomSeat.currentUser?.id != ZegoSDKManager.shared.localUser?.id {
+            if roomSeat.currentUser?.id != nil && roomSeat.currentUser?.id != ZegoSDKManager.shared.currentUser?.id {
                 showRemoveOrMuteUserAlter(roomSeat: roomSeat)
             }
         } else {
-            if isLockSeat || roomSeat.currentUser?.id == ZegoSDKManager.shared.localUser?.id || (roomSeat.seatIndex == ZegoLiveAudioRoomManager.shared.hostSeatIndex && mySelfRole != .host) || mySelfRole == .host { return }
+            if isLockSeat || roomSeat.currentUser?.id == ZegoSDKManager.shared.currentUser?.id || (roomSeat.seatIndex == ZegoLiveAudioRoomManager.shared.hostSeatIndex && mySelfRole != .host) || mySelfRole == .host { return }
             var localUserSeat: ZegoLiveAudioRoomSeat?
             for seat in ZegoLiveAudioRoomManager.shared.seatList {
-                if seat.currentUser?.id == ZegoSDKManager.shared.localUser?.id {
+                if seat.currentUser?.id == ZegoSDKManager.shared.currentUser?.id {
                     localUserSeat = seat
                     break
                 }
@@ -335,14 +335,14 @@ extension LiveAudioRoomViewController: ZegoSeatViewDelegate {
                 }
             }
         }
-        let targetUser: UserInfo? = ZegoSDKManager.shared.getUser(roomSeat.currentUser?.id ?? "")
+        let targetUser: ZegoSDKUser? = ZegoSDKManager.shared.getUser(roomSeat.currentUser?.id ?? "")
         let cancelAction: UIAlertAction = UIAlertAction(title: "cancel", style: .cancel)
         alterView.addAction(removeAction)
         if let targetUser = targetUser {
             let muteAction: UIAlertAction = UIAlertAction(title: targetUser.isMicrophoneOpen ? "mute the speaker" : "unMute the speaker", style: .default) { action in
                 guard let userID = roomSeat.currentUser?.id else { return }
-                self.audioRoomManager.muteSpeaker(userID, isMute: targetUser.isMicrophoneOpen ? true : false) { message, error in
-                    if error.code == .success {
+                self.audioRoomManager.muteSpeaker(userID, isMute: targetUser.isMicrophoneOpen ? true : false) { code, message in
+                    if code == 0 {
                         self.view.makeToast("controls success", duration: 1.0, position: .center)
                     } else {
                         self.view.makeToast("controls fail", duration: 1.0, position: .center)
@@ -352,11 +352,11 @@ extension LiveAudioRoomViewController: ZegoSeatViewDelegate {
             alterView.addAction(muteAction)
         }
         let kickOutAction: UIAlertAction = UIAlertAction(title: "kick out the speaker", style: .default) { action in
-            self.audioRoomManager.kickOutRoom(targetUser?.id ?? "") { message, error in
-                if error.code == .success {
+            self.audioRoomManager.kickOutRoom(targetUser?.id ?? "") { code, message in
+                if code == 0 {
                     self.view.makeToast("kick out speaker success", duration: 1.0, position: .center)
                 } else {
-                    self.view.makeToast("kick out speaker fail:\(error.code.rawValue)", duration: 1.0, position: .center)
+                    self.view.makeToast("kick out speaker fail:\(code)", duration: 1.0, position: .center)
                 }
             }
         }
@@ -367,7 +367,7 @@ extension LiveAudioRoomViewController: ZegoSeatViewDelegate {
     
     func takeSeat(_ seatIndex: Int) {
         ZegoLiveAudioRoomManager.shared.takeSeat(seatIndex: seatIndex) { roomID, errorKeys, errorInfo in
-            if errorInfo.code == .success && !errorKeys.contains(ZegoSDKManager.shared.localUser?.id ?? "") {
+            if errorInfo.code == .success && !errorKeys.contains(ZegoSDKManager.shared.currentUser?.id ?? "") {
                 self.updateRole(.coHost)
                 self.openMicAndStartPublishStream()
                 self.updateSeatView()
@@ -382,7 +382,7 @@ extension LiveAudioRoomViewController: RoomSeatServiceDelegate {
         updateSeatView()
         var isFindMyself = false
         for roomSeat in audioRoomManager.seatList {
-            if roomSeat.currentUser?.id == ZegoSDKManager.shared.localUser?.id {
+            if roomSeat.currentUser?.id == ZegoSDKManager.shared.currentUser?.id {
                 isFindMyself = true
                 break
             }
@@ -395,7 +395,7 @@ extension LiveAudioRoomViewController: RoomSeatServiceDelegate {
 
 extension LiveAudioRoomViewController: ZegoLiveAudioRoomManagerDelegate {
     
-    func onHostChanged(_ user: UserInfo) {
+    func onHostChanged(_ user: ZegoSDKUser) {
         updateSeatView()
     }
     
@@ -409,7 +409,7 @@ extension LiveAudioRoomViewController: ZegoLiveAudioRoomManagerDelegate {
     }
     
     func onReceiveMuteUserSpeaker(_ userID: String, isMute: Bool) {
-        if userID == ZegoSDKManager.shared.localUser?.id {
+        if userID == ZegoSDKManager.shared.currentUser?.id {
             if isMute {
                 self.view.makeToast("You've been mute speaker by the host", duration: 1.0, position: .center)
             } else {
@@ -431,11 +431,11 @@ extension LiveAudioRoomViewController: ZegoLiveAudioRoomManagerDelegate {
 
 extension LiveAudioRoomViewController: ZIMServiceDelegate {
     
-    func onInComingRoomRequestReceived(request: RoomRequest) {
+    func onInComingRoomRequestReceived(requestID: String, extendedData: String) {
         self.view.makeToast("receive become speaker apply", duration: 1.0, position: .center)
     }
     
-    func onOutgoingRoomRequestAccepted(request: RoomRequest) {
+    func onOutgoingRoomRequestAccepted(requestID: String, extendedData: String) {
         isApply = false
         for seat in ZegoLiveAudioRoomManager.shared.seatList {
             if seat.currentUser == nil {
@@ -445,7 +445,7 @@ extension LiveAudioRoomViewController: ZIMServiceDelegate {
         }
     }
     
-    func onOutgoingRoomRequestRejected(request: RoomRequest) {
+    func onOutgoingRoomRequestRejected(requestID: String, extendedData: String) {
         isApply = false
         self.view.makeToast("apply is reject", duration: 1.0, position: .center)
     }

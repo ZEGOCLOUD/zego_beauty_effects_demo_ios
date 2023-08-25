@@ -55,7 +55,7 @@ class RoomSeatService: NSObject {
     }
     
     func tryTakeSeat(seatIndex: Int, callback: ZIMRoomAttributesOperatedCallback?) {
-        guard let localUser = ZegoSDKManager.shared.localUser else { return }
+        guard let localUser = ZegoSDKManager.shared.currentUser else { return }
         ZegoSDKManager.shared.zimService.setRoomAttributes("\(seatIndex)", value: localUser.id) { roomID, errorKeys, errorInfo in
             if errorInfo.code == .success && !errorKeys.contains("\(seatIndex)") {
                 for seat in self.seatList {
@@ -70,7 +70,7 @@ class RoomSeatService: NSObject {
     }
     
     func takeSeat(seatIndex: Int, callback: ZIMRoomAttributesOperatedCallback?) {
-        guard let localUser = ZegoSDKManager.shared.localUser else { return }
+        guard let localUser = ZegoSDKManager.shared.currentUser else { return }
         ZegoSDKManager.shared.zimService.setRoomAttributes("\(seatIndex)", value: localUser.id) { roomID, errorKeys, errorInfo in
             if errorInfo.code == .success && !errorKeys.contains("\(seatIndex)") {
                 for seat in self.seatList {
@@ -176,19 +176,25 @@ extension RoomSeatService: ZIMServiceDelegate {
         var changeSeatList: [ZegoLiveAudioRoomSeat] = []
         if updateInfo.action == .set {
             for (key,value) in updateInfo.roomAttributes {
-                let seat = seatList[Int(key) ?? 0]
-                var user = ZegoSDKManager.shared.expressService.inRoomUserDict[value]
-                if user == nil {
-                    user = UserInfo(id: value, name: value)
+                for seat in seatList {
+                    if String(seat.seatIndex) == key {
+                        if value == ZegoSDKManager.shared.currentUser?.id {
+                            seat.currentUser = ZegoSDKManager.shared.currentUser
+                        } else {
+                            seat.currentUser = ZegoSDKManager.shared.getUser(value) ?? ZegoSDKUser(id: value, name: "")
+                        }
+                        changeSeatList.append(seat)
+                    }
                 }
-                seat.currentUser = user
-                changeSeatList.append(seat)
             }
         } else {
             for (key,_) in updateInfo.roomAttributes {
-                let seat = seatList[Int(key) ?? 0]
-                seat.currentUser = nil
-                changeSeatList.append(seat)
+                for seat in seatList {
+                    if String(seat.seatIndex) == key {
+                        seat.currentUser = nil
+                        changeSeatList.append(seat)
+                    }
+                }
             }
         }
         
@@ -202,19 +208,25 @@ extension RoomSeatService: ZIMServiceDelegate {
         for info in updateInfo {
             if info.action == .set {
                 for (key,value) in info.roomAttributes {
-                    let seat = seatList[Int(key) ?? 0]
-                    var user = ZegoSDKManager.shared.expressService.inRoomUserDict[value]
-                    if user == nil {
-                        user = UserInfo(id: value, name: value)
+                    for seat in seatList {
+                        if String(seat.seatIndex) == key {
+                            if value == ZegoSDKManager.shared.currentUser?.id {
+                                seat.currentUser = ZegoSDKManager.shared.currentUser
+                            } else {
+                                seat.currentUser = ZegoSDKManager.shared.getUser(value) ?? ZegoSDKUser(id: value, name: "")
+                            }
+                            changeSeatList.append(seat)
+                        }
                     }
-                    seat.currentUser = user
-                    changeSeatList.append(seat)
                 }
             } else {
                 for (key,_) in info.roomAttributes {
-                    let seat = seatList[Int(key) ?? 0]
-                    seat.currentUser = nil
-                    changeSeatList.append(seat)
+                    for seat in seatList {
+                        if String(seat.seatIndex) == key {
+                            seat.currentUser = nil
+                            changeSeatList.append(seat)
+                        }
+                    }
                 }
             }
         }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class UserInfo: NSObject {
+public class ZegoSDKUser: NSObject {
     public var id: String
     
     public var name: String

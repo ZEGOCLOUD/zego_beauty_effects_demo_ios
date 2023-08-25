@@ -22,18 +22,22 @@ extension ExpressService {
     }
     
     public func startPublishingStream(_ streamID: String, channel: ZegoPublishChannel = .main) {
-        localUser?.streamID = streamID
-        streamDict[streamID] = localUser?.id
+        currentUser?.streamID = streamID
+        streamDict[streamID] = currentUser?.id
         
         ZegoExpressEngine.shared().startPublishingStream(streamID)
-        if let localUser = localUser {
+        if let localUser = currentUser {
             setCameraAndMicState(isCameraOpen: localUser.isCameraOpen,
                                  isMicOpen: localUser.isMicrophoneOpen)
         }
     }
 
-    public func stopPublishingStream() {
-        ZegoExpressEngine.shared().stopPublishingStream()
+    public func stopPublishingStream(channel: ZegoPublishChannel? = nil) {
+        if let channel = channel {
+            ZegoExpressEngine.shared().stopPublishingStream(channel)
+        } else {
+            ZegoExpressEngine.shared().stopPublishingStream()
+        }
         ZegoExpressEngine.shared().stopPreview()
     }
     
@@ -60,5 +64,13 @@ extension ExpressService {
     
     public func mutePlayStreamVideo(streamID: String, mute: Bool) {
         ZegoExpressEngine.shared().mutePlayStreamVideo(mute, streamID: streamID)
+    }
+    
+    public func startSoundLevelMonitor(millisecond: UInt32 = 1000) {
+        ZegoExpressEngine.shared().startSoundLevelMonitor(millisecond)
+    }
+    
+    public func stopSoundLevelMonitor() {
+        ZegoExpressEngine.shared().stopSoundLevelMonitor()
     }
 }

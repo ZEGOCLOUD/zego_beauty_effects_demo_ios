@@ -49,7 +49,7 @@ extension ExpressService: ZegoEventHandler {
     public func onRoomUserUpdate(_ updateType: ZegoUpdateType, userList: [ZegoUser], roomID: String) {
         if updateType == .add {
             for user in userList {
-                let user = inRoomUserDict[user.userID] ?? UserInfo(id: user.userID, name: user.userName)
+                let user = inRoomUserDict[user.userID] ?? ZegoSDKUser(id: user.userID, name: user.userName)
                 user.streamID = streamDict.first(where: { $0.value == user.id })?.key
                 inRoomUserDict[user.id] = user
             }
@@ -71,11 +71,11 @@ extension ExpressService: ZegoEventHandler {
     
     public func onRoomStreamUpdate(_ updateType: ZegoUpdateType, streamList: [ZegoStream], extendedData: [AnyHashable : Any]?, roomID: String) {
         
-        var userList: [UserInfo] = []
+        var userList: [ZegoSDKUser] = []
         for stream in streamList {
             var user = inRoomUserDict[stream.user.userID]
             if user == nil {
-                user = UserInfo(id: stream.user.userID, name: stream.user.userName)
+                user = ZegoSDKUser(id: stream.user.userID, name: stream.user.userName)
             }
             if updateType == .add {
                 streamDict[stream.streamID] = stream.user.userID
@@ -134,7 +134,7 @@ extension ExpressService: ZegoEventHandler {
         for extraInfo in roomExtraInfoList {
             let oldRoomExtraInfo = roomExtraInfoDict[extraInfo.key]
             if let oldRoomExtraInfo = oldRoomExtraInfo {
-                if extraInfo.updateUser.userID == self.localUser?.id {
+                if extraInfo.updateUser.userID == self.currentUser?.id {
                     continue
                 }
                 if extraInfo.updateTime < oldRoomExtraInfo.updateTime {
@@ -146,6 +146,7 @@ extension ExpressService: ZegoEventHandler {
         
         for handler in eventHandlers.allObjects {
             handler.onRoomExtraInfoUpdate?(roomExtraInfoList, roomID: roomID)
+            handler.onRoomExtraInfoUpdate2?(roomExtraInfoList, roomID: roomID)
         }
     }
     
@@ -183,9 +184,9 @@ extension ExpressService: ZegoEventHandler {
         }
     }
     
-    public func onPublisherSendAudioFirstFrame() {
+    public func onPublisherSendAudioFirstFrame(_ channel: ZegoPublishChannel) {
         for handler in eventHandlers.allObjects {
-            handler.onPublisherSendAudioFirstFrame?()
+            handler.onPublisherSendAudioFirstFrame?(channel)
         }
     }
     

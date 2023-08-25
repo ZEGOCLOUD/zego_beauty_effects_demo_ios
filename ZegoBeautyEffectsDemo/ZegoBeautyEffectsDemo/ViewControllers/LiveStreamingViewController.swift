@@ -128,7 +128,7 @@ class LiveStreamingViewController: UIViewController {
     var liveID: String = ""
     var userCount = 1
     
-    var mRoomRequest: RoomRequest?
+    var currentRoomRequestID: String?
     let liveManager = ZegoLiveStreamingManager.shared
 
     
@@ -139,7 +139,7 @@ class LiveStreamingViewController: UIViewController {
         liveManager.addPKDelegate(self)
         liveManager.eventDelegates.add(self)
         if isMySelfHost {
-            liveManager.hostUser = ZegoSDKManager.shared.localUser
+            liveManager.hostUser = ZegoSDKManager.shared.currentUser
         }
         configUI()
     }
@@ -152,7 +152,7 @@ class LiveStreamingViewController: UIViewController {
             ZegoSDKManager.shared.expressService.turnCameraOn(true)
             ZegoSDKManager.shared.expressService.turnMicrophoneOn(true)
             startPreviewIfHost()
-            updateUserNameLabel(ZegoSDKManager.shared.expressService.localUser?.name)
+            updateUserNameLabel(ZegoSDKManager.shared.expressService.currentUser?.name)
         } else {
             userNameLabel.isHidden = true
             coHostButton.isHidden = false
@@ -161,7 +161,7 @@ class LiveStreamingViewController: UIViewController {
             cameraButton.isHidden = true
             beautyButton.isHidden = true
             
-            ZegoSDKManager.shared.joinRoom(liveID, scenario: .broadcast) { [weak self] code, message in
+            ZegoSDKManager.shared.loginRoom(liveID, scenario: .broadcast) { [weak self] code, message in
                 if code != 0 {
                     self?.view.makeToast(message, position: .center)
                 }
@@ -185,14 +185,14 @@ class LiveStreamingViewController: UIViewController {
     // MARK: - Actions
     @IBAction func startLive(_ sender: UIButton) {
         // join room and publish
-        ZegoSDKManager.shared.joinRoom(liveID, scenario: .broadcast) { [weak self] code, message in
+        ZegoSDKManager.shared.loginRoom(liveID, scenario: .broadcast) { [weak self] code, message in
             guard let self = self else { return }
             if code != 0 {
                 self.view.makeToast(message, position: .center)
             } else {
                 self.liveManager.addPKDelegate(self)
             }
-            self.liveManager.hostUser = ZegoSDKManager.shared.localUser
+            self.liveManager.hostUser = ZegoSDKManager.shared.currentUser
             ZegoSDKManager.shared.expressService.startPublishingStream(self.liveManager.getHostMainStreamID())
         }
         
@@ -202,7 +202,7 @@ class LiveStreamingViewController: UIViewController {
         pkButton.isHidden = false
         liveManager.isLiveStart = true
         
-        mainStreamView.update(ZegoSDKManager.shared.expressService.localUser?.id, ZegoSDKManager.shared.expressService.localUser?.name)
+        mainStreamView.update(ZegoSDKManager.shared.expressService.currentUser?.id, ZegoSDKManager.shared.expressService.currentUser?.name)
     }
     
     @IBAction func backButtonAction(_ sender: Any) {
@@ -231,11 +231,11 @@ class LiveStreamingViewController: UIViewController {
     }
     
     @IBAction func switchCamera(_ sender: UIButton) {
-        ZegoSDKManager.shared.expressService.useFrontFacingCamera(!ZegoSDKManager.shared.expressService.isUsingFrontCamera)
+        ZegoSDKManager.shared.expressService.useFrontCamera(!ZegoSDKManager.shared.expressService.isUsingFrontCamera)
     }
         
     @IBAction func endCoHostAction(_ sender: UIButton) {
-        let localUserID = ZegoSDKManager.shared.expressService.localUser!.id
+        let localUserID = ZegoSDKManager.shared.expressService.currentUser!.id
         ZegoSDKManager.shared.expressService.stopPublishingStream()
         ZegoSDKManager.shared.expressService.stopPreview()
         coHostVideoViews.forEach( { $0.removeFromSuperview() } )
@@ -248,7 +248,7 @@ class LiveStreamingViewController: UIViewController {
         micButton.isHidden = true
         cameraButton.isHidden = true
         beautyButton.isHidden = true
-        flipButtonConstraint.constant = 16;
+        flipButtonConstraint.constant = 16
     }
     
     @IBAction func micAction(_ sender: UIButton) {
@@ -263,7 +263,7 @@ class LiveStreamingViewController: UIViewController {
         if isMySelfHost {
             mainStreamView.enableCamera(!sender.isSelected)
         } else {
-            let videoViews = coHostVideoViews.filter({ $0.userID ==  ZegoSDKManager.shared.expressService.localUser?.id})
+            let videoViews = coHostVideoViews.filter({ $0.userID ==  ZegoSDKManager.shared.expressService.currentUser?.id})
             videoViews.forEach({ $0.enableCamera(!sender.isSelected) })
         }
     }
@@ -290,13 +290,12 @@ class LiveStreamingViewController: UIViewController {
                     self?.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
                     clickButton()
                 } else {
-                    self?.mRoomRequest = ZegoSDKManager.shared.zimService.roomRequestDict[messageID ?? ""]
+                    self?.currentRoomRequestID = ZegoSDKManager.shared.zimService.roomRequestDict[messageID ?? ""]?.requestID;
                 }
             }
         } else {
-            let roomRequest: RoomRequest? = ZegoSDKManager.shared.zimService.roomRequestDict[mRoomRequest?.requestID ?? ""]
-            guard let roomRequest = roomRequest else { return }
-            ZegoSDKManager.shared.zimService.cancelRoomRequest(roomRequest) { [weak self] code, message, messageID in
+            guard let currentRoomRequestID = currentRoomRequestID else { return }
+            ZegoSDKManager.shared.zimService.cancelRoomRequest(currentRoomRequestID, extendedData: nil) { [weak self] code, message, requestID in
                 if code != 0 {
                     self?.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
                     clickButton()
@@ -441,7 +440,7 @@ extension LiveStreamingViewController: ZegoLiveStreamingManagerDelegate {
         }
     }
     
-    func onAntoherHostIsReconnecting() {
+    func onAnotherHostIsReconnecting() {
         if isMySelfHost {
             rightMainHostMaskView.isHidden = false
         } else {
@@ -466,7 +465,7 @@ extension LiveStreamingViewController: ZegoLiveStreamingManagerDelegate {
         }
     }
     
-    func onAntoherHostIsConnected() {
+    func onAnotherHostIsConnected() {
         if isMySelfHost {
             rightMainHostMaskView.isHidden = true
         } else {
@@ -520,8 +519,8 @@ extension LiveStreamingViewController {
     func onReceiveAcceptCoHostApply() {
         self.view.makeToast("onReceiveAcceptCoHostApply", position: .center)
         let streamID = ""
-        let userID = ZegoSDKManager.shared.expressService.localUser?.id ?? ""
-        let userName = ZegoSDKManager.shared.expressService.localUser?.name ?? ""
+        let userID = ZegoSDKManager.shared.expressService.currentUser?.id ?? ""
+        let userName = ZegoSDKManager.shared.expressService.currentUser?.name ?? ""
         addCoHost(streamID, userID, userName, isMySelf: true)
         coHostButton.isHidden = true
         coHostButton.isSelected = !coHostButton.isSelected
@@ -530,7 +529,6 @@ extension LiveStreamingViewController {
         flipButton.isHidden = false
         micButton.isHidden = false
         cameraButton.isHidden = false
-        beautyButton.isHidden = false
         flipButtonConstraint.constant = 116;
     }
     
@@ -611,29 +609,31 @@ extension LiveStreamingViewController {
 }
 
 extension LiveStreamingViewController: ZIMServiceDelegate {
-    func onInComingRoomRequestReceived(request: RoomRequest) {
+    
+    func onInComingRoomRequestReceived(requestID: String, extendedData: String) {
         showReaDot()
     }
     
-    func onInComingRoomRequestCancelled(request: RoomRequest) {
+    func onInComingRoomRequestCancelled(requestID: String, extendedData: String) {
         showReaDot()
     }
     
-    func onActionAcceptIncomingRoomRequest(errorCode: UInt, request: RoomRequest) {
+    func onAcceptIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String) {
         showReaDot()
     }
     
-    func onActionRejectIncomingRoomRequest(errorCode: UInt, request: RoomRequest) {
+    func onRejectIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String) {
         showReaDot()
     }
     
-    func onOutgoingRoomRequestAccepted(request: RoomRequest) {
+    func onOutgoingRoomRequestAccepted(requestID: String, extendedData: String) {
         onReceiveAcceptCoHostApply()
     }
     
-    func onOutgoingRoomRequestRejected(request: RoomRequest) {
+    func onOutgoingRoomRequestRejected(requestID: String, extendedData: String) {
         onReceiveRefuseCoHostApply()
     }
+
 }
 
 extension LiveStreamingViewController: PKServiceDelegate {
@@ -678,7 +678,7 @@ extension LiveStreamingViewController: PKServiceDelegate {
     }
     
     func onStopPlayMixerStream() {
-        guard let roomID = ZegoSDKManager.shared.expressService.roomID else {
+        guard let roomID = ZegoSDKManager.shared.expressService.currentRoomID else {
             return
         }
         ZegoSDKManager.shared.expressService.stopPlayingStream(String(format: "%@_mix", roomID))
@@ -700,10 +700,10 @@ extension LiveStreamingViewController: PKServiceDelegate {
             let anotherHostStreamID = roomID + "_" + userID + "_main" + "_host"
             ZegoSDKManager.shared.expressService.startPlayingStream(anotherHostStreamView, streamID: anotherHostStreamID)
             ZegoSDKManager.shared.zimService.roomRequestDict.forEach { (_, value) in
-                ZegoSDKManager.shared.zimService.rejectRoomRequest(value, callback: nil)
+                ZegoSDKManager.shared.zimService.rejectRoomRequest(value.requestID, extendedData: nil, callback: nil)
             }
         } else {
-            if liveManager.pkState == .isStartPK && liveManager.isCoHost(userID: ZegoSDKManager.shared.localUser?.id ?? "") {
+            if liveManager.pkState == .isStartPK && liveManager.isCoHost(userID: ZegoSDKManager.shared.currentUser?.id ?? "") {
                 self.view.makeToast("host start pk, end cohost", position: .center)
             }
             endCoHostAction(endCoHostButton)

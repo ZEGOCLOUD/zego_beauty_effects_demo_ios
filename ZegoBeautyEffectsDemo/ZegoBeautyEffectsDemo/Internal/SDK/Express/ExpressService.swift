@@ -12,19 +12,19 @@ public class ExpressService: NSObject {
     
     public static let shared = ExpressService()
     
-    public var localUser: UserInfo?
+    public var currentUser: ZegoSDKUser?
     
     let eventHandlers: NSHashTable<ExpressServiceDelegate> = NSHashTable(options: .weakMemory)
     
     public var isUsingFrontCamera: Bool = true
     
-    public var roomID: String?
+    public var currentRoomID: String?
     
-    // StreamID: UserID 
+    // StreamID: UserID
     public var streamDict: [String: String] = [:]
     
     // UserID: UserInfo
-    public var inRoomUserDict: [String: UserInfo] = [:]
+    public var inRoomUserDict: [String: ZegoSDKUser] = [:]
     
     public var roomExtraInfoDict: [String: ZegoRoomExtraInfo] = [:]
     
@@ -41,26 +41,22 @@ public class ExpressService: NSObject {
         ZegoExpressEngine.createEngine(with: profile, eventHandler: self)
     }
     
-    public func unInit() {
-        ZegoExpressEngine.destroy()
-    }
-    
     public func setRoomScenario(scenario: ZegoScenario) {
         ZegoExpressEngine.shared().setRoomScenario(scenario)
     }
     
     public func connectUser(userID: String,
-                     userName: String? = nil) {
+                            userName: String? = nil, token: String?) {
         let userName = userName ?? userID
-        localUser = UserInfo(id: userID, name: userName)
+        currentUser = ZegoSDKUser(id: userID, name: userName)
     }
     
     public func disconnectUser() {
-        localUser = nil
+        currentUser = nil
     }
     
-    public func uploadLog() {
-        ZegoExpressEngine.shared().uploadLog()
+    public func uploadLog(callback: ZegoUploadLogResultCallback?) {
+        ZegoExpressEngine.shared().uploadLog(callback)
     }
     
     public func addEventHandler(_ handler: ExpressServiceDelegate) {

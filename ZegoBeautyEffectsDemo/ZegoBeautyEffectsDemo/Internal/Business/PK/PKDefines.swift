@@ -28,13 +28,13 @@ enum SEIType: UInt {
 
 class PKInfo: NSObject {
     
-    var pkUser: UserInfo
+    var pkUser: ZegoSDKUser
     var pkRoom: String
     
     var seq: Int = 0
     var hostUserID: String = ""
     
-    init(user: UserInfo, pkRoom: String) {
+    init(user: ZegoSDKUser, pkRoom: String) {
         self.pkUser = user
         self.pkRoom = pkRoom
     }

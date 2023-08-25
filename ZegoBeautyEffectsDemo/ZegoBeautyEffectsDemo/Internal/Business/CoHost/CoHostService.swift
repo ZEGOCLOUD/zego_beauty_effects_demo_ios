@@ -15,8 +15,8 @@ import ZIM
 
 class CoHostService: NSObject {
     
-    var hostUser: UserInfo?
-    var coHostUserList: [UserInfo] = []
+    var hostUser: ZegoSDKUser?
+    var coHostUserList: [ZegoSDKUser] = []
     
     let eventDelegates: NSHashTable<CoHostServiceDelegate> = NSHashTable(options: .weakMemory)
     
@@ -63,7 +63,7 @@ class CoHostService: NSObject {
     }
     
     func isLocalUserHost() -> Bool {
-        guard let localUser = ZegoSDKManager.shared.expressService.localUser else { return false }
+        guard let localUser = ZegoSDKManager.shared.expressService.currentUser else { return false }
         return isHost(localUser.id);
     }
     
@@ -105,7 +105,7 @@ class CoHostService: NSObject {
 
 extension CoHostService: ExpressServiceDelegate {
     
-    func onReceiveStreamAdd(userList: [UserInfo]) {
+    func onReceiveStreamAdd(userList: [ZegoSDKUser]) {
         for user in userList {
             if let streamID = user.streamID {
                 if streamID.contains("_host") {
@@ -117,7 +117,7 @@ extension CoHostService: ExpressServiceDelegate {
         }
     }
     
-    func onReceiveStreamRemove(userList: [UserInfo]) {
+    func onReceiveStreamRemove(userList: [ZegoSDKUser]) {
         for user in userList {
             if let streamID = user.streamID {
                 if streamID.hasPrefix("_host") {

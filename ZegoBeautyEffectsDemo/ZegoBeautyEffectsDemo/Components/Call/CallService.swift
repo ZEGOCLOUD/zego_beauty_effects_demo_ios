@@ -20,7 +20,7 @@ class CallService: NSObject, ZegoCallManagerDelegate {
         let callType: CallType? = CallType(rawValue: extendedDict["type"] as? Int ?? -1)
         guard let callType = callType else { return }
         // receive call
-        let inRoom: Bool = (ZegoSDKManager.shared.expressService.roomID != nil)
+        let inRoom: Bool = (ZegoSDKManager.shared.expressService.currentRoomID != nil)
         if inRoom || (ZegoCallManager.shared.currentCallData?.callID != requestID) {
             let extendedData: [String : Any] = ["type": callType.rawValue, "reason": "busy", "callID": requestID]
             ZegoCallManager.shared.busyRejectCallRequest(requestID: requestID, extendedData: extendedData.jsonString, type: callType, callback: nil)

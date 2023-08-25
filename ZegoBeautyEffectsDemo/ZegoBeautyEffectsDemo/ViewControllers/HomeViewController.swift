@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     var userID: String = ""
     var userName: String = ""
     
-    var invitee: UserInfo?
+    var invitee: ZegoSDKUser?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +53,12 @@ class HomeViewController: UIViewController {
     // MARK: - Call Invitation
     @IBAction func voiceCallClick(_ sender: UIButton) {
         guard let inviteeUserID = callTextField.text else { return }
-        invitee = UserInfo(id: inviteeUserID, name: "user_\(inviteeUserID)")
+        invitee = ZegoSDKUser(id: inviteeUserID, name: "user_\(inviteeUserID)")
         //send call invitation
-        ZegoCallManager.shared.sendVoiceCall(inviteeUserID) { code, invitationID, errorInvitees in
-            if code == 0 {
+        ZegoCallManager.shared.sendVoiceCall(inviteeUserID) { requestID, sentInfo, error in
+            if error.code == .success {
                 // call waiting
+                let errorInvitees = sentInfo.errorUserList.compactMap({ $0.userID })
                 if errorInvitees.contains(inviteeUserID) {
                     self.view.makeToast("user is not online", duration: 2.0, position: .center)
                 } else {
@@ -65,18 +66,19 @@ class HomeViewController: UIViewController {
                     self.showCallWaitingPage(invitee: invitee)
                 }
             } else {
-                self.view.makeToast("call failed:\(code)", duration: 2.0, position: .center)
+                self.view.makeToast("call failed:\(error.code.rawValue)", duration: 2.0, position: .center)
             }
         }
     }
     
     @IBAction func videoCallClick(_ sender: UIButton) {
         guard let inviteeUserID = callTextField.text else { return }
-        invitee = UserInfo(id: inviteeUserID, name: "user_\(inviteeUserID)")
+        invitee = ZegoSDKUser(id: inviteeUserID, name: "user_\(inviteeUserID)")
         //send call invitation
-        ZegoCallManager.shared.sendVideoCall(inviteeUserID) { code, invitationID, errorInvitees in
-            if code == 0 {
+        ZegoCallManager.shared.sendVideoCall(inviteeUserID) { requestID, sentInfo, error in
+            if error.code == .success {
                 // call waiting
+                let errorInvitees = sentInfo.errorUserList.compactMap({ $0.userID })
                 if errorInvitees.contains(inviteeUserID) {
                     self.view.makeToast("user is not online", duration: 2.0, position: .center)
                 } else {
@@ -84,15 +86,15 @@ class HomeViewController: UIViewController {
                     self.showCallWaitingPage(invitee: invitee)
                 }
             } else {
-                self.view.makeToast("call failed:\(code)", duration: 2.0, position: .center)
+                self.view.makeToast("call failed:\(error.code.rawValue)", duration: 2.0, position: .center)
             }
         }
     }
 }
 
 // MARK: - Call Invitation
-extension HomeViewController {            
-    func showCallWaitingPage(invitee: UserInfo) {
+extension HomeViewController {
+    func showCallWaitingPage(invitee: ZegoSDKUser) {
         let callWaitingVC: CallWaitingViewController = Bundle.main.loadNibNamed("CallWaitingViewController", owner: self, options: nil)?.first as! CallWaitingViewController
         callWaitingVC.modalPresentationStyle = .fullScreen
         callWaitingVC.isInviter = true
@@ -101,7 +103,7 @@ extension HomeViewController {
         self.present(callWaitingVC, animated: true)
     }
     
-    func showReceiveCallWaitingPage(inviter: UserInfo, callID: String) {
+    func showReceiveCallWaitingPage(inviter: ZegoSDKUser, callID: String) {
         let callWaitingVC: CallWaitingViewController = Bundle.main.loadNibNamed("CallWaitingViewController", owner: self, options: nil)?.first as! CallWaitingViewController
         callWaitingVC.modalPresentationStyle = .fullScreen
         callWaitingVC.isInviter = false
@@ -126,11 +128,11 @@ extension HomeViewController: CallWaitingViewControllerDelegate,
     }
     
     
-    func startShowCallPage(_ remoteUser: UserInfo) {
+    func startShowCallPage(_ remoteUser: ZegoSDKUser) {
         showCallPage(remoteUser)
     }
     
-    func showCallPage(_ remoteUser: UserInfo) {
+    func showCallPage(_ remoteUser: ZegoSDKUser) {
         let callMainPage = Bundle.main.loadNibNamed("CallingViewController", owner: self, options: nil)?.first as! CallingViewController
         callMainPage.modalPresentationStyle = .fullScreen
         callMainPage.remoteUser = remoteUser

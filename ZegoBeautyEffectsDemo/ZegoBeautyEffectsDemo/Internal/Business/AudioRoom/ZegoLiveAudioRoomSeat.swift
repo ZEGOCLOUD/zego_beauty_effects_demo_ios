@@ -12,7 +12,7 @@ class ZegoLiveAudioRoomSeat: NSObject {
     var seatIndex: Int = 0
     var rowIndex: Int = 0
     var columnIndex: Int = 0
-    var lastUser: UserInfo?
-    var currentUser: UserInfo?
+    var lastUser: ZegoSDKUser?
+    var currentUser: ZegoSDKUser?
 
 }

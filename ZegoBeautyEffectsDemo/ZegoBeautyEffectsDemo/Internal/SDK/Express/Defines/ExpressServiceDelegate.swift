@@ -16,8 +16,11 @@ import ZegoExpressEngine
     func onCameraOpen(_ userID: String, isCameraOpen: Bool)
         
     @objc optional
-    func onReceiveStreamAdd(userList: [UserInfo])
+    func onReceiveStreamAdd(userList: [ZegoSDKUser])
 
     @objc optional
-    func onReceiveStreamRemove(userList: [UserInfo])
+    func onReceiveStreamRemove(userList: [ZegoSDKUser])
+    
+    @objc optional
+    func onRoomExtraInfoUpdate2(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String)
 }

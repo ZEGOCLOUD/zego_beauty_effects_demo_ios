@@ -71,9 +71,7 @@ extension ApplyCoHostListViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func agreeCoHostApply(request: RoomRequest) {
-        let roomRequest: RoomRequest? = ZegoSDKManager.shared.zimService.roomRequestDict[request.requestID]
-        guard let roomRequest = roomRequest else { return }
-        ZegoSDKManager.shared.zimService.acceptRoomRequest(roomRequest) { code, message, messageID in
+        ZegoSDKManager.shared.zimService.acceptRoomRequest(request.requestID, extendedData: nil) { code, message, requestID in
             if code != 0 {
                 self.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
             }
@@ -82,9 +80,7 @@ extension ApplyCoHostListViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func disAgreeCoHostApply(request: RoomRequest) {
-        let roomRequest: RoomRequest? = ZegoSDKManager.shared.zimService.roomRequestDict[request.requestID]
-        guard let roomRequest = roomRequest else { return }
-        ZegoSDKManager.shared.zimService.rejectRoomRequest(roomRequest) { code, message, messageID in
+        ZegoSDKManager.shared.zimService.rejectRoomRequest(request.requestID, extendedData: nil) { code, message, requestID in
             if code != 0 {
                 self.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
             }
@@ -96,19 +92,19 @@ extension ApplyCoHostListViewController: UITableViewDelegate, UITableViewDataSou
         tableView.reloadData()
     }
     
-    func onInComingRoomRequestReceived(request: RoomRequest) {
+    func onInComingRoomRequestReceived(requestID: String, extendedData: String) {
         tableView.reloadData()
     }
     
-    func onInComingRoomRequestCancelled(request: RoomRequest) {
+    func onInComingRoomRequestCancelled(requestID: String, extendedData: String) {
         tableView.reloadData()
     }
     
-    func onActionAcceptIncomingRoomRequest(errorCode: UInt, request: RoomRequest) {
+    func onAcceptIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String) {
         tableView.reloadData()
     }
     
-    func onActionRejectIncomingRoomRequest(errorCode: UInt, request: RoomRequest) {
+    func onRejectIncomingRoomRequest(errorCode: UInt, requestID: String, extendedData: String) {
         tableView.reloadData()
     }
 

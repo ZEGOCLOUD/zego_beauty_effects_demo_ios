@@ -64,7 +64,7 @@
 		8EAE31F029D6898E00305045 /* LiveStreamingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE31EF29D6898E00305045 /* LiveStreamingViewController.swift */; };
 		8EAE31F229D6C3F800305045 /* ZegoSDKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE31F129D6C3F800305045 /* ZegoSDKManager.swift */; };
 		8EAE31F629D6C58700305045 /* ExpressService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE31F529D6C58700305045 /* ExpressService.swift */; };
-		8EAE31F929D6D78000305045 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE31F829D6D78000305045 /* UserInfo.swift */; };
+		8EAE31F929D6D78000305045 /* ZegoSDKUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE31F829D6D78000305045 /* ZegoSDKUser.swift */; };
 		8EBB674C2A05FEAC00832D8D /* ZIMService+EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB674B2A05FEAC00832D8D /* ZIMService+EventHandler.swift */; };
 		8EBB67502A06020000832D8D /* ZegoEffectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB674F2A06020000832D8D /* ZegoEffectsService.swift */; };
 		8EBB67562A062DA500832D8D /* EffectsSDKHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBB67552A062DA500832D8D /* EffectsSDKHelper.swift */; };
@@ -147,7 +147,7 @@
 		8EAE31EF29D6898E00305045 /* LiveStreamingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamingViewController.swift; sourceTree = "<group>"; };
 		8EAE31F129D6C3F800305045 /* ZegoSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoSDKManager.swift; sourceTree = "<group>"; };
 		8EAE31F529D6C58700305045 /* ExpressService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressService.swift; sourceTree = "<group>"; };
-		8EAE31F829D6D78000305045 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		8EAE31F829D6D78000305045 /* ZegoSDKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoSDKUser.swift; sourceTree = "<group>"; };
 		8EBB674B2A05FEAC00832D8D /* ZIMService+EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ZIMService+EventHandler.swift"; sourceTree = "<group>"; };
 		8EBB674F2A06020000832D8D /* ZegoEffectsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoEffectsService.swift; sourceTree = "<group>"; };
 		8EBB67552A062DA500832D8D /* EffectsSDKHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsSDKHelper.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */,
-				8EAE31F829D6D78000305045 /* UserInfo.swift */,
+				8EAE31F829D6D78000305045 /* ZegoSDKUser.swift */,
 			);
 			path = Defines;
 			sourceTree = "<group>";
@@ -653,7 +653,7 @@
 				8E3034852A6E75A400B77973 /* ZIMServiceDelegate.swift in Sources */,
 				8E7CB8CC2A556335004849EF /* ZIMService+Room.swift in Sources */,
 				8E3034B32A6FE9A600B77973 /* ApplyCoHostListViewController.swift in Sources */,
-				8EAE31F929D6D78000305045 /* UserInfo.swift in Sources */,
+				8EAE31F929D6D78000305045 /* ZegoSDKUser.swift in Sources */,
 				8E30349F2A6FBCF600B77973 /* ZegoCallDataModel.swift in Sources */,
 				8E1B928F29DE6D900097C9ED /* Dictionary+Extension.swift in Sources */,
 				8E7CB8E72A56978E004849EF /* ZegoDefine.swift in Sources */,

@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         ZegoSDKManager.shared.disconnectUser()
     }
     
-    func initData() {        
+    func initData() {
         ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, enableBeauty: true)
         CallService.shared.initService()
     }

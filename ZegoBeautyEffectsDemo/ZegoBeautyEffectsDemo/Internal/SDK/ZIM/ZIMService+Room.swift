@@ -9,7 +9,7 @@ import Foundation
 import ZIM
 
 extension ZIMService {
-    public func joinRoom(_ roomID: String,
+    public func loginRoom(_ roomID: String,
                          roomName: String?,
                          callback: CommonCallback? = nil) {
         
@@ -29,9 +29,8 @@ extension ZIMService {
         });
     }
     
-    public func leaveRoom(callback: CommonCallback? = nil){
+    public func leaveRoom(callback: ZIMRoomLeftCallback?){
         guard let currentRoom = currentRoom else {
-            callback?(0, "LeaveRoom Success.")
             return
         }
         
@@ -40,7 +39,8 @@ extension ZIMService {
                 self.currentRoom = nil
                 self.removeRoomData()
             }
-            callback?(Int(errorInfo.code.rawValue), errorInfo.message)
+            guard let callback = callback else { return }
+            callback(roomID,errorInfo)
         })
     }
     

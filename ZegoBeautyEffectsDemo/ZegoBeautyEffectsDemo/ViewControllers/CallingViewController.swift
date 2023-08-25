@@ -38,12 +38,12 @@ class CallingViewController: UIViewController {
     }
     
     lazy var beautyButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(.init(named: "icon_beauty"), for: .normal)
-        button.addTarget(self, action: #selector(beautyAction), for: .touchUpInside)
-        return button
-    }()
-    
+            let button = UIButton(type: .custom)
+            button.setImage(.init(named: "icon_beauty"), for: .normal)
+            button.addTarget(self, action: #selector(beautyAction), for: .touchUpInside)
+            return button
+        }()
+        
     lazy var beautySheet: FaceBeautifyView = {
         let beautySheet = FaceBeautifyView(frame: view.bounds)
         view.addSubview(beautySheet)
@@ -51,10 +51,10 @@ class CallingViewController: UIViewController {
         return beautySheet
     }()
     
-    var remoteUser: UserInfo?
-    var localUser: UserInfo? {
+    var remoteUser: ZegoSDKUser?
+    var localUser: ZegoSDKUser? {
         get {
-            return ZegoSDKManager.shared.localUser
+            return ZegoSDKManager.shared.currentUser
         }
     }
     var buttonList: [CallButtonType] {
@@ -106,7 +106,7 @@ class CallingViewController: UIViewController {
         addBeautyButton()
         
         if let roomID = ZegoCallManager.shared.currentCallData?.callID {
-            ZegoSDKManager.shared.joinRoom(roomID, scenario: (type == .voice) ? .standardVoiceCall : .standardVideoCall) { code, message in
+            ZegoSDKManager.shared.loginRoom(roomID, scenario: (type == .voice) ? .standardVoiceCall : .standardVideoCall) { code, message in
                 if code == 0 {
                     self.showLocalPreview()
                 } else {
@@ -123,8 +123,8 @@ class CallingViewController: UIViewController {
         } else {
             ZegoSDKManager.shared.expressService.turnCameraOn(false)
         }
-        ZegoSDKManager.shared.expressService.enableSpeaker(enable: true)
-        ZegoSDKManager.shared.expressService.useFrontFacingCamera(isFrontFacingCamera)
+        ZegoSDKManager.shared.expressService.setAudioRouteToSpeaker(defaultToSpeaker: true)
+        ZegoSDKManager.shared.expressService.useFrontCamera(isFrontFacingCamera)
     }
     
     func setUpBottomBar() {
@@ -186,10 +186,10 @@ class CallingViewController: UIViewController {
             ZegoSDKManager.shared.expressService.turnMicrophoneOn(!sender.isSelected)
         case 103:
             isFrontFacingCamera = !isFrontFacingCamera
-            ZegoSDKManager.shared.expressService.useFrontFacingCamera(isFrontFacingCamera)
+            ZegoSDKManager.shared.expressService.useFrontCamera(isFrontFacingCamera)
         case 104:
             sender.isSelected = !sender.isSelected
-            ZegoSDKManager.shared.expressService.enableSpeaker(enable: !sender.isSelected)
+            ZegoSDKManager.shared.expressService.setAudioRouteToSpeaker(defaultToSpeaker: !sender.isSelected)
         default:
             break
         }
@@ -198,6 +198,7 @@ class CallingViewController: UIViewController {
     @objc func beautyAction(_ sender: UIButton) {
         beautySheet.isHidden = false
     }
+    
     
     func showLocalPreview() {
         if type == .video {

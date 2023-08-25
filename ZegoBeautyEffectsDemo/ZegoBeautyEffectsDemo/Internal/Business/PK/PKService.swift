@@ -26,8 +26,8 @@ import ZegoExpressEngine
     @objc optional func onLocalHostCameraStatus(isOn: Bool)
     @objc optional func onAnotherHostCameraStatus(isOn: Bool)
     
-    @objc optional func onAntoherHostIsReconnecting()
-    @objc optional func onAntoherHostIsConnected()
+    @objc optional func onAnotherHostIsReconnecting()
+    @objc optional func onAnotherHostIsConnected()
     @objc optional func onHostIsReconnecting()
     @objc optional func onHostIsConnected()
     
@@ -59,6 +59,8 @@ class PKService: NSObject {
     let eventDelegates: NSHashTable<PKServiceDelegate> = NSHashTable(options: .weakMemory)
     let liveManager = ZegoLiveStreamingManager.shared
     
+    private var currentMixerTask: ZegoMixerTask?
+    
     override init() {
         super.init()
         ZegoSDKManager.shared.expressService.addEventHandler(self)
@@ -71,43 +73,48 @@ class PKService: NSObject {
     
     func sendPKBattlesStartRequest(userID: String, callback: CommonCallback?) {
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type" : PKProtocolType.startPK.rawValue as AnyObject
         ]
         roomPKState = .isRequestPK
-        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [userID], extendedData: requestData.jsonString) { code, requestID, errorInvitees in
+        let config = ZIMCallInviteConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [userID], config: config) { requestID, sentInfo, error in
             var errorMessage: String = ""
-            if code == 0 && !errorInvitees.contains(userID) {
+            let errorInvitees = sentInfo.errorUserList.compactMap({ $0.userID })
+            if error.code == .success && !errorInvitees.contains(userID) {
                 self.currentPkInvitation = PKInvitation()
-                self.currentPkInvitation?.roomID = ZegoSDKManager.shared.expressService.roomID
+                self.currentPkInvitation?.roomID = ZegoSDKManager.shared.expressService.currentRoomID
                 self.currentPkInvitation?.requestID = requestID
-                self.currentPkInvitation?.inviterName = ZegoSDKManager.shared.localUser?.name ?? ""
-                self.currentPkInvitation?.inviterID = ZegoSDKManager.shared.localUser?.id ?? ""
+                self.currentPkInvitation?.inviterName = ZegoSDKManager.shared.currentUser?.name ?? ""
+                self.currentPkInvitation?.inviterID = ZegoSDKManager.shared.currentUser?.id ?? ""
                 self.currentPkInvitation?.invitee = [userID]
             } else {
                 self.roomPKState = .isNoPK
                 errorMessage = "send pk request fail"
             }
             guard let callback = callback else { return }
-            callback(Int(code), errorMessage)
+            callback(Int(error.code.rawValue), errorMessage)
         }
     }
     
     func sendPKBattleResumeRequest(userID: String) {
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type" : PKProtocolType.resume.rawValue as AnyObject
         ]
         roomPKState = .isRequestPK
-        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [userID], extendedData: requestData.jsonString) { code, requestID, errorInvitees in
-            if code == 0 {
+        let config = ZIMCallInviteConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [userID], config: config) { requestID, sentInfo, error in
+            if error.code.rawValue == 0 {
                 self.currentPkInvitation = PKInvitation()
-                self.currentPkInvitation?.roomID = ZegoSDKManager.shared.expressService.roomID
+                self.currentPkInvitation?.roomID = ZegoSDKManager.shared.expressService.currentRoomID
                 self.currentPkInvitation?.requestID = requestID
-                self.currentPkInvitation?.inviterName = ZegoSDKManager.shared.localUser?.name ?? ""
-                self.currentPkInvitation?.inviterID = ZegoSDKManager.shared.localUser?.id ?? ""
+                self.currentPkInvitation?.inviterName = ZegoSDKManager.shared.currentUser?.name ?? ""
+                self.currentPkInvitation?.inviterID = ZegoSDKManager.shared.currentUser?.id ?? ""
                 self.currentPkInvitation?.invitee = [userID]
             } else {
                 self.roomPKState = .isNoPK
@@ -119,11 +126,13 @@ class PKService: NSObject {
         if roomPKState != .isStartPK { return }
         guard let pkInfo = pkInfo else { return }
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type" : PKProtocolType.endPK.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [pkInfo.pkUser.id], extendedData: requestData.jsonString, callback: nil)
+        let config = ZIMCallInviteConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.sendUserRequest(userList: [pkInfo.pkUser.id], config: config,callback: nil)
         stopPKBattles()
         currentPkInvitation = nil
         isMuteAnotherHostAudio = false
@@ -135,18 +144,20 @@ class PKService: NSObject {
     func cancelPKBattleRequest() {
         guard let currentPkInvitation = currentPkInvitation else { return }
         roomPKState = .isNoPK
-        ZegoSDKManager.shared.zimService.cancelUserRequest(requestID: currentPkInvitation.requestID ?? "",extendedData: "", userList: currentPkInvitation.invitee, callback: nil)
+        ZegoSDKManager.shared.zimService.cancelUserRequest(requestID: currentPkInvitation.requestID ?? "", config: ZIMCallCancelConfig(), userList: currentPkInvitation.invitee,callback: nil)
         self.currentPkInvitation = nil
     }
     
     func acceptPKStartRequest(requestID: String) {
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type": PKProtocolType.startPK.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID:requestID, extendedData: requestData.jsonString) { code, requestID in
-            if code == 0 {
+        let config = ZIMCallAcceptConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID: requestID, config: config) { requestID, error in
+            if error.code == .success {
                 self.startPKBatlteWith(roomID: self.currentPkInvitation?.roomID ?? "", userID: self.currentPkInvitation?.inviterID ?? "", userName: self.currentPkInvitation?.inviterName ?? "")
             }
         }
@@ -154,29 +165,35 @@ class PKService: NSObject {
     
     func acceptPKResumeRequest(requestID: String) {
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type": PKProtocolType.resume.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID:requestID, extendedData: requestData.jsonString, callback: nil)
+        let config = ZIMCallAcceptConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID: requestID, config: config, callback: nil)
     }
     
     func acceptPKStopRequest(requestID: String) {
         currentPkInvitation = nil
         let requestData: [String: AnyObject] = [
-            "room_id": ZegoSDKManager.shared.expressService.roomID as AnyObject,
-            "user_name": ZegoSDKManager.shared.localUser?.name as AnyObject,
+            "room_id": ZegoSDKManager.shared.expressService.currentRoomID as AnyObject,
+            "user_name": ZegoSDKManager.shared.currentUser?.name as AnyObject,
             "type": PKProtocolType.endPK.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID:requestID, extendedData: requestData.jsonString, callback: nil)
+        let config = ZIMCallAcceptConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.acceptUserRequest(requestID: requestID, config: config, callback: nil)
     }
     
     func rejectPKStartRequest(requestID: String) {
         let requestData: [String: AnyObject] = [
             "type": PKProtocolType.startPK.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.refuseUserRequest(requestID: requestID, extendedData: requestData.jsonString) { code, requestID in
-            if code == 0 {
+        let config = ZIMCallRejectConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.refuseUserRequest(requestID: requestID, config: config) { requestID, error in
+            if error.code == .success {
                 if requestID == self.currentPkInvitation?.requestID {
                     self.currentPkInvitation = nil
                 }
@@ -188,8 +205,10 @@ class PKService: NSObject {
         let requestData: [String: AnyObject] = [
             "type": PKProtocolType.resume.rawValue as AnyObject
         ]
-        ZegoSDKManager.shared.zimService.refuseUserRequest(requestID: requestID, extendedData: requestData.jsonString) { code, requestID in
-            if code == 0 {
+        let config = ZIMCallRejectConfig()
+        config.extendedData = requestData.jsonString
+        ZegoSDKManager.shared.zimService.refuseUserRequest(requestID: requestID, config: config) { requestID, error in
+            if error.code == .success {
                 if requestID == self.currentPkInvitation?.requestID {
                     self.currentPkInvitation = nil
                 }
@@ -198,13 +217,13 @@ class PKService: NSObject {
     }
     
     func startPKBatlteWith(roomID: String, userID: String, userName: String) {
-        pkInfo = PKInfo(user: UserInfo(id: userID, name: userName), pkRoom: roomID)
+        pkInfo = PKInfo(user: ZegoSDKUser(id: userID, name: userName), pkRoom: roomID)
         pkInfo!.seq = pkInfo!.seq + 1
         roomPKState = .isStartPK
         startMixStreamTask(leftContentType: .video, rightContentType: .video) { errorCode, mixerInfo in
             if errorCode == 0 {
                 //set room attribute
-                self.pkRoomAttribute["host"] = ZegoSDKManager.shared.localUser?.id
+                self.pkRoomAttribute["host"] = ZegoSDKManager.shared.currentUser?.id
                 self.pkRoomAttribute["pk_room"] = roomID
                 self.pkRoomAttribute["pk_user_id"] = userID
                 self.pkRoomAttribute["pk_user_name"] = userName
@@ -226,21 +245,52 @@ class PKService: NSObject {
     func stopPKBattles() {
         guard let pkInfo = pkInfo else { return }
         roomPKState = .isNoPK
-        ZegoSDKManager.shared.expressService.stopMixerTask()
+        if let currentMixerTask = currentMixerTask {
+            ZegoSDKManager.shared.expressService.stopMixerTask(currentMixerTask) { code in
+                if code == 0 {
+                    self.currentMixerTask = nil
+                }
+            }
+        }
         ZegoSDKManager.shared.expressService.stopPlayingStream(pkInfo.getPKStreamID())
         delectPKAttributes()
         destoryTimer()
     }
     
     func startMixStreamTask(leftContentType: ZegoMixerInputContentType, rightContentType: ZegoMixerInputContentType, callback: ZegoMixerStartCallback?) {
-        guard let currentRoomID = ZegoSDKManager.shared.expressService.roomID,
-              let localUserID = ZegoSDKManager.shared.localUser?.id,
+        guard let currentRoomID = ZegoSDKManager.shared.expressService.currentRoomID,
+              let localUserID = ZegoSDKManager.shared.currentUser?.id,
               let pkInfo = pkInfo
         else { return }
         //play another host stream
+        let mixerStreamID = currentRoomID + "_mix"
         let localStreamID = currentRoomID + "_" + localUserID + "_main" + "_host"
-        // start mixer task
-        ZegoSDKManager.shared.expressService.startMixerTask(leftStreamID: localStreamID, rightStreamID: pkInfo.getPKStreamID(), leftContentType: leftContentType, rightContentType: rightContentType, callback: callback)
+        let task = ZegoMixerTask(taskID: mixerStreamID)
+        let videoConfig = ZegoMixerVideoConfig()
+        videoConfig.resolution = CGSize(width: 540 * 2, height: 960)
+        videoConfig.bitrate = 1200
+        task.setVideoConfig(videoConfig)
+        task.setAudioConfig(ZegoMixerAudioConfig.default())
+        task.enableSoundLevel(true)
+        
+        let firstRect = CGRect(x: 0, y: 0, width: 540, height: 960)
+        let firstInput = ZegoMixerInput(streamID: localStreamID, contentType: leftContentType, layout: firstRect)
+        firstInput.renderMode = .fill
+        firstInput.soundLevelID = 0
+        firstInput.volume = 100
+        
+        let secondRect = CGRect(x: 540, y: 0, width: 540, height: 960)
+        let secondInput = ZegoMixerInput(streamID: pkInfo.getPKStreamID(), contentType: rightContentType, layout: secondRect)
+        secondInput.soundLevelID = 1
+        secondInput.volume = 100
+        secondInput.renderMode = .fill
+        
+        task.setInputList([firstInput,secondInput])
+        task.setOutputList([ZegoMixerOutput(target: mixerStreamID)])
+        
+        currentMixerTask = task
+    
+        ZegoSDKManager.shared.expressService.startMixerTask(task, callback: callback)
     }
     
     func delectPKAttributes() {
@@ -262,9 +312,9 @@ class PKService: NSObject {
     
     func createSEITimer() {
         seiTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
-            let dict: [String : Any] = ["type": SEIType.deviceState.rawValue, "sender_id": ZegoSDKManager.shared.localUser?.id ?? "", "mic": ZegoSDKManager.shared.expressService.localUser?.isMicrophoneOpen ?? true, "cam": ZegoSDKManager.shared.localUser?.isCameraOpen ?? true]
-            guard let seiData = dict.jsonData else { return }
-            ZegoSDKManager.shared.expressService.sendSEI(seiData)
+            let dict: [String : Any] = ["type": SEIType.deviceState.rawValue, "sender_id": ZegoSDKManager.shared.currentUser?.id ?? "", "mic": ZegoSDKManager.shared.expressService.currentUser?.isMicrophoneOpen ?? true, "cam": ZegoSDKManager.shared.currentUser?.isCameraOpen ?? true]
+            
+            ZegoSDKManager.shared.expressService.sendSEI(dict.jsonString)
         })
     }
     
@@ -290,7 +340,7 @@ class PKService: NSObject {
                 if currentTimer - lastTime >= 5 {
                     if key == self.pkInfo?.pkUser.id {
                         for delegate in self.eventDelegates.allObjects {
-                            delegate.onAntoherHostIsReconnecting?()
+                            delegate.onAnotherHostIsReconnecting?()
                         }
                     } else {
                         for delegate in self.eventDelegates.allObjects {
@@ -300,7 +350,7 @@ class PKService: NSObject {
                 } else {
                     if key == self.pkInfo?.pkUser.id {
                         for delegate in self.eventDelegates.allObjects {
-                            delegate.onAntoherHostIsConnected?()
+                            delegate.onAnotherHostIsConnected?()
                         }
                     } else {
                         for delegate in self.eventDelegates.allObjects {
@@ -311,7 +361,7 @@ class PKService: NSObject {
             }
             if !isFindAnotherHostKey {
                 for delegate in self.eventDelegates.allObjects {
-                    delegate.onAntoherHostIsReconnecting?()
+                    delegate.onAnotherHostIsReconnecting?()
                 }
             }
         })
@@ -378,10 +428,12 @@ extension PKService: ExpressServiceDelegate {
     }
     
     func onPlayerSyncRecvSEI(_ data: Data, streamID: String) {
-        var seiData = data.toDict
-        seiData?["time"] = Int(Date().timeIntervalSince1970)
-        let key = seiData?["sender_id"] as? String ?? ""
-        seiDict.updateValue(seiData ?? [:], forKey: key)
+        if let dataString = String(data: data, encoding: .utf8) {
+            var seiData = dataString.toDict
+            seiData?["time"] = Int(Date().timeIntervalSince1970)
+            let key = seiData?["sender_id"] as? String ?? ""
+            seiDict.updateValue(seiData ?? [:], forKey: key)
+        }
     }
     
     func isPKBusiness(type: Int) -> Bool {
@@ -401,7 +453,7 @@ extension PKService: ZIMServiceDelegate {
             let tempAnotherHost: String = pkInfo?.pkUser.id ?? ""
             let tempAnotherHostRoomID : String = pkInfo?.pkRoom ?? ""
             
-            pkInfo = PKInfo(user: UserInfo(id: updateInfo.roomAttributes["pk_user_id"] ?? "", name: updateInfo.roomAttributes["pk_user_name"] ?? ""), pkRoom: updateInfo.roomAttributes["pk_room"] ?? "")
+            pkInfo = PKInfo(user: ZegoSDKUser(id: updateInfo.roomAttributes["pk_user_id"] ?? "", name: updateInfo.roomAttributes["pk_user_name"] ?? ""), pkRoom: updateInfo.roomAttributes["pk_room"] ?? "")
             pkInfo?.seq = Int(updateInfo.roomAttributes["pk_seq"] ?? "0") ?? 0
             pkInfo?.hostUserID = updateInfo.roomAttributes["host"] ?? ""
             

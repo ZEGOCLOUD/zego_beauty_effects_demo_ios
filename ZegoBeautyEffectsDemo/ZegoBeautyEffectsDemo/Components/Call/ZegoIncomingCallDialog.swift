@@ -8,7 +8,7 @@
 import UIKit
 
 @objc protocol IncomingCallDialogDelegate: AnyObject {
-    @objc optional func onAcceptButtonClick(_ remoteUser: UserInfo)
+    @objc optional func onAcceptButtonClick(_ remoteUser: ZegoSDKUser)
 }
 
 class ZegoIncomingCallDialog: UIView {
@@ -29,7 +29,7 @@ class ZegoIncomingCallDialog: UIView {
     weak var delegate: IncomingCallDialogDelegate?
     
     private var type: CallType = .voice
-    var inviter: UserInfo?
+    var inviter: ZegoSDKUser?
     var callID: String?
     
     override func awakeFromNib() {
@@ -38,11 +38,11 @@ class ZegoIncomingCallDialog: UIView {
         self.addGestureRecognizer(tapClick)
     }
     
-    static func show(_ inviter: UserInfo, callID: String, type: CallType) -> ZegoIncomingCallDialog {
+    static func show(_ inviter: ZegoSDKUser, callID: String, type: CallType) -> ZegoIncomingCallDialog {
         return showTipView(inviter, callID: callID, type: type)
     }
     
-    private static func showTipView(_ inviter: UserInfo, callID: String, type: CallType) -> ZegoIncomingCallDialog {
+    private static func showTipView(_ inviter: ZegoSDKUser, callID: String, type: CallType) -> ZegoIncomingCallDialog {
         let tipView: ZegoIncomingCallDialog = Bundle.main.loadNibNamed("ZegoIncomingCallDialog", owner: self, options: nil)?.first as! ZegoIncomingCallDialog
         let y = KeyWindow().safeAreaInsets.top
         tipView.frame = CGRect.init(x: 8, y: y + 8, width: UIScreen.main.bounds.size.width - 16, height: 80)
@@ -95,7 +95,7 @@ class ZegoIncomingCallDialog: UIView {
         ZegoIncomingCallDialog.hide()
     }
     
-    func showCallWaitingPage(inviter: UserInfo) {
+    func showCallWaitingPage(inviter: ZegoSDKUser) {
         let callWaitingVC: CallWaitingViewController = Bundle.main.loadNibNamed("CallWaitingViewController", owner: self, options: nil)?.first as! CallWaitingViewController
         callWaitingVC.modalPresentationStyle = .fullScreen
         callWaitingVC.isInviter = false
@@ -108,13 +108,13 @@ class ZegoIncomingCallDialog: UIView {
         guard let inviter = inviter,
         let callID = callID
         else { return }
-        ZegoCallManager.shared.acceptCallRequest(requestID: callID) { code, invitationID in
-            if code == 0 {
+        ZegoCallManager.shared.acceptCallRequest(requestID: callID) { requestID, error in
+            if error.code == .success {
                 self.delegate?.onAcceptButtonClick?(inviter)
                 ZegoIncomingCallDialog.hide()
                 self.showCallMainPage(inviter)
             } else {
-                self.makeToast("accept call failed:\(code)", duration: 2.0, position: .center)
+                self.makeToast("accept call failed:\(error.code.rawValue)", duration: 2.0, position: .center)
             }
         }
     }
@@ -125,7 +125,7 @@ class ZegoIncomingCallDialog: UIView {
         ZegoIncomingCallDialog.hide()
     }
     
-    func showCallMainPage(_ remoteUser: UserInfo) {
+    func showCallMainPage(_ remoteUser: ZegoSDKUser) {
         let callMainPage: CallingViewController = Bundle.main.loadNibNamed("CallingViewController", owner: self, options: nil)?.first as! CallingViewController
         callMainPage.modalPresentationStyle = .fullScreen
         callMainPage.remoteUser = remoteUser

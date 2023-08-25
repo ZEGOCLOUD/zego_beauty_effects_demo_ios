@@ -10,8 +10,10 @@ import ZegoExpressEngine
 
 extension ExpressService {
     
-    public func sendSEI(_ data: Data) {
-        ZegoExpressEngine.shared().sendSEI(data)
+    public func sendSEI(_ data: String) {
+        if let seiData = data.data(using: .utf8) {
+            ZegoExpressEngine.shared().sendSEI(seiData)
+        }
     }
     
 }

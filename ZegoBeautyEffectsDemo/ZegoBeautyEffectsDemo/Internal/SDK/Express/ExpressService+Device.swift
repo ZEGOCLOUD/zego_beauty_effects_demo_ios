@@ -9,40 +9,40 @@ import Foundation
 import ZegoExpressEngine
 
 extension ExpressService {
-    public func useFrontFacingCamera(_ isFrontFacing: Bool) {
+    public func useFrontCamera(_ isFrontFacing: Bool) {
         isUsingFrontCamera = isFrontFacing
         ZegoExpressEngine.shared().useFrontCamera(isFrontFacing)
     }
     
-    public func enableSpeaker(enable: Bool) {
-        ZegoExpressEngine.shared().setAudioRouteToSpeaker(enable)
+    public func setAudioRouteToSpeaker(defaultToSpeaker: Bool) {
+        ZegoExpressEngine.shared().setAudioRouteToSpeaker(defaultToSpeaker)
     }
     
     public func turnMicrophoneOn(_ isOn: Bool) {
-        localUser?.isMicrophoneOpen = isOn
+        currentUser?.isMicrophoneOpen = isOn
         ZegoExpressEngine.shared().muteMicrophone(!isOn)
         
-        if let localUser = localUser {
+        if let localUser = currentUser {
             setCameraAndMicState(isCameraOpen: localUser.isCameraOpen,
                                  isMicOpen: isOn)
         }
         
         for delegate in eventHandlers.allObjects {
-            delegate.onMicrophoneOpen?(localUser?.id ?? "", isMicOpen: isOn)
+            delegate.onMicrophoneOpen?(currentUser?.id ?? "", isMicOpen: isOn)
         }
     }
     
     public func turnCameraOn(_ isOn: Bool) {
-        localUser?.isCameraOpen = isOn
+        currentUser?.isCameraOpen = isOn
         ZegoExpressEngine.shared().enableCamera(isOn)
         
-        if let localUser = localUser {
+        if let localUser = currentUser {
             setCameraAndMicState(isCameraOpen: isOn,
                                  isMicOpen: localUser.isMicrophoneOpen)
         }
         
         for delegate in eventHandlers.allObjects {
-            delegate.onCameraOpen?(localUser?.id ?? "", isCameraOpen: isOn)
+            delegate.onCameraOpen?(currentUser?.id ?? "", isCameraOpen: isOn)
         }
     }
         

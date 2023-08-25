@@ -1,14 +1,15 @@
 import Foundation
 import ZIM
 
-public typealias RoomRequestCallback =  (_ code: UInt, _ message: String, _ messageID: String?) -> ()
+public typealias RoomRequestCallback =  (_ code: UInt, _ message: String, _ requestID: String?) -> ()
+public typealias RoomCommandCallback =  (_ code: UInt, _ message: String) -> ()
 
 extension ZIMService {
             
     public func sendRoomRequest(_ receiverID: String, extendedData: String, callback: RoomRequestCallback?) {
         guard let currentUser = userInfo else { return }
         let roomRequest = RoomRequest(requestID: "", actionType: .request, senderID: currentUser.userID, receiverID: receiverID, extendedData: extendedData)
-        sendRoomCommand(command: roomRequest.jsonString() ?? "") { message, error in
+        sendCommand(command: roomRequest.jsonString() ?? "") { message, error in
             if error.code == .success {
                 roomRequest.requestID = "\(message.messageID)"
                 var extendedDict: [String: Any] = extendedData.toDict ?? [:]
@@ -17,60 +18,83 @@ extension ZIMService {
                 self.roomRequestDict.updateValue(roomRequest, forKey: roomRequest.requestID)
             }
             for delegate in self.eventHandlers.allObjects {
-                delegate.onActionSendRoomRequest?(errorCode: error.code.rawValue, request: roomRequest)
+                delegate.onSendRoomRequest?(errorCode: error.code.rawValue, requestID: "\(message.messageID)", extendedData: extendedData)
             }
             callback?(error.code.rawValue, error.message, "\(message.messageID)")
         }
     }
     
-    public func acceptRoomRequest(_ roomRequest: RoomRequest, callback: RoomRequestCallback?) {
-        guard let currentUser = userInfo else { return }
+    public func acceptRoomRequest(_ requestID: String, extendedData: String?, callback: RoomRequestCallback?) {
+        guard let currentUser = userInfo,
+              let roomRequest = self.roomRequestDict[requestID]
+        else { return }
         roomRequest.actionType = .accept
         roomRequest.receiverID = roomRequest.senderID
         roomRequest.senderID = currentUser.userID
-        
-        sendRoomCommand(command: roomRequest.jsonString() ?? "") { message, error in
+        if let extendedData = extendedData {
+            roomRequest.extendedData = extendedData
+        }
+        sendCommand(command: roomRequest.jsonString() ?? "") { message, error in
             self.roomRequestDict.removeValue(forKey: roomRequest.requestID)
             for delegate in self.eventHandlers.allObjects {
-                delegate.onActionAcceptIncomingRoomRequest?(errorCode: error.code.rawValue, request: roomRequest)
+                delegate.onAcceptIncomingRoomRequest?(errorCode: error.code.rawValue, requestID: requestID, extendedData: roomRequest.extendedData)
             }
-            callback?(error.code.rawValue, error.message, "\(message.messageID)")
+            callback?(error.code.rawValue, error.message, "\(roomRequest.requestID)")
         }
         
     }
     
-    public func rejectRoomRequest(_ roomRequest: RoomRequest, callback: RoomRequestCallback?) {
-        guard let currentUser = userInfo else { return }
+    public func rejectRoomRequest(_ requestID: String, extendedData: String?, callback: RoomRequestCallback?) {
+        guard let currentUser = userInfo,
+              let roomRequest = self.roomRequestDict[requestID]
+        else { return }
         roomRequest.actionType = .reject
         roomRequest.receiverID = roomRequest.senderID
         roomRequest.senderID = currentUser.userID
+        if let extendedData = extendedData {
+            roomRequest.extendedData = extendedData
+        }
         
-        sendRoomCommand(command: roomRequest.jsonString() ?? "") { message, error in
+        sendCommand(command: roomRequest.jsonString() ?? "") { message, error in
             self.roomRequestDict.removeValue(forKey: roomRequest.requestID)
             for delegate in self.eventHandlers.allObjects {
-                delegate.onActionRejectIncomingRoomRequest?(errorCode: error.code.rawValue, request: roomRequest)
+                delegate.onRejectIncomingRoomRequest?(errorCode: error.code.rawValue, requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
             }
-            callback?(error.code.rawValue, error.message, "\(message.messageID)")
+            callback?(error.code.rawValue, error.message, "\(roomRequest.requestID)")
         }
     }
     
-    public func cancelRoomRequest(_ roomRequest: RoomRequest, callback: RoomRequestCallback?) {
-        guard userInfo != nil else { return }
+    public func cancelRoomRequest(_ requestID: String, extendedData: String?, callback: RoomRequestCallback?) {
+        guard let _ = userInfo,
+              let roomRequest = self.roomRequestDict[requestID]
+        else { return }
         roomRequest.actionType = .cancel
+        if let extendedData = extendedData {
+            roomRequest.extendedData = extendedData
+        }
         
-        sendRoomCommand(command: roomRequest.jsonString() ?? "") { message, error in
+        sendCommand(command: roomRequest.jsonString() ?? "") { message, error in
             self.roomRequestDict.removeValue(forKey: roomRequest.requestID)
             for delegate in self.eventHandlers.allObjects {
-                delegate.onActionCancelRoomRequest?(errorCode: error.code.rawValue, request: roomRequest)
+                delegate.onCancelRoomRequest?(errorCode: error.code.rawValue, requestID: roomRequest.requestID, extendedData: roomRequest.extendedData)
             }
-            callback?(error.code.rawValue, error.message, "\(message.messageID)")
+            callback?(error.code.rawValue, error.message, "\(roomRequest.requestID)")
         }
     }
     
-    public func sendRoomCommand(command: String, callback: @escaping ZIMMessageSentCallback) {
+    private func sendCommand(command: String, callback: @escaping ZIMMessageSentCallback) {
         let bytes = command.data(using: .utf8)!
         let commandMessage = ZIMCommandMessage(message: bytes)
         zim?.sendMessage(commandMessage, toConversationID: currentRoom?.baseInfo.roomID ?? "", conversationType: .room, config: ZIMMessageSendConfig(), notification: nil, callback: callback)
+    }
+    
+    public func sendRoomCommand(command: String, callback: RoomCommandCallback?) {
+        let bytes = command.data(using: .utf8)!
+        let commandMessage = ZIMCommandMessage(message: bytes)
+        zim?.sendMessage(commandMessage, toConversationID: currentRoom?.baseInfo.roomID ?? "", conversationType: .room, config: ZIMMessageSendConfig(), notification: nil, callback: { message, error in
+            guard let callback = callback else { return }
+            callback(error.code.rawValue, error.message)
+        })
     }
     
     public func getRoomRequestByRequestID(_ requestID: String) -> RoomRequest? {
@@ -96,15 +120,6 @@ extension ZIMService {
             }
         }
         return userList
-    }
-    
-    public func isUserRequested(senderID: String) -> Bool {
-        for roomRequest in roomRequestDict.values {
-            if (roomRequest.senderID == senderID) {
-                return true
-            }
-        }
-        return false
     }
     
     public func removeAllRequest() {

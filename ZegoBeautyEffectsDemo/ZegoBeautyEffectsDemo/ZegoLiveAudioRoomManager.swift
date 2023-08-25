@@ -18,7 +18,7 @@ enum RoomCommandType: Int {
 }
 
 protocol ZegoLiveAudioRoomManagerDelegate: AnyObject {
-    func onHostChanged(_ user: UserInfo)
+    func onHostChanged(_ user: ZegoSDKUser)
     func onSeatLockChanged(_ lock: Bool)
     func onSeatChanged(_ seatList: [ZegoLiveAudioRoomSeat])
     func onQueryUserInfoSucess()
@@ -27,7 +27,7 @@ protocol ZegoLiveAudioRoomManagerDelegate: AnyObject {
 }
 
 extension ZegoLiveAudioRoomManagerDelegate {
-    func onHostChanged(_ user: UserInfo) { }
+    func onHostChanged(_ user: ZegoSDKUser) { }
     func onSeatLockChanged(_ lock: Bool) { }
     func onSeatChanged(_ seatList: [ZegoLiveAudioRoomSeat]) { }
     func onQueryUserInfoSucess() { }
@@ -78,7 +78,7 @@ class ZegoLiveAudioRoomManager: NSObject {
     
     func lockSeat(_ lock: Bool) {
         roomExtraInfoDict.updateValue(lock as AnyObject, forKey: "lockseat")
-        ZegoSDKManager.shared.expressService.setExpressRoomExtraInfo(key: KEY, value: roomExtraInfoDict.jsonString)
+        ZegoSDKManager.shared.expressService.setRoomExtraInfo(key: KEY, value: roomExtraInfoDict.jsonString)
     }
     
     func isSeatLocked() -> Bool {
@@ -106,13 +106,13 @@ class ZegoLiveAudioRoomManager: NSObject {
         seatService.emptySeat(seatIndex: seatIndex, callback: callback)
     }
     
-    func muteSpeaker(_ userID: String, isMute: Bool, callback: @escaping ZIMMessageSentCallback) {
+    func muteSpeaker(_ userID: String, isMute: Bool, callback: RoomCommandCallback?) {
         let messageType: RoomCommandType = isMute ? .muteSpeaker : .unMuteSpeaker
         let commandDict: [String: AnyObject] = ["room_command_type": messageType.rawValue as AnyObject, "receiver_id": userID as AnyObject]
         ZegoSDKManager.shared.zimService.sendRoomCommand(command: commandDict.jsonString, callback: callback)
     }
     
-    func kickOutRoom(_ userID: String, callback: @escaping ZIMMessageSentCallback) {
+    func kickOutRoom(_ userID: String, callback: RoomCommandCallback?) {
         let messageType: RoomCommandType = .kickOutRoom
         let commandDict: [String: AnyObject] = ["room_command_type": messageType.rawValue as AnyObject, "receiver_id": userID as AnyObject]
         ZegoSDKManager.shared.zimService.sendRoomCommand(command: commandDict.jsonString, callback: callback)
@@ -123,17 +123,17 @@ class ZegoLiveAudioRoomManager: NSObject {
         hostUserID = nil
         roomExtraInfoDict.removeAll()
         seatService.removeRoomData()
-        ZegoSDKManager.shared.leaveRoom()
+        ZegoSDKManager.shared.logoutRoom()
     }
     
     func setSelfHost() {
-        guard let localUser = ZegoSDKManager.shared.expressService.localUser else { return }
+        guard let localUser = ZegoSDKManager.shared.expressService.currentUser else { return }
         hostUserID = localUser.id
         roomExtraInfoDict.updateValue(localUser.id as AnyObject, forKey: "host")
-        ZegoSDKManager.shared.expressService.setExpressRoomExtraInfo(key: KEY, value: roomExtraInfoDict.jsonString)
+        ZegoSDKManager.shared.expressService.setRoomExtraInfo(key: KEY, value: roomExtraInfoDict.jsonString)
     }
     
-    func getHostUser() -> UserInfo? {
+    func getHostUser() -> ZegoSDKUser? {
         guard let hostUserID = hostUserID else { return nil }
         return ZegoSDKManager.shared.getUser(hostUserID)
     }
@@ -151,11 +151,11 @@ class ZegoLiveAudioRoomManager: NSObject {
     }
     
     func getHostMainStreamID() -> String {
-        return "\(ZegoSDKManager.shared.expressService.roomID ?? "")_\(ZegoSDKManager.shared.localUser?.id ?? "")_main_host"
+        return "\(ZegoSDKManager.shared.expressService.currentRoomID ?? "")_\(ZegoSDKManager.shared.currentUser?.id ?? "")_main_host"
     }
     
     func getCoHostMainStreamID() -> String {
-        return "\(ZegoSDKManager.shared.expressService.roomID ?? "")_\(ZegoSDKManager.shared.localUser?.id ?? "")_main_cohost"
+        return "\(ZegoSDKManager.shared.expressService.currentRoomID ?? "")_\(ZegoSDKManager.shared.currentUser?.id ?? "")_main_cohost"
     }
     
     func clearData() {
@@ -169,7 +169,7 @@ class ZegoLiveAudioRoomManager: NSObject {
 }
 
 extension ZegoLiveAudioRoomManager: ExpressServiceDelegate, ZIMServiceDelegate {
-    func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
+    func onRoomExtraInfoUpdate2(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
         for extraInfo in roomExtraInfoList {
             if (extraInfo.key == KEY) {
                 let extraInfoDict: [String : Any] = extraInfo.value.toDict ?? [:]
@@ -202,7 +202,7 @@ extension ZegoLiveAudioRoomManager: ExpressServiceDelegate, ZIMServiceDelegate {
                 if let hostUserID = hostUserID,
                    user.userID == hostUserID
                 {
-                    let hostUser: UserInfo? = ZegoSDKManager.shared.expressService.inRoomUserDict[user.userID]
+                    let hostUser: ZegoSDKUser? = ZegoSDKManager.shared.expressService.inRoomUserDict[user.userID]
                     if let hostUser = hostUser {
                         for seat in seatList {
                             if seat.currentUser?.id == hostUser.id {
@@ -245,7 +245,7 @@ extension ZegoLiveAudioRoomManager: ExpressServiceDelegate, ZIMServiceDelegate {
             if let receiverID = receiverID,
                let type = type
             {
-                if receiverID == ZegoSDKManager.shared.localUser?.id {
+                if receiverID == ZegoSDKManager.shared.currentUser?.id {
                     switch type {
                     case .muteSpeaker:
                         delegate?.onReceiveMuteUserSpeaker(receiverID, isMute: true)
@@ -259,6 +259,14 @@ extension ZegoLiveAudioRoomManager: ExpressServiceDelegate, ZIMServiceDelegate {
                 }
             }
         }
+    }
+    
+    func onCapturedSoundLevelUpdate(_ soundLevel: NSNumber) {
+        
+    }
+    
+    func onRemoteSoundLevelUpdate(_ soundLevels: [String : NSNumber]) {
+        
     }
     
 }

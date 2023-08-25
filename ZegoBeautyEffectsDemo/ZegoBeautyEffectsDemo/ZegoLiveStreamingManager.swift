@@ -47,7 +47,7 @@ class ZegoLiveStreamingManager: NSObject {
         }
     }
     
-    var hostUser: UserInfo? {
+    var hostUser: ZegoSDKUser? {
         get {
             return coHostService?.hostUser
         }
@@ -64,8 +64,6 @@ class ZegoLiveStreamingManager: NSObject {
     func addUserLoginListeners() {
         pkService = PKService()
         coHostService = CoHostService()
-//        coHostService.initWhenUserLogin()
-//        pkService.initWhenUserLogin()
     }
     
     func addPKDelegate(_ delegate: PKServiceDelegate) {
@@ -76,7 +74,7 @@ class ZegoLiveStreamingManager: NSObject {
         if isLocalUserHost() {
             pkService?.sendPKBattlesStopRequest()
         }
-        ZegoSDKManager.shared.leaveRoom()
+        ZegoSDKManager.shared.logoutRoom()
         clearData()
     }
     
@@ -135,11 +133,11 @@ extension ZegoLiveStreamingManager {
     }
     
     func getHostMainStreamID() -> String {
-        return "\(ZegoSDKManager.shared.expressService.roomID ?? "")_\(ZegoSDKManager.shared.localUser?.id ?? "")_main_host"
+        return "\(ZegoSDKManager.shared.expressService.currentRoomID ?? "")_\(ZegoSDKManager.shared.currentUser?.id ?? "")_main_host"
     }
     
     func getCoHostMainStreamID() -> String {
-        return "\(ZegoSDKManager.shared.expressService.roomID ?? "")_\(ZegoSDKManager.shared.localUser?.id ?? "")_main_cohost"
+        return "\(ZegoSDKManager.shared.expressService.currentRoomID ?? "")_\(ZegoSDKManager.shared.currentUser?.id ?? "")_main_cohost"
     }
     
     func removeRoomData() {
@@ -200,4 +198,13 @@ extension ZegoLiveStreamingManager: ExpressServiceDelegate {
             delegate.onMicrophoneOpen?(userID, isMicOpen: isMicOpen)
         }
     }
+    
+    func onCapturedSoundLevelUpdate(_ soundLevel: NSNumber) {
+        
+    }
+    
+    func onRemoteSoundLevelUpdate(_ soundLevels: [String : NSNumber]) {
+        
+    }
+    
 }

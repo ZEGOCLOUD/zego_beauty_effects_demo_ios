@@ -9,7 +9,7 @@ import UIKit
 import ZIM
 
 protocol CallWaitingViewControllerDelegate: AnyObject {
-    func startShowCallPage(_ remoteUser: UserInfo)
+    func startShowCallPage(_ remoteUser: ZegoSDKUser)
 }
 
 class CallWaitingViewController: UIViewController {
@@ -78,7 +78,7 @@ class CallWaitingViewController: UIViewController {
     @IBOutlet weak var acceptButtonLabel: UILabel!
     @IBOutlet weak var switchFacingCameraButton: UIButton!
     
-    var invitee: UserInfo? {
+    var invitee: ZegoSDKUser? {
         didSet {
             if isInviter {
                 self.setHeadUserName(invitee?.name)
@@ -86,7 +86,7 @@ class CallWaitingViewController: UIViewController {
             }
         }
     }
-    var inviter: UserInfo? {
+    var inviter: ZegoSDKUser? {
         didSet {
             if !self.isInviter {
                 self.setHeadUserName(inviter?.name)
@@ -140,7 +140,7 @@ class CallWaitingViewController: UIViewController {
     @IBAction func declineButtonClick(_ sender: Any) {
         guard let callID = ZegoCallManager.shared.currentCallData?.callID else { return }
         ZegoCallManager.shared.rejectCallRequest(requestID: callID, callback: nil)
-        ZegoSDKManager.shared.leaveRoom()
+        ZegoSDKManager.shared.logoutRoom()
         self.dismiss(animated: true)
     }
     
@@ -149,21 +149,21 @@ class CallWaitingViewController: UIViewController {
               let callID = ZegoCallManager.shared.currentCallData?.callID
         else { return }
         ZegoCallManager.shared.cancelCallRequest(requestID: callID, userID: inviteeUserID, callback: nil)
-        ZegoSDKManager.shared.leaveRoom()
+        ZegoSDKManager.shared.logoutRoom()
         self.dismiss(animated: true)
     }
     
     @IBAction func acceptButtonClick(_ sender: Any) {
         guard let callID = ZegoCallManager.shared.currentCallData?.callID else { return }
-        ZegoCallManager.shared.acceptCallRequest(requestID: callID) { code, invitationID in
-            if code == 0 {
+        ZegoCallManager.shared.acceptCallRequest(requestID: callID) { requestID, error in
+            if error.code == .success {
                 guard let remoteUser = ZegoCallManager.shared.currentCallData?.inviter else { return }
                 self.showCallPage(remoteUser)
             }
         }
     }
     
-    func showCallPage(_ remoteUser: UserInfo) {
+    func showCallPage(_ remoteUser: ZegoSDKUser) {
         DispatchQueue.main.async {
             self.dismiss(animated: false)
             self.delegate?.startShowCallPage(remoteUser)

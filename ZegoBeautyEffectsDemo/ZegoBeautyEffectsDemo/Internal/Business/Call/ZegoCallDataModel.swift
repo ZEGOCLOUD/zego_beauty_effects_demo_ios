@@ -23,12 +23,12 @@ enum CallType: Int {
 
 class ZegoCallDataModel: NSObject {
     var callID: String?
-    var inviter: UserInfo?
-    var invitee: UserInfo?
+    var inviter: ZegoSDKUser?
+    var invitee: ZegoSDKUser?
     var type: CallType = .voice
     var callStatus: CallState = .error
     
-    init(callID: String? = nil, inviter: UserInfo? = nil, invitee: UserInfo? = nil, type: CallType = .voice, callStatus: CallState = .error) {
+    init(callID: String? = nil, inviter: ZegoSDKUser? = nil, invitee: ZegoSDKUser? = nil, type: CallType = .voice, callStatus: CallState = .error) {
         self.callID = callID
         self.inviter = inviter
         self.invitee = invitee

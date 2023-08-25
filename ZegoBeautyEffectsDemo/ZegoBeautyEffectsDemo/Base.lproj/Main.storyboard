@@ -925,7 +925,7 @@
                         <outlet property="anotherHostMixForegroundView" destination="Z6a-BW-pwc" id="cX9-nx-QEM"/>
                         <outlet property="anotherHostMixHeadLabel" destination="yE2-hy-2RD" id="JyJ-Cn-nCs"/>
                         <outlet property="anotherHostStreamView" destination="gcv-v7-bbC" id="EAn-9j-pew"/>
-                        <outlet property="beautyButton" destination="3an-J8-94D" id="N0F-44-4hv"/>
+                        <outlet property="beautyButton" destination="79H-dj-cwD" id="4YD-lS-hNU"/>
                         <outlet property="cameraButton" destination="e3R-i2-ROm" id="7eI-E2-EqB"/>
                         <outlet property="coHostButton" destination="c51-7G-4ED" id="a5W-IN-acP"/>
                         <outlet property="coHostWidthConstraint" destination="bmf-rP-p3g" id="6CV-R4-tA9"/>

@@ -9,16 +9,16 @@ import Foundation
 import ZegoExpressEngine
 
 extension ExpressService {
-    public func joinRoom(_ roomID: String,
+    public func loginRoom(_ roomID: String,
                          token: String? = nil,
-                         callback: CommonCallback? = nil) {
+                         callback: ZegoRoomLoginCallback?) {
         
-        assert(localUser != nil, "Must login first.")
+        assert(currentUser != nil, "Must login first.")
         
-        self.roomID = roomID
+        self.currentRoomID = roomID
         
-        let userID = localUser?.id ?? ""
-        let userName = localUser?.name ?? ""
+        let userID = currentUser?.id ?? ""
+        let userName = currentUser?.name ?? ""
         let user = ZegoUser(userID: userID, userName: userName)
                 
         let config = ZegoRoomConfig()
@@ -29,43 +29,48 @@ extension ExpressService {
         
         ZegoExpressEngine.shared().loginRoom(roomID, user: user, config: config) { [weak self] error, data in
             if error == 0 {
-                self?.inRoomUserDict[userID] = self?.localUser
+                self?.inRoomUserDict[userID] = self?.currentUser
                 // monitor sound level
-                ZegoExpressEngine.shared().startSoundLevelMonitor(1000)                
-                callback?(Int(error), "join room success.")
+                guard let callback = callback else { return }
+                callback(error,data)
             } else {
-                callback?(Int(error), "join room faild.")
+                guard let callback = callback else { return }
+                callback(error,data)
             }
         };
 
     }
     
-    public func leaveRoom() {
-        roomID = nil
+    public func logoutRoom(callback: ZegoRoomLogoutCallback?) {
+        currentRoomID = nil
         stopPublishingStream()
         inRoomUserDict.removeAll()
         streamDict.removeAll()
         roomExtraInfoDict.removeAll()
         ZegoExpressEngine.shared().stopSoundLevelMonitor()
-        ZegoExpressEngine.shared().logoutRoom()
+        if let callback = callback {
+            ZegoExpressEngine.shared().logoutRoom(callback: callback)
+        } else {
+            ZegoExpressEngine.shared().logoutRoom()
+        }
     }
     
-    public func setExpressRoomExtraInfo(key: String, value: String) {
-        guard let roomID = roomID else { return }
+    public func setRoomExtraInfo(key: String, value: String) {
+        guard let roomID = currentRoomID else { return }
         ZegoExpressEngine.shared().setRoomExtraInfo(value, forKey: key, roomID: roomID) { code in
             if code == 0 {
                 var extraInfo: ZegoRoomExtraInfo? = self.roomExtraInfoDict[key]
                 if extraInfo == nil {
                     extraInfo = ZegoRoomExtraInfo()
                     extraInfo?.key = key
-                    extraInfo?.updateUser = ZegoUser(userID: self.localUser?.id ?? "", userName: self.localUser?.name ?? "")
+                    extraInfo?.updateUser = ZegoUser(userID: self.currentUser?.id ?? "", userName: self.currentUser?.name ?? "")
                 }
                 extraInfo?.updateTime = self.getTimeStamp()
                 extraInfo?.value = value
                 self.roomExtraInfoDict.updateValue(extraInfo!, forKey: key)
                 let extraInfoList: [ZegoRoomExtraInfo] = [extraInfo!]
                 for delegate in self.eventHandlers.allObjects {
-                    delegate.onRoomExtraInfoUpdate?(extraInfoList, roomID: roomID)
+                    delegate.onRoomExtraInfoUpdate2?(extraInfoList, roomID: roomID)
                 }
             }
         }

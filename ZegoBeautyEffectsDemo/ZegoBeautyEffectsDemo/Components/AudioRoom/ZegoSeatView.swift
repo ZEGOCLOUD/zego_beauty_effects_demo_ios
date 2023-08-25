@@ -29,7 +29,7 @@ class ZegoSeatView: UIView {
             } else {
                 headImageView.isHidden = true
             }
-            if ZegoLiveAudioRoomManager.shared.getHostUser()?.id == ZegoSDKManager.shared.localUser?.id {
+            if ZegoLiveAudioRoomManager.shared.getHostUser()?.id == ZegoSDKManager.shared.currentUser?.id {
                 if roomSeat?.currentUser == nil {
                     seatIcon.image = isLock ? UIImage(named: "seat_lock_icon") : UIImage(named: "seat_icon_normal")
                 }

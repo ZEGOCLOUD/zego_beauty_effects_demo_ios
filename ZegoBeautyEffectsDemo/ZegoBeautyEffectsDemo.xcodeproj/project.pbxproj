@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8626D3C82AA8624200732106 /* ImageProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3C72AA8624200732106 /* ImageProcessViewController.swift */; };
+		8626D3CA2AA8694C00732106 /* ImageBeautifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3C92AA8694C00732106 /* ImageBeautifyView.swift */; };
+		8626D3CC2AA869C200732106 /* ImageBeautifyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3CB2AA869C200732106 /* ImageBeautifyData.swift */; };
+		8626D3CE2AB00CB800732106 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3CD2AB00CB800732106 /* ImageHelper.swift */; };
 		86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB24F29FB741400DA4BF3 /* ZIMService.swift */; };
 		86AEB25629FBA55200DA4BF3 /* ZIMService+UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB25529FBA55200DA4BF3 /* ZIMService+UserRequest.swift */; };
 		8E1B926029DACBF00097C9ED /* ExpressServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */; };
@@ -88,6 +92,11 @@
 		2199C86F7400793B6901B391 /* Pods-ZegoBeautyEffectsDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoBeautyEffectsDemo.release.xcconfig"; path = "Target Support Files/Pods-ZegoBeautyEffectsDemo/Pods-ZegoBeautyEffectsDemo.release.xcconfig"; sourceTree = "<group>"; };
 		2F397B0136CD337546B1B0F6 /* Pods_ZegoBeautyEffectsDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoBeautyEffectsDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56391A7B9D5D15586363A548 /* Pods-ZegoBeautyEffectsDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoBeautyEffectsDemo.debug.xcconfig"; path = "Target Support Files/Pods-ZegoBeautyEffectsDemo/Pods-ZegoBeautyEffectsDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		8626D3C72AA8624200732106 /* ImageProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessViewController.swift; sourceTree = "<group>"; };
+		8626D3C92AA8694C00732106 /* ImageBeautifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBeautifyView.swift; sourceTree = "<group>"; };
+		8626D3CB2AA869C200732106 /* ImageBeautifyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBeautifyData.swift; sourceTree = "<group>"; };
+		8626D3CD2AB00CB800732106 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		8626D3CF2AB00E3400732106 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		86AEB24F29FB741400DA4BF3 /* ZIMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZIMService.swift; sourceTree = "<group>"; };
 		86AEB25529FBA55200DA4BF3 /* ZIMService+UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZIMService+UserRequest.swift"; sourceTree = "<group>"; };
 		8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressServiceDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +199,7 @@
 		7578429749FA1779E399D3EB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8626D3CF2AB00E3400732106 /* CoreGraphics.framework */,
 				2F397B0136CD337546B1B0F6 /* Pods_ZegoBeautyEffectsDemo.framework */,
 			);
 			name = Frameworks;
@@ -311,6 +321,7 @@
 				8EAE31EF29D6898E00305045 /* LiveStreamingViewController.swift */,
 				8E3034B22A6FE9A600B77973 /* ApplyCoHostListViewController.swift */,
 				8E7E12342A70FFCD00CA8791 /* LiveAudioRoomViewController.swift */,
+				8626D3C72AA8624200732106 /* ImageProcessViewController.swift */,
 				8E318D7329D573D4001596F3 /* LoginViewController.swift */,
 				8E318D8B29D586D6001596F3 /* HomeViewController.swift */,
 				8E7E12362A7248E600CA8791 /* AppIDViewController.swift */,
@@ -365,6 +376,7 @@
 				8E3034B42A6FEA7300B77973 /* UIImageView+Extension.swift */,
 				8E1B928E29DE6D900097C9ED /* Dictionary+Extension.swift */,
 				8EEE4C042A09F9A20051F6B2 /* UIColor+Hex.swift */,
+				8626D3CD2AB00CB800732106 /* ImageHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -447,6 +459,8 @@
 				8EEE4C062A0A296A0051F6B2 /* EffectBackgroundView.swift */,
 				8EEE4C002A09F2030051F6B2 /* FaceBeautifyView.swift */,
 				8EEE4C082A0A47240051F6B2 /* FaceBeautifyData.swift */,
+				8626D3C92AA8694C00732106 /* ImageBeautifyView.swift */,
+				8626D3CB2AA869C200732106 /* ImageBeautifyData.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -513,6 +527,7 @@
 				TargetAttributes = {
 					8E318D6B29D573D4001596F3 = {
 						CreatedOnToolsVersion = 14.2;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -615,11 +630,14 @@
 				8EAE31F229D6C3F800305045 /* ZegoSDKManager.swift in Sources */,
 				8E3034A62A6FBEF200B77973 /* ZegoLiveAudioRoomManager.swift in Sources */,
 				8E318D7429D573D4001596F3 /* LoginViewController.swift in Sources */,
+				8626D3CE2AB00CB800732106 /* ImageHelper.swift in Sources */,
+				8626D3CC2AA869C200732106 /* ImageBeautifyData.swift in Sources */,
 				8E3034AD2A6FC07B00B77973 /* CoHostTableViewCell.swift in Sources */,
 				8E3034A72A6FBEF200B77973 /* ZegoLiveStreamingManager.swift in Sources */,
 				8EEE4C092A0A47240051F6B2 /* FaceBeautifyData.swift in Sources */,
 				8EAE31F029D6898E00305045 /* LiveStreamingViewController.swift in Sources */,
 				86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */,
+				8626D3CA2AA8694C00732106 /* ImageBeautifyView.swift in Sources */,
 				8E1B926229DACEAF0097C9ED /* ExpressService+Stream.swift in Sources */,
 				8E318D7029D573D4001596F3 /* AppDelegate.swift in Sources */,
 				8EBB675C2A0647BC00832D8D /* APIBase.swift in Sources */,
@@ -659,6 +677,7 @@
 				8E7CB8E72A56978E004849EF /* ZegoDefine.swift in Sources */,
 				8E30348C2A6FBB8700B77973 /* ExpressService+Mixer.swift in Sources */,
 				8E318D8A29D5802F001596F3 /* Utils.swift in Sources */,
+				8626D3C82AA8624200732106 /* ImageProcessViewController.swift in Sources */,
 				8E3034B52A6FEA7300B77973 /* UIImageView+Extension.swift in Sources */,
 				8E3034B12A6FC72000B77973 /* CallService.swift in Sources */,
 				8E30349B2A6FBCF600B77973 /* PKDefines.swift in Sources */,
@@ -810,6 +829,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PN83KX5U85;
@@ -817,6 +837,7 @@
 				INFOPLIST_FILE = ZegoBeautyEffectsDemo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use your camera to help you join the live interaction.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to use your mic to help you join the live interaction.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -831,6 +852,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zegocloud.livestreaming.cohosting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -842,6 +865,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PN83KX5U85;
@@ -849,6 +873,7 @@
 				INFOPLIST_FILE = ZegoBeautyEffectsDemo/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use your camera to help you join the live interaction.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to use your mic to help you join the live interaction.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -863,6 +888,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zegocloud.livestreaming.cohosting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

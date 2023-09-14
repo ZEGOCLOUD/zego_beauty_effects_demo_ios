@@ -66,7 +66,3 @@ func renderImage() {
 ```
 
 
-
-Effect display comparison
-
-<img src="Image/original_picture.JPG" alt="original_picture" style="zoom:50%;float: left" /><img src="Image/effect_picture.JPG" alt="effect_picture" style="zoom:50%;float: right" />

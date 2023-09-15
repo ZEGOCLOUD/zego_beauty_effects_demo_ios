@@ -66,3 +66,7 @@ func renderImage() {
 ```
 
 
+
+### Effect display
+
+<img src="/Users/zego/Documents/coding/github/GithubDemo/zego_beauty_effects_demo_ios/Image/original_picture.JPG" alt="original_picture" style="zoom:10%;float: left" /><img src="/Users/zego/Documents/coding/github/GithubDemo/zego_beauty_effects_demo_ios/Image/effect_picture.JPG" alt="effect_picture" style="zoom: 57%; float: right;" />

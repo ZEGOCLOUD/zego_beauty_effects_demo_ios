@@ -15,7 +15,7 @@ public class ZegoSDKManager: NSObject {
     
     public var expressService = ExpressService.shared
     public var zimService = ZIMService.shared
-//    public var beautyService = ZegoEffectsService.shared
+    public var beautyService = ZegoEffectsService.shared
         
     public var currentUser: ZegoSDKUser? {
         expressService.currentUser
@@ -35,14 +35,14 @@ public class ZegoSDKManager: NSObject {
         zimService.initWithAppID(appID, appSign: appSign)
         
         if enableBeauty {
-//            beautyService.initWithAppID(appID: appID, appSign: appSign)
-//            enableCustomVideoProcessing()
+            beautyService.initWithAppID(appID: appID, appSign: appSign)
+            enableCustomVideoProcessing()
         }
     }
     
     public func unInit() {
         zimService.unInit()
-//        beautyService.unInit()
+        beautyService.unInit()
     }
     
     public func connectUser(userID: String,
@@ -153,18 +153,18 @@ public class ZegoSDKManager: NSObject {
 
 extension ZegoSDKManager: ZegoCustomVideoProcessHandler {
     public func onStart(_ channel: ZegoPublishChannel) {
-//        let config = expressService.getVideoConfig()
-//        beautyService.initEnv(config.captureResolution)
+        let config = expressService.getVideoConfig()
+        beautyService.initEnv(config.captureResolution)
     }
     
     public func onStop(_ channel: ZegoPublishChannel) {
-//        beautyService.uninitEnv()
+        beautyService.uninitEnv()
     }
     
     public func onCapturedUnprocessedCVPixelBuffer(_ buffer: CVPixelBuffer, timestamp: CMTime, channel: ZegoPublishChannel) {
-//        beautyService.processImageBuffer(buffer)
-//        expressService.sendCustomVideoProcessedCVPixelBuffer(buffer,
-//                                                             timestamp: timestamp,
-//                                                             channel: channel)
+        beautyService.processImageBuffer(buffer)
+        expressService.sendCustomVideoProcessedCVPixelBuffer(buffer,
+                                                             timestamp: timestamp,
+                                                             channel: channel)
     }
 }

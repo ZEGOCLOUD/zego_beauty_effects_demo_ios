@@ -294,8 +294,11 @@ class PKService: NSObject {
     }
     
     func delectPKAttributes() {
-        if pkRoomAttribute.keys.isEmpty { return }
-        ZegoSDKManager.shared.zimService.deletedRoomAttributes(Array(pkRoomAttribute.keys), callback: nil)
+        var deleteKeys: [String] = []
+        pkRoomAttribute.forEach { (key, _) in
+            deleteKeys.append(key)
+        }
+        ZegoSDKManager.shared.zimService.deletedRoomAttributes(deleteKeys, callback: nil)
     }
     
     func muteAnotherHostAudio(mute: Bool) {

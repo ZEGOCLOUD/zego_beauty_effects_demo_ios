@@ -42,12 +42,12 @@ extension ExpressService {
     }
     
     public func logoutRoom(callback: ZegoRoomLogoutCallback?) {
+        currentScenario = .default
         currentRoomID = nil
         stopPublishingStream()
         inRoomUserDict.removeAll()
         streamDict.removeAll()
         roomExtraInfoDict.removeAll()
-        currentScenario = .default
         ZegoExpressEngine.shared().stopSoundLevelMonitor()
         if let callback = callback {
             ZegoExpressEngine.shared().logoutRoom(callback: callback)

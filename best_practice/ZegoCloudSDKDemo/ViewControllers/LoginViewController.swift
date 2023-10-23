@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         ZegoSDKManager.shared.disconnectUser()
     }
     
-    func initData() {        
+    func initData() {
         ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, enableBeauty: true)
         CallService.shared.initService()
     }
@@ -64,11 +64,6 @@ class LoginViewController: UIViewController {
         }
         homeVC.userID = userIDTextField.text ?? "123"
         homeVC.userName = userNameTextField.text ?? "Tina"
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.view.endEditing(true)
     }
 }
 

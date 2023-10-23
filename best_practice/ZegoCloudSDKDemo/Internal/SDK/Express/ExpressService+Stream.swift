@@ -45,7 +45,7 @@ extension ExpressService {
                                    streamID: String,
                                    config: ZegoPlayerConfig = ZegoPlayerConfig(),
                                    viewMode: ZegoViewMode = .aspectFill) {
-        if currentScenario == .highQualityChatroom || currentScenario == .highQualityVideoCall || currentScenario == .standardVideoCall || currentScenario == .standardVoiceCall || currentScenario == .standardChatroom {
+        if currentScenario == .highQualityChatroom || currentScenario == .highQualityVideoCall || currentScenario == .standardChatroom || currentScenario == .standardVideoCall || currentScenario == .standardVoiceCall {
             config.resourceMode = .onlyRTC
         }
         if let renderView = renderView {

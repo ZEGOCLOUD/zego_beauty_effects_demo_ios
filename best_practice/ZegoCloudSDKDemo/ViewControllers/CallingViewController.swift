@@ -36,6 +36,21 @@ class CallingViewController: UIViewController {
             bottomBar.backgroundColor = .init(hex: "#333437", alpha: 0.9)
         }
     }
+    
+    lazy var beautyButton: UIButton = {
+            let button = UIButton(type: .custom)
+            button.setImage(.init(named: "icon_beauty"), for: .normal)
+            button.addTarget(self, action: #selector(beautyAction), for: .touchUpInside)
+            return button
+        }()
+        
+    lazy var beautySheet: FaceBeautifyView = {
+        let beautySheet = FaceBeautifyView(frame: view.bounds)
+        view.addSubview(beautySheet)
+        beautySheet.isHidden = true
+        return beautySheet
+    }()
+    
     var remoteUser: ZegoSDKUser?
     var localUser: ZegoSDKUser? {
         get {
@@ -88,6 +103,7 @@ class CallingViewController: UIViewController {
         ZegoSDKManager.shared.zimService.addEventHandler(self)
         setDeviceStatus()
         setUpBottomBar()
+        addBeautyButton()
         
         if let roomID = ZegoCallManager.shared.currentCallData?.callID {
             ZegoSDKManager.shared.loginRoom(roomID, scenario: (type == .voice) ? .standardVoiceCall : .standardVideoCall) { code, message in
@@ -151,6 +167,11 @@ class CallingViewController: UIViewController {
         }
     }
     
+    func addBeautyButton() {
+        view.addSubview(beautyButton)
+        beautyButton.frame = .init(x: 20, y: bottomBar.frame.minY - 80.0, width: 60.0, height: 60.0)
+    }
+    
     @objc func buttonClick(_ sender: UIButton) {
         switch sender.tag {
         case 100:
@@ -172,6 +193,10 @@ class CallingViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    @objc func beautyAction(_ sender: UIButton) {
+        beautySheet.isHidden = false
     }
     
     

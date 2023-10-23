@@ -41,6 +41,7 @@ class LiveStreamingViewController: UIViewController {
     @IBOutlet weak var flipButton: UIButton!
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var beautyButton: UIButton!
     @IBOutlet weak var pkButton: UIButton! {
         didSet {
             pkButton.layer.masksToBounds = true
@@ -110,15 +111,18 @@ class LiveStreamingViewController: UIViewController {
         return redDotView
     }()
     
-    lazy var coHostVideoContainerView: CoHostContainerView = {
-        let view = CoHostContainerView(frame: .zero)
-        return view
+    lazy var beautySheet: FaceBeautifyView = {
+        let beautySheet = FaceBeautifyView(frame: view.bounds)
+        view.addSubview(beautySheet)
+        beautySheet.isHidden = true
+        return beautySheet
     }()
+    
     
     var alterView: UIAlertController?
     var coHostRequestAlterView: UIAlertController?
 
-    var coHostVideoViews: [CoHostViewModel] = []
+    var coHostVideoViews: [VideoView] = []
     
     var isMySelfHost: Bool = false
     var liveID: String = ""
@@ -126,14 +130,19 @@ class LiveStreamingViewController: UIViewController {
     
     var currentRoomRequestID: String?
     let liveManager = ZegoLiveStreamingManager.shared
+    let sliderManager = BeautySliderManager()
     
     deinit {
-        print("\(String(describing: type(of: self))) \(#function)")
+        ZegoSDKManager.shared.expressService.turnCameraOn(false)
+        ZegoSDKManager.shared.expressService.turnMicrophoneOn(false)
+        sliderManager.initData()
+        FaceUnityManager.shared.disableFaceUnity()
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FaceUnityManager.shared.enableFaceUnity()
         ZegoSDKManager.shared.zimService.addEventHandler(self)
         liveManager.addUserLoginListeners()
         liveManager.addPKDelegate(self)
@@ -144,27 +153,11 @@ class LiveStreamingViewController: UIViewController {
         configUI()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
-    func updateCoHostContainerFrame() {
-        coHostVideoContainerView.frame = CGRect(x: liveContainerView.bounds.width - 16 - 93, y: liveContainerView.bounds.size.height - 85 - getVideoContainerHeight(), width: 93, height: getVideoContainerHeight())
-    }
-    
-    func getVideoContainerHeight() -> CGFloat {
-        let count = coHostVideoViews.count > 3 ? 3 : coHostVideoViews.count
-        if count == 0 {
-            return 0
-        } else {
-            return CGFloat(124 * count + ((count - 1) * 5))
-        }
-    }
     
     func configUI() {
         liveContainerView.isHidden = isMySelfHost
         preBackgroundView.isHidden = !isMySelfHost
-        liveContainerView.addSubview(coHostVideoContainerView)
+        sliderManager.addSliderViewToView(self.view)
         if isMySelfHost {
             ZegoSDKManager.shared.expressService.turnCameraOn(true)
             ZegoSDKManager.shared.expressService.turnMicrophoneOn(true)
@@ -176,6 +169,7 @@ class LiveStreamingViewController: UIViewController {
             flipButton.isHidden = true
             micButton.isHidden = true
             cameraButton.isHidden = true
+            beautyButton.isHidden = true
             
             ZegoSDKManager.shared.loginRoom(liveID, scenario: .broadcast) { [weak self] code, message in
                 if code != 0 {
@@ -254,17 +248,16 @@ class LiveStreamingViewController: UIViewController {
         let localUserID = ZegoSDKManager.shared.expressService.currentUser!.id
         ZegoSDKManager.shared.expressService.stopPublishingStream()
         ZegoSDKManager.shared.expressService.stopPreview()
-//        coHostVideoViews.forEach( { $0.removeFromSuperview() } )
-        coHostVideoViews = coHostVideoViews.filter({ $0.user?.id != localUserID })
-        coHostVideoContainerView.coHostModels = coHostVideoViews
-        updateCoHostContainerFrame()
-//        updateCoHostConstraints()
+        coHostVideoViews.forEach( { $0.removeFromSuperview() } )
+        coHostVideoViews = coHostVideoViews.filter({ $0.userID != localUserID })
+        updateCoHostConstraints()
         coHostButton.isHidden = false
         endCoHostButton.isHidden = true
         
         flipButton.isHidden = true
         micButton.isHidden = true
         cameraButton.isHidden = true
+        beautyButton.isHidden = true
         flipButtonConstraint.constant = 16
     }
     
@@ -280,9 +273,8 @@ class LiveStreamingViewController: UIViewController {
         if isMySelfHost {
             mainStreamView.enableCamera(!sender.isSelected)
         } else {
-            let videoViews = coHostVideoViews.filter({ $0.user?.id ==  ZegoSDKManager.shared.expressService.currentUser?.id})
-            videoViews.forEach({ $0.isCamerOn = !sender.isSelected})
-            coHostVideoContainerView.cameraStateChange(ZegoSDKManager.shared.currentUser?.id ?? "", isOn: !sender.isSelected)
+            let videoViews = coHostVideoViews.filter({ $0.userID ==  ZegoSDKManager.shared.expressService.currentUser?.id})
+            videoViews.forEach({ $0.enableCamera(!sender.isSelected) })
         }
     }
     
@@ -313,9 +305,9 @@ class LiveStreamingViewController: UIViewController {
             }
         } else {
             guard let currentRoomRequestID = currentRoomRequestID else { return }
-            ZegoSDKManager.shared.zimService.cancelRoomRequest(currentRoomRequestID, extendedData: nil) { code, message, requestID in
+            ZegoSDKManager.shared.zimService.cancelRoomRequest(currentRoomRequestID, extendedData: nil) { [weak self] code, message, requestID in
                 if code != 0 {
-                    self.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
+                    self?.view.makeToast("send custom signaling protocol Failed: \(code)", position: .center)
                     clickButton()
                 }
             }
@@ -370,6 +362,10 @@ class LiveStreamingViewController: UIViewController {
         self.present(applyVC, animated: true)
     }
     
+    @IBAction func beautyAction(_ sender: UIButton) {
+//        beautySheet.isHidden = false
+        sliderManager.showSliderView()
+    }
     
 }
 
@@ -406,9 +402,8 @@ extension LiveStreamingViewController: ZegoLiveStreamingManagerDelegate {
         if liveManager.isHost(userID: userID) {
             mainStreamView.enableCamera(isCameraOpen)
         } else {
-            let videoViews = coHostVideoViews.filter({ $0.user?.id == userID })
-            videoViews.forEach({ $0.isCamerOn = isCameraOpen})
-            coHostVideoContainerView.cameraStateChange(userID, isOn: isCameraOpen)
+            let videoViews = coHostVideoViews.filter({ $0.userID == userID })
+            videoViews.forEach({ $0.enableCamera(isCameraOpen) })
         }
     }
     
@@ -534,7 +529,7 @@ extension LiveStreamingViewController {
     
     func onReceiveAcceptCoHostApply() {
         self.view.makeToast("onReceiveAcceptCoHostApply", position: .center)
-        let streamID = liveManager.getCoHostMainStreamID()
+        let streamID = ""
         let userID = ZegoSDKManager.shared.expressService.currentUser?.id ?? ""
         let userName = ZegoSDKManager.shared.expressService.currentUser?.name ?? ""
         addCoHost(streamID, userID, userName, isMySelf: true)
@@ -572,15 +567,20 @@ extension LiveStreamingViewController {
         }
         // add cohost
         else {
+            
+            if coHostVideoViews.count == 4 { return }
+            
+            let videoView = VideoView()
+            videoView.update(userID, userName)
+            videoView.enableBorder(true)
+            coHostVideoViews.append(videoView)
             if isMySelf {
-                ZegoSDKManager.shared.expressService.startPublishingStream(streamID)
+                ZegoSDKManager.shared.expressService.startPublishingStream(liveManager.getCoHostMainStreamID())
+                ZegoSDKManager.shared.expressService.startPreview(videoView.renderView,viewMode: .aspectFill)
+            } else {
+                ZegoSDKManager.shared.expressService.startPlayingStream(videoView.renderView, streamID: streamID)
             }
-            let coHostViewModel: CoHostViewModel = CoHostViewModel()
-            coHostViewModel.user = ZegoSDKUser(id: userID, name: userName)
-            coHostViewModel.streamID = streamID
-            coHostVideoViews.insert(coHostViewModel, at: 0)
-            coHostVideoContainerView.coHostModels = coHostVideoViews
-            updateCoHostContainerFrame()
+            updateCoHostConstraints()
         }
     }
     
@@ -590,9 +590,31 @@ extension LiveStreamingViewController {
         if isHost {
             
         } else {
-            coHostVideoViews = coHostVideoViews.filter({ $0.user?.id != stream.user.userID })
-            coHostVideoContainerView.coHostModels = coHostVideoViews
-            updateCoHostContainerFrame()
+            coHostVideoViews.forEach( { $0.removeFromSuperview() } )
+            coHostVideoViews = coHostVideoViews.filter({ $0.userID != stream.user.userID })
+            updateCoHostConstraints()
+        }
+    }
+    
+    func updateCoHostConstraints() {
+        
+        let bottomMargin = 85.0
+        let margin = 5.0
+        let w = 93.0
+        let h = 124.0
+        for (i, view) in coHostVideoViews.enumerated() {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            liveContainerView.addSubview(view)
+            view.layer.cornerRadius = 5.0
+            view.layer.masksToBounds = true
+            
+            let constant: CGFloat = bottomMargin + Double(i) * (h+margin)
+            NSLayoutConstraint.activate([
+                view.widthAnchor.constraint(equalToConstant: w),
+                view.heightAnchor.constraint(equalToConstant: h),
+                view.trailingAnchor.constraint(equalTo: liveContainerView.trailingAnchor, constant: -16),
+                view.bottomAnchor.constraint(equalTo: liveContainerView.bottomAnchor, constant: -constant)
+            ])
         }
     }
 }

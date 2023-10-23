@@ -20,7 +20,7 @@ public class ExpressService: NSObject {
     
     public var currentRoomID: String?
     
-    // StreamID: UserID 
+    // StreamID: UserID
     public var streamDict: [String: String] = [:]
     
     // UserID: UserInfo
@@ -30,7 +30,7 @@ public class ExpressService: NSObject {
     
     public var currentMixerTask: ZegoMixerTask?
     
-    public var currentScenario: ZegoScenario?
+    public var currentScenario: ZegoScenario = .default
         
     public func initWithAppID(appID: UInt32, appSign: String, scenario: ZegoScenario = .default) {
         let profile = ZegoEngineProfile()

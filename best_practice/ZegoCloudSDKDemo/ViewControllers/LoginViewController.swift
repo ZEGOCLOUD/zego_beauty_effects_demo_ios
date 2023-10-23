@@ -29,13 +29,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         // logout
         ZegoSDKManager.shared.disconnectUser()
     }
     
-    func initData() {        
-        ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, enableBeauty: true)
+    func initData() {
+        ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign)
         CallService.shared.initService()
     }
 
@@ -64,11 +63,6 @@ class LoginViewController: UIViewController {
         }
         homeVC.userID = userIDTextField.text ?? "123"
         homeVC.userName = userNameTextField.text ?? "Tina"
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.view.endEditing(true)
     }
 }
 

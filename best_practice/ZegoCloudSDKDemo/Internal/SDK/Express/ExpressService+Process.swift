@@ -17,7 +17,7 @@ extension ExpressService {
                                                                channel: channel)
     }
     
-    public func setCustomVideoProcessHandler(_ handler: ZegoCustomVideoProcessHandler) {
+    public func setCustomVideoProcessHandler(_ handler: ZegoCustomVideoProcessHandler?) {
         ZegoExpressEngine.shared().setCustomVideoProcessHandler(handler)
     }
     

@@ -15,7 +15,7 @@ public class ZegoSDKManager: NSObject {
     
     public var expressService = ExpressService.shared
     public var zimService = ZIMService.shared
-//    public var beautyService = ZegoEffectsService.shared
+    public var beautyService = ZegoEffectsService.shared
         
     public var currentUser: ZegoSDKUser? {
         expressService.currentUser
@@ -26,7 +26,7 @@ public class ZegoSDKManager: NSObject {
     private var appID: UInt32 = 0
     private var appSign: String = ""
     
-    public func initWith(appID: UInt32, appSign: String, enableBeauty: Bool = false) {
+    public func initWith(appID: UInt32, appSign: String) {
         
         self.appID = appID
         self.appSign = appSign
@@ -34,10 +34,6 @@ public class ZegoSDKManager: NSObject {
         expressService.initWithAppID(appID: appID, appSign: appSign)
         zimService.initWithAppID(appID, appSign: appSign)
         
-        if enableBeauty {
-//            beautyService.initWithAppID(appID: appID, appSign: appSign)
-//            enableCustomVideoProcessing()
-        }
     }
     
     public func unInit() {
@@ -119,11 +115,20 @@ public class ZegoSDKManager: NSObject {
         }
     }
     
-    public func enableCustomVideoProcessing() {
+    public func enableCustomVideoProcess() {
         let config = ZegoCustomVideoProcessConfig()
         config.bufferType = .cvPixelBuffer
         expressService.enableCustomVideoProcessing(true, config: config)
         expressService.setCustomVideoProcessHandler(self)
+        
+        FUManager.share().loadFilter()
+        FUManager.share().loadMakeupBundle(withName: "face_makeup")
+    }
+    
+    public func disableCustomVideoProcess() {
+        let config = ZegoCustomVideoProcessConfig()
+        expressService.enableCustomVideoProcessing(false, config: config)
+        expressService.setCustomVideoProcessHandler(nil)
     }
     
     public func uploadLog(callback: CommonCallback?) {
@@ -153,7 +158,7 @@ public class ZegoSDKManager: NSObject {
 
 extension ZegoSDKManager: ZegoCustomVideoProcessHandler {
     public func onStart(_ channel: ZegoPublishChannel) {
-//        let config = expressService.getVideoConfig()
+        let config = expressService.getVideoConfig()
 //        beautyService.initEnv(config.captureResolution)
     }
     
@@ -163,8 +168,12 @@ extension ZegoSDKManager: ZegoCustomVideoProcessHandler {
     
     public func onCapturedUnprocessedCVPixelBuffer(_ buffer: CVPixelBuffer, timestamp: CMTime, channel: ZegoPublishChannel) {
 //        beautyService.processImageBuffer(buffer)
-//        expressService.sendCustomVideoProcessedCVPixelBuffer(buffer,
-//                                                             timestamp: timestamp,
-//                                                             channel: channel)
+        let processedPixelBuffer = FUManager.share().renderItems(to: buffer)
+        if let processedPixelBuffer = processedPixelBuffer {
+            let newBuffer = processedPixelBuffer.takeUnretainedValue()
+            expressService.sendCustomVideoProcessedCVPixelBuffer(newBuffer,
+                                                                 timestamp: timestamp,
+                                                                 channel: channel)
+        }
     }
 }

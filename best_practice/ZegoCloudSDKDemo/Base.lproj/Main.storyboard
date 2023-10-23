@@ -19,17 +19,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Ugr-xk-2EG"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Sfv-Kq-fHg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLi-YC-KmV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1184" y="8"/>
+            <point key="canvasLocation" x="-1776" y="8"/>
         </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,7 +122,7 @@
         <!--Home View Controller-->
         <scene sceneID="EW8-2j-vgJ">
             <objects>
-                <viewController id="Lts-5Q-2cC" customClass="HomeViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lts-5Q-2cC" customClass="HomeViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YiK-D7-PCG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -386,7 +386,7 @@
         <!--Live Streaming View Controller-->
         <scene sceneID="80O-TC-Nkc">
             <objects>
-                <viewController storyboardIdentifier="LiveStreamingViewController" id="863-Jx-pjQ" customClass="LiveStreamingViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LiveStreamingViewController" id="863-Jx-pjQ" customClass="LiveStreamingViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="exU-WR-0nn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -394,7 +394,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K25-rP-KER">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISb-M2-APl" customClass="VideoView" customModule="ZegoCloudSDKDemo" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ISb-M2-APl" customClass="VideoView" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zh3-Fh-LTt">
@@ -781,6 +781,18 @@
                                             <action selector="muteAnotherAudioClick:" destination="863-Jx-pjQ" eventType="touchUpInside" id="jp6-Zf-qyU"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3an-J8-94D" userLabel="Beautify Button">
+                                        <rect key="frame" x="179" y="790" width="42" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="gvu-a1-lz1"/>
+                                            <constraint firstAttribute="width" constant="42" id="yc7-wr-n0b"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="icon_beauty"/>
+                                        <connections>
+                                            <action selector="beautyAction:" destination="863-Jx-pjQ" eventType="touchUpInside" id="cqC-o3-UZF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -793,6 +805,7 @@
                                     <constraint firstAttribute="bottom" secondItem="c51-7G-4ED" secondAttribute="bottom" constant="20" id="M7y-kD-sHR"/>
                                     <constraint firstItem="DRD-oZ-0uI" firstAttribute="centerY" secondItem="uXH-J3-8ih" secondAttribute="centerY" id="Qof-kw-6hn"/>
                                     <constraint firstItem="K21-ld-ACr" firstAttribute="top" secondItem="V3d-Bj-QLI" secondAttribute="top" constant="100" id="Rcb-1R-ard"/>
+                                    <constraint firstItem="e3R-i2-ROm" firstAttribute="leading" secondItem="3an-J8-94D" secondAttribute="trailing" constant="10" id="UmR-Np-cLi"/>
                                     <constraint firstAttribute="trailing" secondItem="c51-7G-4ED" secondAttribute="trailing" constant="16" id="VDe-ee-fkw"/>
                                     <constraint firstItem="uXH-J3-8ih" firstAttribute="leading" secondItem="DRD-oZ-0uI" secondAttribute="trailing" constant="10" id="XQy-8p-giY"/>
                                     <constraint firstAttribute="trailing" secondItem="1OS-Bv-SOj" secondAttribute="trailing" constant="16" id="ZH6-Id-683"/>
@@ -800,6 +813,7 @@
                                     <constraint firstAttribute="trailing" secondItem="YWP-ge-Dpu" secondAttribute="trailing" constant="15" id="eKA-xB-pSd"/>
                                     <constraint firstItem="c51-7G-4ED" firstAttribute="top" secondItem="YWP-ge-Dpu" secondAttribute="bottom" constant="10" id="fra-yW-A7N"/>
                                     <constraint firstItem="bIO-wF-BG1" firstAttribute="leading" secondItem="V3d-Bj-QLI" secondAttribute="leading" constant="16" id="g5W-Hx-3xp"/>
+                                    <constraint firstItem="3an-J8-94D" firstAttribute="centerY" secondItem="e3R-i2-ROm" secondAttribute="centerY" id="gMn-J0-VVB"/>
                                     <constraint firstItem="uXH-J3-8ih" firstAttribute="centerY" secondItem="rCu-Fc-Vde" secondAttribute="centerY" id="ils-r7-lkC"/>
                                     <constraint firstItem="rCu-Fc-Vde" firstAttribute="centerY" secondItem="c51-7G-4ED" secondAttribute="centerY" id="m9G-mP-M79"/>
                                     <constraint firstItem="NnR-vj-zBW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bIO-wF-BG1" secondAttribute="trailing" priority="250" constant="30" id="ngv-dy-5sp"/>
@@ -854,9 +868,23 @@
                                             <action selector="startLive:" destination="863-Jx-pjQ" eventType="touchUpInside" id="iUD-M8-3uG"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79H-dj-cwD" userLabel="Beautify Button">
+                                        <rect key="frame" x="57.666666666666657" y="788" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="HOz-Bg-naw"/>
+                                            <constraint firstAttribute="width" constant="44" id="Nd7-ee-ixg"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="icon_beauty"/>
+                                        <connections>
+                                            <action selector="beautyAction:" destination="863-Jx-pjQ" eventType="touchUpInside" id="5Ka-Xw-qQT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="79H-dj-cwD" firstAttribute="centerY" secondItem="5sg-9j-Qfc" secondAttribute="centerY" id="JSL-Th-AMb"/>
+                                    <constraint firstItem="5sg-9j-Qfc" firstAttribute="leading" secondItem="79H-dj-cwD" secondAttribute="trailing" constant="20" id="jhP-q2-MEq"/>
                                     <constraint firstItem="5sg-9j-Qfc" firstAttribute="centerX" secondItem="PdE-Ir-D2I" secondAttribute="centerX" id="rRV-cw-mlP"/>
                                 </constraints>
                             </view>
@@ -897,6 +925,7 @@
                         <outlet property="anotherHostMixForegroundView" destination="Z6a-BW-pwc" id="cX9-nx-QEM"/>
                         <outlet property="anotherHostMixHeadLabel" destination="yE2-hy-2RD" id="JyJ-Cn-nCs"/>
                         <outlet property="anotherHostStreamView" destination="gcv-v7-bbC" id="EAn-9j-pew"/>
+                        <outlet property="beautyButton" destination="79H-dj-cwD" id="4YD-lS-hNU"/>
                         <outlet property="cameraButton" destination="e3R-i2-ROm" id="7eI-E2-EqB"/>
                         <outlet property="coHostButton" destination="c51-7G-4ED" id="a5W-IN-acP"/>
                         <outlet property="coHostWidthConstraint" destination="bmf-rP-p3g" id="6CV-R4-tA9"/>
@@ -937,7 +966,7 @@
         <!--Apply Co Host List View Controller-->
         <scene sceneID="xQA-bS-RrF">
             <objects>
-                <viewController storyboardIdentifier="ApplyCoHostListViewController" id="LpA-5p-VdR" customClass="ApplyCoHostListViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ApplyCoHostListViewController" id="LpA-5p-VdR" customClass="ApplyCoHostListViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0PX-i6-8Jo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -968,7 +997,7 @@
         <!--Live Audio Room View Controller-->
         <scene sceneID="YTc-WN-xjb">
             <objects>
-                <viewController storyboardIdentifier="LiveAudioRoomViewController" id="S6s-H3-HoD" customClass="LiveAudioRoomViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LiveAudioRoomViewController" id="S6s-H3-HoD" customClass="LiveAudioRoomViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tBx-sb-yfk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1106,7 +1135,7 @@
         <!--AppID View Controller-->
         <scene sceneID="Qxx-r4-SST">
             <objects>
-                <viewController storyboardIdentifier="AppIDViewController" id="iPi-S5-Czw" customClass="AppIDViewController" customModule="ZegoCloudSDKDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AppIDViewController" id="iPi-S5-Czw" customClass="AppIDViewController" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2F1-2O-Zh4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1181,7 +1210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vai-Th-EBw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-689" y="687"/>
+            <point key="canvasLocation" x="-1019" y="8"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1192,6 +1221,7 @@
         <image name="bottom_member" width="51" height="51"/>
         <image name="bottom_mic_on" width="34" height="34"/>
         <image name="bottombar_lianmai" width="24" height="24"/>
+        <image name="icon_beauty" width="88" height="88"/>
         <image name="icon_camera_flip" width="48" height="48"/>
         <image name="icon_camera_normal" width="48" height="48"/>
         <image name="icon_camera_off" width="48" height="48"/>

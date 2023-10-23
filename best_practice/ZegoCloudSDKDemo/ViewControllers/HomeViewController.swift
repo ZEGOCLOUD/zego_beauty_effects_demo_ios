@@ -93,7 +93,7 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - Call Invitation
-extension HomeViewController {            
+extension HomeViewController {
     func showCallWaitingPage(invitee: ZegoSDKUser) {
         let callWaitingVC: CallWaitingViewController = Bundle.main.loadNibNamed("CallWaitingViewController", owner: self, options: nil)?.first as! CallWaitingViewController
         callWaitingVC.modalPresentationStyle = .fullScreen

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="BeautyTableSliderCell" customModule="ZegoBeautyEffectsDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="yyG-Bm-tgI">
+                        <rect key="frame" x="73" y="9.6666666666666643" width="239" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="VZZ-ZL-cmA"/>
+                        </constraints>
+                        <connections>
+                            <action selector="sliderValueChange:" destination="KGk-i7-Jjw" eventType="valueChanged" id="YcL-PV-wen"/>
+                        </connections>
+                    </slider>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ei0-rN-kSY">
+                        <rect key="frame" x="10" y="12" width="60" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="XLN-9m-PXJ"/>
+                            <constraint firstAttribute="width" constant="60" id="mgr-5W-b4b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yyG-Bm-tgI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6Jb-Sc-mvv"/>
+                    <constraint firstAttribute="trailing" secondItem="yyG-Bm-tgI" secondAttribute="trailing" constant="10" id="8AU-Yz-c9y"/>
+                    <constraint firstItem="ei0-rN-kSY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="E6W-EG-FU6"/>
+                    <constraint firstItem="ei0-rN-kSY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TJq-Nk-njx"/>
+                    <constraint firstItem="yyG-Bm-tgI" firstAttribute="leading" secondItem="ei0-rN-kSY" secondAttribute="trailing" constant="5" id="Wfc-Kh-C4X"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="beautyTitleLabel" destination="ei0-rN-kSY" id="IzD-HQ-gvd"/>
+                <outlet property="slider" destination="yyG-Bm-tgI" id="Ljn-Y8-TMM"/>
+            </connections>
+            <point key="canvasLocation" x="77.862595419847324" y="20.422535211267608"/>
+        </tableViewCell>
+    </objects>
+</document>

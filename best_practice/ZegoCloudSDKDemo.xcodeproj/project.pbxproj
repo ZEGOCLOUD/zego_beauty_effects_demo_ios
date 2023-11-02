@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860624772AF34401006B04A8 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860624762AF34401006B04A8 /* KeyCenter.swift */; };
 		8626D3F32AB977E800732106 /* BeautySliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3F22AB977E800732106 /* BeautySliderView.swift */; };
 		8626D3F62AB97E6000732106 /* BeautyTableSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8626D3F42AB97E6000732106 /* BeautyTableSliderCell.swift */; };
 		8626D3F72AB97E6000732106 /* BeautyTableSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8626D3F52AB97E6000732106 /* BeautyTableSliderCell.xib */; };
@@ -58,7 +59,6 @@
 		8E318D7C29D573D5001596F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E318D7A29D573D5001596F3 /* LaunchScreen.storyboard */; };
 		8E318D8A29D5802F001596F3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D8929D5802F001596F3 /* Utils.swift */; };
 		8E318D8C29D586D6001596F3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D8B29D586D6001596F3 /* HomeViewController.swift */; };
-		8E318D8E29D681FC001596F3 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D8D29D681FC001596F3 /* KeyCenter.swift */; };
 		8E4DD6712A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4DD6702A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift */; };
 		8E4DD6732A5FF02400E0B5BE /* BeautyResources in Resources */ = {isa = PBXBuildFile; fileRef = 8E4DD6722A5FF02400E0B5BE /* BeautyResources */; };
 		8E7CB8CC2A556335004849EF /* ZIMService+Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7CB8CB2A556335004849EF /* ZIMService+Room.swift */; };
@@ -99,6 +99,7 @@
 		0FF20EB25DD69251B06F7D9A /* Pods-ZegoCloudSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoCloudSDKDemo.debug.xcconfig"; path = "Target Support Files/Pods-ZegoCloudSDKDemo/Pods-ZegoCloudSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		2F397B0136CD337546B1B0F6 /* Pods_ZegoCloudSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoCloudSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E08F8991104836EBC78858B /* Pods-ZegoCloudSDKDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoCloudSDKDemo.release.xcconfig"; path = "Target Support Files/Pods-ZegoCloudSDKDemo/Pods-ZegoCloudSDKDemo.release.xcconfig"; sourceTree = "<group>"; };
+		860624762AF34401006B04A8 /* KeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		8626D3F22AB977E800732106 /* BeautySliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautySliderView.swift; sourceTree = "<group>"; };
 		8626D3F42AB97E6000732106 /* BeautyTableSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyTableSliderCell.swift; sourceTree = "<group>"; };
 		8626D3F52AB97E6000732106 /* BeautyTableSliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BeautyTableSliderCell.xib; sourceTree = "<group>"; };
@@ -154,7 +155,6 @@
 		8E318D7D29D573D5001596F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E318D8929D5802F001596F3 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		8E318D8B29D586D6001596F3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		8E318D8D29D681FC001596F3 /* KeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		8E4DD6702A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZegoEffectsService+Extension.swift"; sourceTree = "<group>"; };
 		8E4DD6722A5FF02400E0B5BE /* BeautyResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BeautyResources; sourceTree = "<group>"; };
 		8E7CB8CB2A556335004849EF /* ZIMService+Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZIMService+Room.swift"; sourceTree = "<group>"; };
@@ -416,7 +416,7 @@
 				8EBB67482A05FBDC00832D8D /* Internal */,
 				8E318D6F29D573D4001596F3 /* AppDelegate.swift */,
 				8E318D7129D573D4001596F3 /* SceneDelegate.swift */,
-				8E318D8D29D681FC001596F3 /* KeyCenter.swift */,
+				860624762AF34401006B04A8 /* KeyCenter.swift */,
 				8E3034A52A6FBEF200B77973 /* ZegoCallManager.swift */,
 				8E3034A32A6FBEF100B77973 /* ZegoLiveAudioRoomManager.swift */,
 				8E3034A42A6FBEF100B77973 /* ZegoLiveStreamingManager.swift */,
@@ -733,6 +733,7 @@
 				8E318D7229D573D4001596F3 /* SceneDelegate.swift in Sources */,
 				8626D3F32AB977E800732106 /* BeautySliderView.swift in Sources */,
 				8E1B926429DACEE00097C9ED /* ExpressService+Device.swift in Sources */,
+				860624772AF34401006B04A8 /* KeyCenter.swift in Sources */,
 				8EAE31F629D6C58700305045 /* ExpressService.swift in Sources */,
 				8626D4022AB9A3AF00732106 /* FUManager.m in Sources */,
 				8E7CB8CE2A5563FF004849EF /* ZIMService+Avatar.swift in Sources */,
@@ -747,7 +748,6 @@
 				8EEE4C072A0A296A0051F6B2 /* EffectBackgroundView.swift in Sources */,
 				8E1B926B29DBD1260097C9ED /* VideoView.swift in Sources */,
 				8EEE4BF82A0653DB0051F6B2 /* ExpressService+Process.swift in Sources */,
-				8E318D8E29D681FC001596F3 /* KeyCenter.swift in Sources */,
 				8E7CB8E22A569765004849EF /* ZegoIncomingCallDialog.swift in Sources */,
 				8E3034AF2A6FC09700B77973 /* ZegoSeatView.swift in Sources */,
 				8E7E12372A7248E600CA8791 /* AppIDViewController.swift in Sources */,

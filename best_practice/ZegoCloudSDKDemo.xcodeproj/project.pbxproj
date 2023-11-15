@@ -13,6 +13,19 @@
 		86A39D962AE656EC00F8AD81 /* ZegoExpressEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 86A39D952AE656EC00F8AD81 /* ZegoExpressEngine */; };
 		86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB24F29FB741400DA4BF3 /* ZIMService.swift */; };
 		86AEB25629FBA55200DA4BF3 /* ZIMService+UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB25529FBA55200DA4BF3 /* ZIMService+UserRequest.swift */; };
+		86DE8E232B0466F400B1C4B8 /* PKBattleMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E1D2B0466F400B1C4B8 /* PKBattleMixView.swift */; };
+		86DE8E242B0466F400B1C4B8 /* PKBattleViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E1E2B0466F400B1C4B8 /* PKBattleViewContainer.swift */; };
+		86DE8E252B0466F400B1C4B8 /* PKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E1F2B0466F400B1C4B8 /* PKButton.swift */; };
+		86DE8E262B0466F400B1C4B8 /* PKConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E202B0466F400B1C4B8 /* PKConnectingView.swift */; };
+		86DE8E272B0466F400B1C4B8 /* PKForegroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E212B0466F400B1C4B8 /* PKForegroundView.swift */; };
+		86DE8E282B0466F400B1C4B8 /* PKBattleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E222B0466F400B1C4B8 /* PKBattleView.swift */; };
+		86DE8E2A2B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E292B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */; };
+		86DE8E2D2B04686A00B1C4B8 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E2B2B04686A00B1C4B8 /* String+Extension.swift */; };
+		86DE8E2E2B04686A00B1C4B8 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E2C2B04686A00B1C4B8 /* Array+Extension.swift */; };
+		86DE8E312B04695800B1C4B8 /* CoHostContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E2F2B04695800B1C4B8 /* CoHostContainerView.swift */; };
+		86DE8E322B04695800B1C4B8 /* CoHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E302B04695800B1C4B8 /* CoHostViewModel.swift */; };
+		86DE8E352B046A9000B1C4B8 /* PKService+ExpressEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E332B046A8F00B1C4B8 /* PKService+ExpressEventHandler.swift */; };
+		86DE8E362B046A9000B1C4B8 /* PKService+ZIMEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E342B046A9000B1C4B8 /* PKService+ZIMEventHandler.swift */; };
 		8E1B926029DACBF00097C9ED /* ExpressServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */; };
 		8E1B926229DACEAF0097C9ED /* ExpressService+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B926129DACEAF0097C9ED /* ExpressService+Stream.swift */; };
 		8E1B926429DACEE00097C9ED /* ExpressService+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B926329DACEE00097C9ED /* ExpressService+Device.swift */; };
@@ -93,6 +106,19 @@
 		860624742AF34344006B04A8 /* KeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		86AEB24F29FB741400DA4BF3 /* ZIMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZIMService.swift; sourceTree = "<group>"; };
 		86AEB25529FBA55200DA4BF3 /* ZIMService+UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZIMService+UserRequest.swift"; sourceTree = "<group>"; };
+		86DE8E1D2B0466F400B1C4B8 /* PKBattleMixView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBattleMixView.swift; sourceTree = "<group>"; };
+		86DE8E1E2B0466F400B1C4B8 /* PKBattleViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBattleViewContainer.swift; sourceTree = "<group>"; };
+		86DE8E1F2B0466F400B1C4B8 /* PKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKButton.swift; sourceTree = "<group>"; };
+		86DE8E202B0466F400B1C4B8 /* PKConnectingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKConnectingView.swift; sourceTree = "<group>"; };
+		86DE8E212B0466F400B1C4B8 /* PKForegroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKForegroundView.swift; sourceTree = "<group>"; };
+		86DE8E222B0466F400B1C4B8 /* PKBattleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKBattleView.swift; sourceTree = "<group>"; };
+		86DE8E292B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ZegoLiveStreamingManager+ExpressEventHandler.swift"; sourceTree = "<group>"; };
+		86DE8E2B2B04686A00B1C4B8 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		86DE8E2C2B04686A00B1C4B8 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		86DE8E2F2B04695800B1C4B8 /* CoHostContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoHostContainerView.swift; sourceTree = "<group>"; };
+		86DE8E302B04695800B1C4B8 /* CoHostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoHostViewModel.swift; sourceTree = "<group>"; };
+		86DE8E332B046A8F00B1C4B8 /* PKService+ExpressEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PKService+ExpressEventHandler.swift"; sourceTree = "<group>"; };
+		86DE8E342B046A9000B1C4B8 /* PKService+ZIMEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PKService+ZIMEventHandler.swift"; sourceTree = "<group>"; };
 		8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressServiceDelegate.swift; sourceTree = "<group>"; };
 		8E1B926129DACEAF0097C9ED /* ExpressService+Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpressService+Stream.swift"; sourceTree = "<group>"; };
 		8E1B926329DACEE00097C9ED /* ExpressService+Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpressService+Device.swift"; sourceTree = "<group>"; };
@@ -201,6 +227,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		86DE8E1C2B0466F400B1C4B8 /* PK */ = {
+			isa = PBXGroup;
+			children = (
+				86DE8E1D2B0466F400B1C4B8 /* PKBattleMixView.swift */,
+				86DE8E1E2B0466F400B1C4B8 /* PKBattleViewContainer.swift */,
+				86DE8E1F2B0466F400B1C4B8 /* PKButton.swift */,
+				86DE8E202B0466F400B1C4B8 /* PKConnectingView.swift */,
+				86DE8E212B0466F400B1C4B8 /* PKForegroundView.swift */,
+				86DE8E222B0466F400B1C4B8 /* PKBattleView.swift */,
+			);
+			path = PK;
+			sourceTree = "<group>";
+		};
 		8E1B929229DE707E0097C9ED /* Defines */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +252,7 @@
 		8E30347F2A6E6B7A00B77973 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				86DE8E1C2B0466F400B1C4B8 /* PK */,
 				8E1B926A29DBD1250097C9ED /* VideoView.swift */,
 				8EBB67522A06045300832D8D /* Effects */,
 				8E3034822A6E73A700B77973 /* AudioRoom */,
@@ -237,6 +277,8 @@
 			children = (
 				8E3034AB2A6FC07B00B77973 /* CoHostTableViewCell.swift */,
 				8E3034AA2A6FC07B00B77973 /* CoHostTableViewCell.xib */,
+				86DE8E2F2B04695800B1C4B8 /* CoHostContainerView.swift */,
+				86DE8E302B04695800B1C4B8 /* CoHostViewModel.swift */,
 			);
 			path = CoHost;
 			sourceTree = "<group>";
@@ -277,6 +319,8 @@
 				8E3034902A6FBCF600B77973 /* PKDefines.swift */,
 				8E3034912A6FBCF600B77973 /* PKInvitation.swift */,
 				8E3034922A6FBCF600B77973 /* PKService.swift */,
+				86DE8E332B046A8F00B1C4B8 /* PKService+ExpressEventHandler.swift */,
+				86DE8E342B046A9000B1C4B8 /* PKService+ZIMEventHandler.swift */,
 			);
 			path = PK;
 			sourceTree = "<group>";
@@ -355,6 +399,7 @@
 				8E3034A52A6FBEF200B77973 /* ZegoCallManager.swift */,
 				8E3034A32A6FBEF100B77973 /* ZegoLiveAudioRoomManager.swift */,
 				8E3034A42A6FBEF100B77973 /* ZegoLiveStreamingManager.swift */,
+				86DE8E292B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */,
 				8E318D8929D5802F001596F3 /* Utils.swift */,
 				8E7CB8E42A56978E004849EF /* ZegoDefine.swift */,
 				8E318D7529D573D4001596F3 /* Main.storyboard */,
@@ -368,6 +413,8 @@
 		8EAE31F329D6C40900305045 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				86DE8E2C2B04686A00B1C4B8 /* Array+Extension.swift */,
+				86DE8E2B2B04686A00B1C4B8 /* String+Extension.swift */,
 				8E3034B42A6FEA7300B77973 /* UIImageView+Extension.swift */,
 				8E1B928E29DE6D900097C9ED /* Dictionary+Extension.swift */,
 				8EEE4C042A09F9A20051F6B2 /* UIColor+Hex.swift */,
@@ -621,18 +668,23 @@
 				8EEE4BFD2A089FB90051F6B2 /* BeautyEditor.swift in Sources */,
 				8E30348D2A6FBB8700B77973 /* ExpressService+SEI.swift in Sources */,
 				8E1B926629DAD0160097C9ED /* ExpressService+Room.swift in Sources */,
+				86DE8E2E2B04686A00B1C4B8 /* Array+Extension.swift in Sources */,
 				8EEE4C032A09F8E20051F6B2 /* ZegoSlider.swift in Sources */,
+				86DE8E282B0466F400B1C4B8 /* PKBattleView.swift in Sources */,
 				8EEE4BFB2A08987D0051F6B2 /* BeautyAbility.swift in Sources */,
 				8EEE4BFF2A08D78D0051F6B2 /* BeautyItem.swift in Sources */,
 				8E30349E2A6FBCF600B77973 /* CoHostService.swift in Sources */,
+				86DE8E232B0466F400B1C4B8 /* PKBattleMixView.swift in Sources */,
 				8E1B926829DAD2CF0097C9ED /* ExpressService+EventHandler.swift in Sources */,
 				8EBB67562A062DA500832D8D /* EffectsSDKHelper.swift in Sources */,
 				8EBB67592A0633D100832D8D /* BeautyType.swift in Sources */,
 				8EAE31F229D6C3F800305045 /* ZegoSDKManager.swift in Sources */,
 				8E3034A62A6FBEF200B77973 /* ZegoLiveAudioRoomManager.swift in Sources */,
 				8E318D7429D573D4001596F3 /* LoginViewController.swift in Sources */,
+				86DE8E252B0466F400B1C4B8 /* PKButton.swift in Sources */,
 				8E3034AD2A6FC07B00B77973 /* CoHostTableViewCell.swift in Sources */,
 				8E3034A72A6FBEF200B77973 /* ZegoLiveStreamingManager.swift in Sources */,
+				86DE8E322B04695800B1C4B8 /* CoHostViewModel.swift in Sources */,
 				8EEE4C092A0A47240051F6B2 /* FaceBeautifyData.swift in Sources */,
 				8EAE31F029D6898E00305045 /* LiveStreamingViewController.swift in Sources */,
 				86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */,
@@ -645,6 +697,8 @@
 				8E318D7229D573D4001596F3 /* SceneDelegate.swift in Sources */,
 				8E1B926429DACEE00097C9ED /* ExpressService+Device.swift in Sources */,
 				8EAE31F629D6C58700305045 /* ExpressService.swift in Sources */,
+				86DE8E242B0466F400B1C4B8 /* PKBattleViewContainer.swift in Sources */,
+				86DE8E2D2B04686A00B1C4B8 /* String+Extension.swift in Sources */,
 				8E7CB8CE2A5563FF004849EF /* ZIMService+Avatar.swift in Sources */,
 				8E4DD6712A5FA37D00E0B5BE /* ZegoEffectsService+Extension.swift in Sources */,
 				8E3034A02A6FBCF600B77973 /* RoomSeatService.swift in Sources */,
@@ -653,6 +707,7 @@
 				8EEE4C012A09F2030051F6B2 /* FaceBeautifyView.swift in Sources */,
 				86AEB25629FBA55200DA4BF3 /* ZIMService+UserRequest.swift in Sources */,
 				8E3034A22A6FBCF600B77973 /* ZegoLiveAudioRoomLayoutConfig.swift in Sources */,
+				86DE8E2A2B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift in Sources */,
 				8EEE4C0C2A0A48F20051F6B2 /* BeautyTitleCell.swift in Sources */,
 				8EEE4C072A0A296A0051F6B2 /* EffectBackgroundView.swift in Sources */,
 				8E1B926B29DBD1260097C9ED /* VideoView.swift in Sources */,
@@ -660,24 +715,29 @@
 				8E7CB8E22A569765004849EF /* ZegoIncomingCallDialog.swift in Sources */,
 				8E3034AF2A6FC09700B77973 /* ZegoSeatView.swift in Sources */,
 				8E7E12372A7248E600CA8791 /* AppIDViewController.swift in Sources */,
+				86DE8E352B046A9000B1C4B8 /* PKService+ExpressEventHandler.swift in Sources */,
 				8E1B929129DE6FEC0097C9ED /* ServiceDefines.swift in Sources */,
 				860624752AF34344006B04A8 /* KeyCenter.swift in Sources */,
+				86DE8E312B04695800B1C4B8 /* CoHostContainerView.swift in Sources */,
 				8E30349D2A6FBCF600B77973 /* PKService.swift in Sources */,
 				8E7CB8D82A56967B004849EF /* CallWaitingViewController.swift in Sources */,
 				8E30349C2A6FBCF600B77973 /* PKInvitation.swift in Sources */,
 				8EEE4C052A09F9A20051F6B2 /* UIColor+Hex.swift in Sources */,
 				8E3034852A6E75A400B77973 /* ZIMServiceDelegate.swift in Sources */,
 				8E7CB8CC2A556335004849EF /* ZIMService+Room.swift in Sources */,
+				86DE8E362B046A9000B1C4B8 /* PKService+ZIMEventHandler.swift in Sources */,
 				8E3034B32A6FE9A600B77973 /* ApplyCoHostListViewController.swift in Sources */,
 				8EAE31F929D6D78000305045 /* ZegoSDKUser.swift in Sources */,
 				8E30349F2A6FBCF600B77973 /* ZegoCallDataModel.swift in Sources */,
 				8E1B928F29DE6D900097C9ED /* Dictionary+Extension.swift in Sources */,
 				8E7CB8E72A56978E004849EF /* ZegoDefine.swift in Sources */,
+				86DE8E262B0466F400B1C4B8 /* PKConnectingView.swift in Sources */,
 				8E30348C2A6FBB8700B77973 /* ExpressService+Mixer.swift in Sources */,
 				8E318D8A29D5802F001596F3 /* Utils.swift in Sources */,
 				8E3034B52A6FEA7300B77973 /* UIImageView+Extension.swift in Sources */,
 				8E3034B12A6FC72000B77973 /* CallService.swift in Sources */,
 				8E30349B2A6FBCF600B77973 /* PKDefines.swift in Sources */,
+				86DE8E272B0466F400B1C4B8 /* PKForegroundView.swift in Sources */,
 				8EBB674C2A05FEAC00832D8D /* ZIMService+EventHandler.swift in Sources */,
 				8EEE4C0E2A0B4B700051F6B2 /* BeautyItemCell.swift in Sources */,
 				8E7CB8D72A56967B004849EF /* CallingViewController.swift in Sources */,

@@ -15,7 +15,8 @@ public class ZegoSDKManager: NSObject {
     
     public var expressService = ExpressService.shared
     public var zimService = ZIMService.shared
-//    public var beautyService = ZegoEffectsService.shared
+//    public var beautyService = BeautyService.shared
+    public var deepARService = DeepARService.shared
         
     public var currentUser: ZegoSDKUser? {
         expressService.currentUser
@@ -25,6 +26,8 @@ public class ZegoSDKManager: NSObject {
     
     private var appID: UInt32 = 0
     private var appSign: String = ""
+    
+    let serialQueue = DispatchQueue(label: "com.yourdomain.serialQueue", qos: .userInitiated)
     
     public func initWith(appID: UInt32, appSign: String, enableBeauty: Bool = false) {
         
@@ -40,10 +43,26 @@ public class ZegoSDKManager: NSObject {
         }
     }
     
+    public func initWith(appID: UInt32, appSign: String, deeparLicenseKey: String) {
+        self.appID = appID
+        self.appSign = appSign
+        
+        expressService.initWithAppID(appID: appID, appSign: appSign)
+        zimService.initWithAppID(appID, appSign: appSign)
+        deepARService.initWithLicense(deeparLicenseKey)
+        deepARService.addEventHandler(self)
+        
+        ZegoExpressEngine.shared().setVideoMirrorMode(.noMirror)
+        expressService.setCustomVideoProcessHandler(self)
+        enableCustomVideoProcessing()
+    }
+
+    
     public func unInit() {
         zimService.unInit()
 //        beautyService.unInit()
     }
+    
     
     public func connectUser(userID: String,
                             userName: String,
@@ -60,6 +79,7 @@ public class ZegoSDKManager: NSObject {
         zimService.leaveRoom(callback: nil)
         zimService.disconnectUser()
     }
+
     
     public func loginRoom(_ roomID: String,
                          roomName: String? = nil,
@@ -151,20 +171,24 @@ public class ZegoSDKManager: NSObject {
     }
 }
 
-extension ZegoSDKManager: ZegoCustomVideoProcessHandler {
+extension ZegoSDKManager: ZegoCustomVideoProcessHandler, DeepARServiceDelegate {
     public func onStart(_ channel: ZegoPublishChannel) {
-//        let config = expressService.getVideoConfig()
-//        beautyService.initEnv(config.captureResolution)
+        
+        
     }
     
     public func onStop(_ channel: ZegoPublishChannel) {
-//        beautyService.uninitEnv()
+        
     }
     
     public func onCapturedUnprocessedCVPixelBuffer(_ buffer: CVPixelBuffer, timestamp: CMTime, channel: ZegoPublishChannel) {
-//        beautyService.processImageBuffer(buffer)
-//        expressService.sendCustomVideoProcessedCVPixelBuffer(buffer,
-//                                                             timestamp: timestamp,
-//                                                             channel: channel)
+        serialQueue.async {
+            let width = CVPixelBufferGetWidth(buffer)
+            let height = CVPixelBufferGetHeight(buffer)
+            self.deepARService.setRenderingResolution(width: width, height: height)
+            self.deepARService.sendPixelBufferToDeepAR(sampleBuffer: buffer, outputBuffer: buffer, mirror: false)
+            self.expressService.sendCustomVideoProcessedCVPixelBuffer(buffer, timestamp: timestamp, channel: channel)
+        }
     }
+    
 }

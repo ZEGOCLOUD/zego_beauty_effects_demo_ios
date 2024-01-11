@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,7 @@
 		863B285F2A56ABC300613C8F /* PKDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863B285E2A56ABC300613C8F /* PKDefines.swift */; };
 		863B28612A56AC2500613C8F /* PKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863B28602A56AC2500613C8F /* PKService.swift */; };
 		863B28632A56BE4900613C8F /* CoHostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863B28622A56BE4900613C8F /* CoHostService.swift */; };
+		8642D8DE2B4D41C700978755 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 8642D8DD2B4D41C700978755 /* Toast */; };
 		866AE59D2A31B1DD002C32A9 /* ZegoExpressEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 866AE59C2A31B1DD002C32A9 /* ZegoExpressEngine */; };
 		866C753D2AD7993E0018BC74 /* CoHostContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C753C2AD7993E0018BC74 /* CoHostContainerView.swift */; };
 		866C75432AD7A45F0018BC74 /* CoHostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C75422AD7A45F0018BC74 /* CoHostViewModel.swift */; };
@@ -63,6 +64,30 @@
 		86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB24F29FB741400DA4BF3 /* ZIMService.swift */; };
 		86AEB25629FBA55200DA4BF3 /* ZIMService+RoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB25529FBA55200DA4BF3 /* ZIMService+RoomRequest.swift */; };
 		86B75B192AFCD30B00608395 /* ZegoLiveStreamingManager+ExpressEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B75B182AFCD30A00608395 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */; };
+		86C287302B4E8B7C00BC22A9 /* DeepARToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C2872F2B4E8B7C00BC22A9 /* DeepARToggleView.swift */; };
+		86C287332B4F8C8E00BC22A9 /* DeepAR in Frameworks */ = {isa = PBXBuildFile; productRef = 86C287322B4F8C8E00BC22A9 /* DeepAR */; };
+		86CE245E2B4CF1570006684A /* DeepARService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE245D2B4CF1570006684A /* DeepARService.swift */; };
+		86CE24602B4CF2D70006684A /* DeepAR+EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE245F2B4CF2D70006684A /* DeepAR+EventHandler.swift */; };
+		86CE24622B4CF7AF0006684A /* DeepARServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE24612B4CF7AF0006684A /* DeepARServiceDelegate.swift */; };
+		86CE24652B4CFCB40006684A /* Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CE24642B4CFCB40006684A /* Define.swift */; };
+		86CE24792B4CFCE30006684A /* MakeupLook.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24672B4CFCE30006684A /* MakeupLook.deepar */; };
+		86CE247A2B4CFCE30006684A /* Neon_Devil_Horns.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24682B4CFCE30006684A /* Neon_Devil_Horns.deepar */; };
+		86CE247B2B4CFCE30006684A /* Pixel_Hearts.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24692B4CFCE30006684A /* Pixel_Hearts.deepar */; };
+		86CE247C2B4CFCE30006684A /* Fire_Effect.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246A2B4CFCE30006684A /* Fire_Effect.deepar */; };
+		86CE247D2B4CFCE30006684A /* burning_effect.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246B2B4CFCE30006684A /* burning_effect.deepar */; };
+		86CE247E2B4CFCE30006684A /* Emotion_Meter.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246C2B4CFCE30006684A /* Emotion_Meter.deepar */; };
+		86CE247F2B4CFCE30006684A /* Humanoid.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246D2B4CFCE30006684A /* Humanoid.deepar */; };
+		86CE24802B4CFCE30006684A /* Emotions_Exaggerator.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246E2B4CFCE30006684A /* Emotions_Exaggerator.deepar */; };
+		86CE24812B4CFCE30006684A /* Split_View_Look.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE246F2B4CFCE30006684A /* Split_View_Look.deepar */; };
+		86CE24822B4CFCE30006684A /* Hope.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24702B4CFCE30006684A /* Hope.deepar */; };
+		86CE24832B4CFCE30006684A /* Stallone.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24712B4CFCE30006684A /* Stallone.deepar */; };
+		86CE24842B4CFCE30006684A /* Ping_Pong.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24722B4CFCE30006684A /* Ping_Pong.deepar */; };
+		86CE24852B4CFCE30006684A /* Elephant_Trunk.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24732B4CFCE30006684A /* Elephant_Trunk.deepar */; };
+		86CE24862B4CFCE30006684A /* Vendetta_Mask.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24742B4CFCE30006684A /* Vendetta_Mask.deepar */; };
+		86CE24872B4CFCE30006684A /* Snail.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24752B4CFCE30006684A /* Snail.deepar */; };
+		86CE24882B4CFCE30006684A /* galaxy_background.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24762B4CFCE30006684A /* galaxy_background.deepar */; };
+		86CE24892B4CFCE30006684A /* flower_face.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24772B4CFCE30006684A /* flower_face.deepar */; };
+		86CE248A2B4CFCE30006684A /* viking_helmet.deepar in Resources */ = {isa = PBXBuildFile; fileRef = 86CE24782B4CFCE30006684A /* viking_helmet.deepar */; };
 		86E17B622A3301770086C9C0 /* ExpressService+SEI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E17B612A3301770086C9C0 /* ExpressService+SEI.swift */; };
 		8E1B926029DACBF00097C9ED /* ExpressServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */; };
 		8E1B926229DACEAF0097C9ED /* ExpressService+Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B926129DACEAF0097C9ED /* ExpressService+Stream.swift */; };
@@ -73,7 +98,6 @@
 		8E1B928F29DE6D900097C9ED /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B928E29DE6D900097C9ED /* Dictionary+Extension.swift */; };
 		8E1B929129DE6FEC0097C9ED /* ServiceDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B929029DE6FEC0097C9ED /* ServiceDefines.swift */; };
 		8E1B929429DE70A20097C9ED /* RoomRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B929329DE70A20097C9ED /* RoomRequest.swift */; };
-		8E1B929729DEB4E10097C9ED /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 8E1B929629DEB4E10097C9ED /* Toast */; };
 		8E318D7029D573D4001596F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D6F29D573D4001596F3 /* AppDelegate.swift */; };
 		8E318D7229D573D4001596F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D7129D573D4001596F3 /* SceneDelegate.swift */; };
 		8E318D7429D573D4001596F3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E318D7329D573D4001596F3 /* LoginViewController.swift */; };
@@ -146,6 +170,29 @@
 		86AEB24F29FB741400DA4BF3 /* ZIMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZIMService.swift; sourceTree = "<group>"; };
 		86AEB25529FBA55200DA4BF3 /* ZIMService+RoomRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZIMService+RoomRequest.swift"; sourceTree = "<group>"; };
 		86B75B182AFCD30A00608395 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZegoLiveStreamingManager+ExpressEventHandler.swift"; sourceTree = "<group>"; };
+		86C2872F2B4E8B7C00BC22A9 /* DeepARToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepARToggleView.swift; sourceTree = "<group>"; };
+		86CE245D2B4CF1570006684A /* DeepARService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepARService.swift; sourceTree = "<group>"; };
+		86CE245F2B4CF2D70006684A /* DeepAR+EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeepAR+EventHandler.swift"; sourceTree = "<group>"; };
+		86CE24612B4CF7AF0006684A /* DeepARServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepARServiceDelegate.swift; sourceTree = "<group>"; };
+		86CE24642B4CFCB40006684A /* Define.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Define.swift; sourceTree = "<group>"; };
+		86CE24672B4CFCE30006684A /* MakeupLook.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = MakeupLook.deepar; sourceTree = "<group>"; };
+		86CE24682B4CFCE30006684A /* Neon_Devil_Horns.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Neon_Devil_Horns.deepar; sourceTree = "<group>"; };
+		86CE24692B4CFCE30006684A /* Pixel_Hearts.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pixel_Hearts.deepar; sourceTree = "<group>"; };
+		86CE246A2B4CFCE30006684A /* Fire_Effect.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fire_Effect.deepar; sourceTree = "<group>"; };
+		86CE246B2B4CFCE30006684A /* burning_effect.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = burning_effect.deepar; sourceTree = "<group>"; };
+		86CE246C2B4CFCE30006684A /* Emotion_Meter.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emotion_Meter.deepar; sourceTree = "<group>"; };
+		86CE246D2B4CFCE30006684A /* Humanoid.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Humanoid.deepar; sourceTree = "<group>"; };
+		86CE246E2B4CFCE30006684A /* Emotions_Exaggerator.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Emotions_Exaggerator.deepar; sourceTree = "<group>"; };
+		86CE246F2B4CFCE30006684A /* Split_View_Look.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Split_View_Look.deepar; sourceTree = "<group>"; };
+		86CE24702B4CFCE30006684A /* Hope.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hope.deepar; sourceTree = "<group>"; };
+		86CE24712B4CFCE30006684A /* Stallone.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Stallone.deepar; sourceTree = "<group>"; };
+		86CE24722B4CFCE30006684A /* Ping_Pong.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ping_Pong.deepar; sourceTree = "<group>"; };
+		86CE24732B4CFCE30006684A /* Elephant_Trunk.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Elephant_Trunk.deepar; sourceTree = "<group>"; };
+		86CE24742B4CFCE30006684A /* Vendetta_Mask.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Vendetta_Mask.deepar; sourceTree = "<group>"; };
+		86CE24752B4CFCE30006684A /* Snail.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = Snail.deepar; sourceTree = "<group>"; };
+		86CE24762B4CFCE30006684A /* galaxy_background.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = galaxy_background.deepar; sourceTree = "<group>"; };
+		86CE24772B4CFCE30006684A /* flower_face.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = flower_face.deepar; sourceTree = "<group>"; };
+		86CE24782B4CFCE30006684A /* viking_helmet.deepar */ = {isa = PBXFileReference; lastKnownFileType = file; path = viking_helmet.deepar; sourceTree = "<group>"; };
 		86E17B612A3301770086C9C0 /* ExpressService+SEI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpressService+SEI.swift"; sourceTree = "<group>"; };
 		8E1B925F29DACBF00097C9ED /* ExpressServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressServiceDelegate.swift; sourceTree = "<group>"; };
 		8E1B926129DACEAF0097C9ED /* ExpressService+Stream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExpressService+Stream.swift"; sourceTree = "<group>"; };
@@ -173,6 +220,7 @@
 		8EAE31F129D6C3F800305045 /* ZegoSDKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoSDKManager.swift; sourceTree = "<group>"; };
 		8EAE31F529D6C58700305045 /* ExpressService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressService.swift; sourceTree = "<group>"; };
 		8EAE31F829D6D78000305045 /* ZegoSDKUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoSDKUser.swift; sourceTree = "<group>"; };
+		9CA3108CA4ECA820AFC10A9D /* Pods_ZegoCloudSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoCloudSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,9 +228,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8642D8DE2B4D41C700978755 /* Toast in Frameworks */,
 				86AEB24E29FB6D9F00DA4BF3 /* ZIM in Frameworks */,
-				8E1B929729DEB4E10097C9ED /* Toast in Frameworks */,
 				866AE59D2A31B1DD002C32A9 /* ZegoExpressEngine in Frameworks */,
+				86C287332B4F8C8E00BC22A9 /* DeepAR in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +276,7 @@
 		863B28542A554C4F00613C8F /* SDK */ = {
 			isa = PBXGroup;
 			children = (
+				86CE245C2B4CF1290006684A /* DeepAR */,
 				8E1B929029DE6FEC0097C9ED /* ServiceDefines.swift */,
 				8EBB674A2A05FBE800832D8D /* ZIM */,
 				8EBB67492A05FBE300832D8D /* Express */,
@@ -335,6 +385,52 @@
 			path = Call;
 			sourceTree = "<group>";
 		};
+		86C2872E2B4E8B0C00BC22A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86C2872F2B4E8B7C00BC22A9 /* DeepARToggleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		86CE245C2B4CF1290006684A /* DeepAR */ = {
+			isa = PBXGroup;
+			children = (
+				86C2872E2B4E8B0C00BC22A9 /* View */,
+				86CE24662B4CFCE30006684A /* Effects */,
+				86CE24642B4CFCB40006684A /* Define.swift */,
+				86CE245D2B4CF1570006684A /* DeepARService.swift */,
+				86CE245F2B4CF2D70006684A /* DeepAR+EventHandler.swift */,
+				86CE24612B4CF7AF0006684A /* DeepARServiceDelegate.swift */,
+			);
+			path = DeepAR;
+			sourceTree = "<group>";
+		};
+		86CE24662B4CFCE30006684A /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				86CE24672B4CFCE30006684A /* MakeupLook.deepar */,
+				86CE24682B4CFCE30006684A /* Neon_Devil_Horns.deepar */,
+				86CE24692B4CFCE30006684A /* Pixel_Hearts.deepar */,
+				86CE246A2B4CFCE30006684A /* Fire_Effect.deepar */,
+				86CE246B2B4CFCE30006684A /* burning_effect.deepar */,
+				86CE246C2B4CFCE30006684A /* Emotion_Meter.deepar */,
+				86CE246D2B4CFCE30006684A /* Humanoid.deepar */,
+				86CE246E2B4CFCE30006684A /* Emotions_Exaggerator.deepar */,
+				86CE246F2B4CFCE30006684A /* Split_View_Look.deepar */,
+				86CE24702B4CFCE30006684A /* Hope.deepar */,
+				86CE24712B4CFCE30006684A /* Stallone.deepar */,
+				86CE24722B4CFCE30006684A /* Ping_Pong.deepar */,
+				86CE24732B4CFCE30006684A /* Elephant_Trunk.deepar */,
+				86CE24742B4CFCE30006684A /* Vendetta_Mask.deepar */,
+				86CE24752B4CFCE30006684A /* Snail.deepar */,
+				86CE24762B4CFCE30006684A /* galaxy_background.deepar */,
+				86CE24772B4CFCE30006684A /* flower_face.deepar */,
+				86CE24782B4CFCE30006684A /* viking_helmet.deepar */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
 		8E1B929229DE707E0097C9ED /* Defines */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +445,7 @@
 			children = (
 				8E318D6E29D573D4001596F3 /* ZegoCloudSDKDemo */,
 				8E318D6D29D573D4001596F3 /* Products */,
+				EBF14434CFAC9C412E9F94BF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -436,6 +533,14 @@
 			path = Defines;
 			sourceTree = "<group>";
 		};
+		EBF14434CFAC9C412E9F94BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9CA3108CA4ECA820AFC10A9D /* Pods_ZegoCloudSDKDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -453,9 +558,10 @@
 			);
 			name = ZegoCloudSDKDemo;
 			packageProductDependencies = (
-				8E1B929629DEB4E10097C9ED /* Toast */,
 				86AEB24D29FB6D9F00DA4BF3 /* ZIM */,
 				866AE59C2A31B1DD002C32A9 /* ZegoExpressEngine */,
+				8642D8DD2B4D41C700978755 /* Toast */,
+				86C287322B4F8C8E00BC22A9 /* DeepAR */,
 			);
 			productName = ZegoCloudSDKDemo;
 			productReference = 8E318D6C29D573D4001596F3 /* ZegoCloudSDKDemo.app */;
@@ -477,7 +583,7 @@
 				};
 			};
 			buildConfigurationList = 8E318D6729D573D4001596F3 /* Build configuration list for PBXProject "ZegoCloudSDKDemo" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -486,11 +592,12 @@
 			);
 			mainGroup = 8E318D6329D573D4001596F3;
 			packageReferences = (
-				8E1B929529DEB4E10097C9ED /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				86AEB24C29FB6D9F00DA4BF3 /* XCRemoteSwiftPackageReference "zim-ios" */,
 				866AE59B2A31B1DD002C32A9 /* XCRemoteSwiftPackageReference "express-video-ios" */,
+				8642D8DC2B4D41C700978755 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				86C287312B4F8C8E00BC22A9 /* XCRemoteSwiftPackageReference "swift-deepar" */,
 			);
-			productRefGroup = 8E318D6D29D573D4001596F3 /* Products */;
+			productRefGroup = 8E318D6329D573D4001596F3;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -504,13 +611,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86CE24882B4CFCE30006684A /* galaxy_background.deepar in Resources */,
+				86CE24832B4CFCE30006684A /* Stallone.deepar in Resources */,
+				86CE24862B4CFCE30006684A /* Vendetta_Mask.deepar in Resources */,
 				868F030E2B2AF2980088CEC1 /* OneOnOneCallViewController.xib in Resources */,
+				86CE24812B4CFCE30006684A /* Split_View_Look.deepar in Resources */,
+				86CE24802B4CFCE30006684A /* Emotions_Exaggerator.deepar in Resources */,
+				86CE24842B4CFCE30006684A /* Ping_Pong.deepar in Resources */,
+				86CE247D2B4CFCE30006684A /* burning_effect.deepar in Resources */,
 				8E318D7C29D573D5001596F3 /* LaunchScreen.storyboard in Resources */,
+				86CE247F2B4CFCE30006684A /* Humanoid.deepar in Resources */,
+				86CE247C2B4CFCE30006684A /* Fire_Effect.deepar in Resources */,
 				86A8AD102A67D3F900E4076E /* ZegoIncomingCallDialog.xib in Resources */,
+				86CE247E2B4CFCE30006684A /* Emotion_Meter.deepar in Resources */,
+				86CE247A2B4CFCE30006684A /* Neon_Devil_Horns.deepar in Resources */,
+				86CE248A2B4CFCE30006684A /* viking_helmet.deepar in Resources */,
+				86CE24892B4CFCE30006684A /* flower_face.deepar in Resources */,
 				86A8AD042A67D39C00E4076E /* CallingViewController.xib in Resources */,
+				86CE24792B4CFCE30006684A /* MakeupLook.deepar in Resources */,
+				86CE24852B4CFCE30006684A /* Elephant_Trunk.deepar in Resources */,
+				86CE247B2B4CFCE30006684A /* Pixel_Hearts.deepar in Resources */,
 				8E318D7929D573D5001596F3 /* Assets.xcassets in Resources */,
+				86CE24872B4CFCE30006684A /* Snail.deepar in Resources */,
 				868F03062B2AECCE0088CEC1 /* GroupCallViewController.xib in Resources */,
 				86A8AD022A67D39C00E4076E /* CallWaitingViewController.xib in Resources */,
+				86CE24822B4CFCE30006684A /* Hope.deepar in Resources */,
 				8E318D7729D573D4001596F3 /* Main.storyboard in Resources */,
 				863B28512A4E7FED00613C8F /* CoHostTableViewCell.xib in Resources */,
 			);
@@ -528,8 +653,10 @@
 				860624662AEF820C006B04A8 /* PKService+ZIMEventHandler.swift in Sources */,
 				868F030D2B2AF2980088CEC1 /* OneOnOneCallViewController.swift in Sources */,
 				86A8ACFB2A67D39100E4076E /* AppIDViewController.swift in Sources */,
+				86CE245E2B4CF1570006684A /* DeepARService.swift in Sources */,
 				8606247F2AF4CB48006B04A8 /* PKForegroundView.swift in Sources */,
 				8E318D8C29D586D6001596F3 /* HomeViewController.swift in Sources */,
+				86CE24602B4CF2D70006684A /* DeepAR+EventHandler.swift in Sources */,
 				8E1B926629DAD0160097C9ED /* ExpressService+Room.swift in Sources */,
 				86E17B622A3301770086C9C0 /* ExpressService+SEI.swift in Sources */,
 				8E1B926829DAD2CF0097C9ED /* ExpressService+EventHandler.swift in Sources */,
@@ -546,10 +673,12 @@
 				8E318D7429D573D4001596F3 /* LoginViewController.swift in Sources */,
 				863B284D2A4E79C100613C8F /* ApplyCoHostListViewController.swift in Sources */,
 				86A8ACF42A653B1E00E4076E /* ZegoLiveAudioRoomLayoutConfig.swift in Sources */,
+				86CE24622B4CF7AF0006684A /* DeepARServiceDelegate.swift in Sources */,
 				8EAE31F029D6898E00305045 /* LiveStreamingViewController.swift in Sources */,
 				868F03052B2AECCE0088CEC1 /* GroupCallViewController.swift in Sources */,
 				8606247B2AF3839C006B04A8 /* PKBattleMixView.swift in Sources */,
 				86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */,
+				86C287302B4E8B7C00BC22A9 /* DeepARToggleView.swift in Sources */,
 				8E1B926229DACEAF0097C9ED /* ExpressService+Stream.swift in Sources */,
 				86A8AD0C2A67D3E200E4076E /* UIColor+Hex.swift in Sources */,
 				8E318D7029D573D4001596F3 /* AppDelegate.swift in Sources */,
@@ -578,6 +707,7 @@
 				860624712AF25D06006B04A8 /* PKBattleView.swift in Sources */,
 				86A8ACCE2A5D641300E4076E /* ZegoSeatView.swift in Sources */,
 				86325CB72A272A8F004185B1 /* ZIMService+Room.swift in Sources */,
+				86CE24652B4CFCB40006684A /* Define.swift in Sources */,
 				86A8ACF12A65344700E4076E /* UIImageView+Extension.swift in Sources */,
 				8E1B929129DE6FEC0097C9ED /* ServiceDefines.swift in Sources */,
 				868F02FE2B298EAD0088CEC1 /* ZegoCallExtendedData.swift in Sources */,
@@ -818,6 +948,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8642D8DC2B4D41C700978755 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		866AE59B2A31B1DD002C32A9 /* XCRemoteSwiftPackageReference "express-video-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zegolibrary/express-video-ios";
@@ -834,17 +972,22 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		8E1B929529DEB4E10097C9ED /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+		86C287312B4F8C8E00BC22A9 /* XCRemoteSwiftPackageReference "swift-deepar" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			repositoryURL = "https://github.com/DeepARSDK/swift-deepar";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				kind = exactVersion;
+				version = 5.3.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8642D8DD2B4D41C700978755 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8642D8DC2B4D41C700978755 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		866AE59C2A31B1DD002C32A9 /* ZegoExpressEngine */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 866AE59B2A31B1DD002C32A9 /* XCRemoteSwiftPackageReference "express-video-ios" */;
@@ -855,10 +998,10 @@
 			package = 86AEB24C29FB6D9F00DA4BF3 /* XCRemoteSwiftPackageReference "zim-ios" */;
 			productName = ZIM;
 		};
-		8E1B929629DEB4E10097C9ED /* Toast */ = {
+		86C287322B4F8C8E00BC22A9 /* DeepAR */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8E1B929529DEB4E10097C9ED /* XCRemoteSwiftPackageReference "Toast-Swift" */;
-			productName = Toast;
+			package = 86C287312B4F8C8E00BC22A9 /* XCRemoteSwiftPackageReference "swift-deepar" */;
+			productName = DeepAR;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

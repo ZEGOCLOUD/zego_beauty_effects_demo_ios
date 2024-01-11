@@ -44,6 +44,14 @@ class LiveStreamingViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var deepARButton: UIButton! {
+        didSet {
+            deepARButton.layer.masksToBounds = true
+            deepARButton.layer.cornerRadius = 6
+        }
+    }
+    
+    
     lazy var redDot: UIView = {
         let redDotView = UIView(frame: CGRect(x: 40, y: 25, width: 8, height: 8))
         redDotView.backgroundColor = UIColor.red
@@ -52,8 +60,6 @@ class LiveStreamingViewController: UIViewController {
         redDotView.isHidden = true
         return redDotView
     }()
-    
-    
     
     
     lazy var coHostVideoContainerView: CoHostContainerView = {
@@ -73,7 +79,15 @@ class LiveStreamingViewController: UIViewController {
     var currentRoomRequestID: String?
     let liveManager = ZegoLiveStreamingManager.shared
     
+    private var effectIndex: Int = 0
+    private var effectPaths: [String?] {
+        return Effects.allCases.map { $0.rawValue.path }
+    }
+    
     deinit {
+        ZegoSDKManager.shared.deepARService.disableDeepAR()
+        ZegoSDKManager.shared.expressService.stopPreview()
+        ZegoSDKManager.shared.expressService.stopPublishingStream()
         print("\(String(describing: type(of: self))) \(#function)")
     }
 
@@ -109,6 +123,7 @@ class LiveStreamingViewController: UIViewController {
     func configUI() {
         liveContainerView.isHidden = isMySelfHost
         preBackgroundView.isHidden = !isMySelfHost
+        deepARButton.isHidden = !isMySelfHost
         liveContainerView.addSubview(coHostVideoContainerView)
         if isMySelfHost {
             ZegoSDKManager.shared.expressService.turnCameraOn(true)
@@ -161,6 +176,7 @@ class LiveStreamingViewController: UIViewController {
         preBackgroundView.isHidden = true
         liveContainerView.isHidden = false
         pkButton.isHidden = false
+        deepARButton.isHidden = false
         liveManager.isLiveStart = true
         
         mainVideoView.update(ZegoSDKManager.shared.expressService.currentUser?.id, ZegoSDKManager.shared.expressService.currentUser?.name)
@@ -204,6 +220,7 @@ class LiveStreamingViewController: UIViewController {
         updateCoHostContainerFrame()
         coHostButton.isHidden = liveManager.isPKStarted
         endCoHostButton.isHidden = true
+        deepARButton.isHidden = true
         
         flipButton.isHidden = true
         micButton.isHidden = true
@@ -279,6 +296,25 @@ class LiveStreamingViewController: UIViewController {
     }
     
     
+    @IBAction func effectButtonClick(_ sender: Any) {
+        DeepARToggleView.show().delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DeepARToggleView.dismiss()
+    }
+}
+
+extension LiveStreamingViewController: DeepARToggleViewDelegate {
+    func deepARToggleViewClick(_ type: Effects) {
+        if type == .Effect_Clear {
+            ZegoSDKManager.shared.deepARService.disableDeepAR()
+        } else {
+            if let path = type.rawValue.path {
+                ZegoSDKManager.shared.deepARService.switchEffect(slot: "effect", path: path)
+            }
+        }
+    }
 }
 
 extension LiveStreamingViewController: ZegoLiveStreamingManagerDelegate {
@@ -360,6 +396,7 @@ extension LiveStreamingViewController {
         let userName = ZegoSDKManager.shared.expressService.currentUser?.name ?? ""
         addCoHost(streamID, userID, userName, isMySelf: true)
         coHostButton.isHidden = true
+        deepARButton.isHidden = false
         coHostButton.isSelected = !coHostButton.isSelected
         endCoHostButton.isHidden = false
         

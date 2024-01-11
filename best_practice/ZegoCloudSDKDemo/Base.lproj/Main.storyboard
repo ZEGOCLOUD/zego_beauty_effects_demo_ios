@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aIH-P7-q2b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aIH-P7-q2b">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -553,12 +553,29 @@
                                             <color key="titleColor" red="0.95686274510000002" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uys-V0-rgB">
+                                        <rect key="frame" x="258" y="701" width="120" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="1" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="0Pu-Hu-Cdh"/>
+                                            <constraint firstAttribute="width" constant="120" id="eo2-rP-zwe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="DeepAR"/>
+                                        <connections>
+                                            <action selector="effectButtonClick:" destination="863-Jx-pjQ" eventType="touchUpInside" id="1GP-Sg-vNL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="NnR-vj-zBW" firstAttribute="centerY" secondItem="1OS-Bv-SOj" secondAttribute="centerY" id="4SY-v8-tQb"/>
+                                    <constraint firstItem="YWP-ge-Dpu" firstAttribute="top" secondItem="uys-V0-rgB" secondAttribute="bottom" constant="20" id="4ba-bE-4EL"/>
                                     <constraint firstAttribute="trailing" secondItem="rCu-Fc-Vde" secondAttribute="trailing" constant="16" id="7u2-fx-A0x"/>
                                     <constraint firstItem="e3R-i2-ROm" firstAttribute="centerY" secondItem="DRD-oZ-0uI" secondAttribute="centerY" id="BA6-G5-xNX"/>
+                                    <constraint firstAttribute="trailing" secondItem="uys-V0-rgB" secondAttribute="trailing" constant="15" id="BWH-EJ-kcM"/>
                                     <constraint firstItem="DRD-oZ-0uI" firstAttribute="leading" secondItem="e3R-i2-ROm" secondAttribute="trailing" constant="10" id="HBL-6K-GDv"/>
                                     <constraint firstAttribute="trailing" secondItem="uXH-J3-8ih" secondAttribute="trailing" constant="16" id="Hgr-l2-21M"/>
                                     <constraint firstAttribute="bottom" secondItem="c51-7G-4ED" secondAttribute="bottom" constant="20" id="M7y-kD-sHR"/>
@@ -665,6 +682,7 @@
                         <outlet property="cameraButton" destination="e3R-i2-ROm" id="7eI-E2-EqB"/>
                         <outlet property="coHostButton" destination="c51-7G-4ED" id="a5W-IN-acP"/>
                         <outlet property="coHostWidthConstraint" destination="bmf-rP-p3g" id="6CV-R4-tA9"/>
+                        <outlet property="deepARButton" destination="uys-V0-rgB" id="rQY-sp-oYl"/>
                         <outlet property="endCoHostButton" destination="rCu-Fc-Vde" id="ERF-kX-G7Q"/>
                         <outlet property="flipButton" destination="uXH-J3-8ih" id="wqr-pV-FOE"/>
                         <outlet property="flipButtonConstraint" destination="Hgr-l2-21M" id="Qob-zY-ePo"/>
@@ -958,16 +976,16 @@
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
-            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

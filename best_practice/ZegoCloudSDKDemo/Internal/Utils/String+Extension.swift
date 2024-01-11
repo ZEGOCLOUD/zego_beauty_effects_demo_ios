@@ -27,4 +27,8 @@ extension String {
         return dict
     }
     
+    var path: String? {
+        return Bundle.main.path(forResource: self, ofType: nil)
+    }
+    
 }

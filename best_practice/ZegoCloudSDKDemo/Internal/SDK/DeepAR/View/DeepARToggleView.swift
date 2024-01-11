@@ -32,15 +32,23 @@ class DeepARToggleView: UIView, UITableViewDelegate, UITableViewDataSource {
         DeepAREffectModel(.flower_face),
         DeepAREffectModel(.galaxy_background),
         DeepAREffectModel(.viking_helmet),
-        DeepAREffectModel(.Effect_Clear)
+        DeepAREffectModel(.Background_blur),
+        DeepAREffectModel(.Replace_Background_Image)
     ]
     
     
     weak var delegate: DeepARToggleViewDelegate?
     
+    lazy var backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapClick))
+        view.addGestureRecognizer(tapGesture)
+        return view
+    }()
     
     lazy var tableView: UITableView = {
-        let view = UITableView(frame: .zero, style: .plain)
+        let view = UITableView(frame: .zero, style: .grouped)
         view.delegate = self
         view.dataSource = self
         return view
@@ -49,7 +57,7 @@ class DeepARToggleView: UIView, UITableViewDelegate, UITableViewDataSource {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.black
+        addSubview(backgroundView)
         addSubview(tableView)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
@@ -58,13 +66,18 @@ class DeepARToggleView: UIView, UITableViewDelegate, UITableViewDataSource {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func tapClick() {
+        DeepARToggleView.dismiss()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        tableView.frame = bounds
+        backgroundView.frame = bounds
+        tableView.frame = CGRect(x: 0, y: CGFloat(Int(bounds.height) - 300), width: bounds.width, height: 300)
     }
     
     static func show() -> DeepARToggleView {
-        let toggleView = DeepARToggleView(frame: CGRect(x: 50, y: (ScreenHeight - 300) / 2, width: ScreenWidth - 100, height: 300))
+        let toggleView = DeepARToggleView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight))
         KeyWindow().addSubview(toggleView)
         return toggleView
     }
@@ -92,9 +105,32 @@ class DeepARToggleView: UIView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headView: UIView = UIView()
+        let label: UILabel = UILabel(frame: CGRect(x: 10, y: 5, width: 200, height: 30))
+        label.text = "DeepAR Effect"
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        headView.addSubview(label)
+        
+        let button: UIButton = UIButton(frame: CGRect(x: bounds.width - 110, y: 5, width: 100, height: 30))
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitle("clear Effect", for: .normal)
+        button.addTarget(self, action: #selector(clearEffectClick), for: .touchUpInside)
+        headView.addSubview(button)
+        return headView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mode = effects[indexPath.row]
         delegate?.deepARToggleViewClick(mode.effectType)
+    }
+    
+    @objc func clearEffectClick() {
+        delegate?.deepARToggleViewClick(.Effect_Clear)
     }
 }
 

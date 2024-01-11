@@ -18,6 +18,9 @@ public class DeepARService: NSObject {
     
     let eventHandlers: NSHashTable<DeepARServiceDelegate> = NSHashTable(options: .weakMemory)
     
+    var currentBackgroundImage: UIImage?
+    var enableBackgroundBlur: Bool = false
+    
     public func initWithLicense(_ licenseKey: String) {
         if let _ = deepAR {
             return
@@ -26,7 +29,7 @@ public class DeepARService: NSObject {
         deepAR!.setLicenseKey(licenseKey)
         deepAR!.delegate = self
         deepAR!.changeLiveMode(false)
-        self.deepAR!.initializeOffscreen(withWidth: 1, height: 1)
+        self.deepAR!.initializeOffscreen(withWidth: 960, height: 540)
     }
     
     public func unInit() {
@@ -65,11 +68,17 @@ public class DeepARService: NSObject {
         deepAR?.switchEffect(withSlot: slot, path: path)
     }
     
+    public func removeEffect(slot: String) {
+        deepAR?.switchEffect(withSlot: slot, path: "none")
+    }
+    
     public func backgroundBlur(enable: Bool, strength: Int) {
-        deepAR?.backgroundBlur(true, strength: strength)
+        enableBackgroundBlur = enable
+        deepAR?.backgroundBlur(enable, strength: strength)
     }
     
     public func backgroundReplacement(enable: Bool, image: UIImage!) {
+        currentBackgroundImage = image
         deepAR?.backgroundReplacement(enable, image: image)
     }
     
@@ -77,7 +86,13 @@ public class DeepARService: NSObject {
         switchEffect(slot: "mask", path: "none")
         switchEffect(slot: "effect", path: "none")
         switchEffect(slot: "filter", path: "none")
-        backgroundBlur(enable: false, strength: 0)
+        if enableBackgroundBlur {
+            backgroundBlur(enable: false, strength: 0)
+        }
+        if let currentBackgroundImage = currentBackgroundImage {
+            backgroundReplacement(enable: false, image: currentBackgroundImage)
+            self.currentBackgroundImage = nil
+        }
     }
     
 }

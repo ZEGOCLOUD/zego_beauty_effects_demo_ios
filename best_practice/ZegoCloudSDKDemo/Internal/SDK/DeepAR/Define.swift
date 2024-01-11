@@ -26,5 +26,7 @@ enum Effects: String, CaseIterable {
     case Fire_Effect = "Fire_Effect.deepar"
     case burning_effect = "burning_effect.deepar"
     case Elephant_Trunk = "Elephant_Trunk.deepar"
+    case Background_blur = "Background_blur"
+    case Replace_Background_Image = "Replace_Background_Image"
     case Effect_Clear = "Effect_Clear"
 }

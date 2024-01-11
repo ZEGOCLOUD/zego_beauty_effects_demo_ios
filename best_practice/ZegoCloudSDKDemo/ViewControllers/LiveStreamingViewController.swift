@@ -309,6 +309,10 @@ extension LiveStreamingViewController: DeepARToggleViewDelegate {
     func deepARToggleViewClick(_ type: Effects) {
         if type == .Effect_Clear {
             ZegoSDKManager.shared.deepARService.disableDeepAR()
+        } else if type == .Background_blur {
+            ZegoSDKManager.shared.deepARService.backgroundBlur(enable: true, strength: 3)
+        } else if type == .Replace_Background_Image {
+            ZegoSDKManager.shared.deepARService.backgroundReplacement(enable: true, image: UIImage(named: "call_waiting_bg"))
         } else {
             if let path = type.rawValue.path {
                 ZegoSDKManager.shared.deepARService.switchEffect(slot: "effect", path: path)

@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
     }
     
     func initData() {
-        ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, deeparLicenseKey: "7167a4f9d603142f3a749ce102eca4d58692bc33625427ec09f182b207c12cee38b7eccd9531deaa")
+        ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, deeparLicenseKey: <#Your_License_Key#><##>)
         CallService.shared.initService()
     }
 

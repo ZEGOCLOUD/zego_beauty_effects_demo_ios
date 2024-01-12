@@ -81,6 +81,11 @@ class LiveStreamingViewController: UIViewController {
     
     var currentRoomRequestID: String?
     let liveManager = ZegoLiveStreamingManager.shared
+    
+    deinit {
+        ZegoSDKManager.shared.expressService.stopPreview()
+        ZegoSDKManager.shared.expressService.stopPublishingStream()
+    }
 
     
     override func viewDidLoad() {

@@ -28,6 +28,7 @@ public class ZegoSDKManager: NSObject {
     
     public func initWith(appID: UInt32, appSign: String, enableBeauty: Bool = false) {
         
+        
         self.appID = appID
         self.appSign = appSign
         
@@ -42,7 +43,6 @@ public class ZegoSDKManager: NSObject {
     
     public func unInit() {
         zimService.unInit()
-        beautyService.unInit()
     }
     
     public func connectUser(userID: String,

@@ -21,7 +21,11 @@ public class ZegoEffectsService: NSObject {
     private var appID: UInt32 = 0
     private var appSign: String = ""
     
+    private var isInitialized: Bool = false
+    
     public func initWithAppID(appID: UInt32, appSign: String) {
+        
+        if isInitialized { return }
         
         self.appID = appID
         self.appSign = appSign
@@ -34,7 +38,7 @@ public class ZegoEffectsService: NSObject {
                                     appID: appID,
                                     appSign: appSign) { code, license in
             if code == 0, let license = license {
-                
+                self.isInitialized = true
                 // step 3 create effect
                 self.effects = ZegoEffects.create(license)
                 self.effects?.enableFaceDetection(true)
@@ -44,11 +48,6 @@ public class ZegoEffectsService: NSObject {
                 self.initBeautyAbilities()
             }
         }
-    }
-    
-    public func unInit() {
-        effects?.destroy()
-        effects = nil
     }
     
     public func initEnv(_ resolution: CGSize) {

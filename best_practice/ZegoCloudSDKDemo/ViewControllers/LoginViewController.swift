@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DeepAR
 
 class LoginViewController: UIViewController {
     
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController {
     
     func initData() {
         ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, deeparLicenseKey: <#Your_License_Key#><##>)
+        ZegoSDKManager.shared.deepARService.addEventHandler(self)
         CallService.shared.initService()
     }
 
@@ -72,6 +74,14 @@ class LoginViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
+    }
+}
+
+extension LoginViewController: DeepARServiceDelegate {
+    func onError(withCode code: ARErrorType, error: String!) {
+        if code == .DEEPAR_ERROR_TYPE_ERROR {
+            self.view.makeToast(String(format: "DeepARError:%@", error), duration: 2.5, position: .center)
+        }
     }
 }
 

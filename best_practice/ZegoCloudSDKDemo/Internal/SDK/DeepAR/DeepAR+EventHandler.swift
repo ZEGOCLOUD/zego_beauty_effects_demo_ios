@@ -19,6 +19,9 @@ extension DeepARService: DeepARDelegate {
     
     public func onError(withCode code: ARErrorType, error: String!) {
         debugPrint("onError code:\(code) error:\(String(describing: error))")
+        for delegate in eventHandlers.allObjects {
+            delegate.onError?(withCode: code, error: error)
+        }
     }
     
 }

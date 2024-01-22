@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		860624752AF34344006B04A8 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860624742AF34344006B04A8 /* KeyCenter.swift */; };
+		864697212B5E470C008B3005 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 864697202B5E470C008B3005 /* Toast */; };
+		864697242B5E472C008B3005 /* ZegoExpressEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 864697232B5E472C008B3005 /* ZegoExpressEngine */; };
+		864697272B5E474A008B3005 /* ZIM in Frameworks */ = {isa = PBXBuildFile; productRef = 864697262B5E474A008B3005 /* ZIM */; };
 		868F03132B359B3F0088CEC1 /* ZegoCallManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03112B359B3F0088CEC1 /* ZegoCallManagerInterface.swift */; };
 		868F03142B359B3F0088CEC1 /* ZegoCallManager+EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03122B359B3F0088CEC1 /* ZegoCallManager+EventHandler.swift */; };
 		868F03162B359B550088CEC1 /* ZegoCallExtendedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03152B359B550088CEC1 /* ZegoCallExtendedData.swift */; };
@@ -15,9 +18,6 @@
 		868F031B2B359B9D0088CEC1 /* OneOnOneCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 868F03182B359B9D0088CEC1 /* OneOnOneCallViewController.xib */; };
 		868F031C2B359B9D0088CEC1 /* GroupCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03192B359B9D0088CEC1 /* GroupCallViewController.swift */; };
 		868F031E2B359BBA0088CEC1 /* GroupCallViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 868F031D2B359BBA0088CEC1 /* GroupCallViewController.xib */; };
-		86A39D902AE656AF00F8AD81 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 86A39D8F2AE656AF00F8AD81 /* Toast */; };
-		86A39D932AE656CB00F8AD81 /* ZIM in Frameworks */ = {isa = PBXBuildFile; productRef = 86A39D922AE656CB00F8AD81 /* ZIM */; };
-		86A39D962AE656EC00F8AD81 /* ZegoExpressEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 86A39D952AE656EC00F8AD81 /* ZegoExpressEngine */; };
 		86AEB25029FB741400DA4BF3 /* ZIMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB24F29FB741400DA4BF3 /* ZIMService.swift */; };
 		86AEB25629FBA55200DA4BF3 /* ZIMService+UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AEB25529FBA55200DA4BF3 /* ZIMService+UserRequest.swift */; };
 		86DE8E232B0466F400B1C4B8 /* PKBattleMixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DE8E1D2B0466F400B1C4B8 /* PKBattleMixView.swift */; };
@@ -214,10 +214,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86A39D932AE656CB00F8AD81 /* ZIM in Frameworks */,
-				86A39D902AE656AF00F8AD81 /* Toast in Frameworks */,
-				86A39D962AE656EC00F8AD81 /* ZegoExpressEngine in Frameworks */,
+				864697212B5E470C008B3005 /* Toast in Frameworks */,
 				CF2D85B3953C69B8CDA777D3 /* Pods_ZegoCloudSDKDemo.framework in Frameworks */,
+				864697242B5E472C008B3005 /* ZegoExpressEngine in Frameworks */,
+				864697272B5E474A008B3005 /* ZIM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,9 +572,9 @@
 			);
 			name = ZegoCloudSDKDemo;
 			packageProductDependencies = (
-				86A39D8F2AE656AF00F8AD81 /* Toast */,
-				86A39D922AE656CB00F8AD81 /* ZIM */,
-				86A39D952AE656EC00F8AD81 /* ZegoExpressEngine */,
+				864697202B5E470C008B3005 /* Toast */,
+				864697232B5E472C008B3005 /* ZegoExpressEngine */,
+				864697262B5E474A008B3005 /* ZIM */,
 			);
 			productName = ZegoCloudSDKDemo;
 			productReference = 8E318D6C29D573D4001596F3 /* ZegoCloudSDKDemo.app */;
@@ -605,9 +605,9 @@
 			);
 			mainGroup = 8E318D6329D573D4001596F3;
 			packageReferences = (
-				86A39D8E2AE656AF00F8AD81 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				86A39D912AE656CB00F8AD81 /* XCRemoteSwiftPackageReference "zim-ios" */,
-				86A39D942AE656EC00F8AD81 /* XCRemoteSwiftPackageReference "express-video-ios" */,
+				8646971F2B5E470C008B3005 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				864697222B5E472C008B3005 /* XCRemoteSwiftPackageReference "express-video-ios" */,
+				864697252B5E474A008B3005 /* XCRemoteSwiftPackageReference "zim-ios" */,
 			);
 			productRefGroup = 8E318D6D29D573D4001596F3 /* Products */;
 			projectDirPath = "";
@@ -996,47 +996,47 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		86A39D8E2AE656AF00F8AD81 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+		8646971F2B5E470C008B3005 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scalessec/Toast-Swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				minimumVersion = 5.1.0;
 			};
 		};
-		86A39D912AE656CB00F8AD81 /* XCRemoteSwiftPackageReference "zim-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zegolibrary/zim-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		86A39D942AE656EC00F8AD81 /* XCRemoteSwiftPackageReference "express-video-ios" */ = {
+		864697222B5E472C008B3005 /* XCRemoteSwiftPackageReference "express-video-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/zegolibrary/express-video-ios";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				branch = main;
+				kind = branch;
+			};
+		};
+		864697252B5E474A008B3005 /* XCRemoteSwiftPackageReference "zim-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/zegolibrary/zim-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		86A39D8F2AE656AF00F8AD81 /* Toast */ = {
+		864697202B5E470C008B3005 /* Toast */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86A39D8E2AE656AF00F8AD81 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			package = 8646971F2B5E470C008B3005 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
 		};
-		86A39D922AE656CB00F8AD81 /* ZIM */ = {
+		864697232B5E472C008B3005 /* ZegoExpressEngine */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 86A39D912AE656CB00F8AD81 /* XCRemoteSwiftPackageReference "zim-ios" */;
-			productName = ZIM;
-		};
-		86A39D952AE656EC00F8AD81 /* ZegoExpressEngine */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 86A39D942AE656EC00F8AD81 /* XCRemoteSwiftPackageReference "express-video-ios" */;
+			package = 864697222B5E472C008B3005 /* XCRemoteSwiftPackageReference "express-video-ios" */;
 			productName = ZegoExpressEngine;
+		};
+		864697262B5E474A008B3005 /* ZIM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 864697252B5E474A008B3005 /* XCRemoteSwiftPackageReference "zim-ios" */;
+			productName = ZIM;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

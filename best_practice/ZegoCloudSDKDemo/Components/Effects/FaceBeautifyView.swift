@@ -67,6 +67,7 @@ class FaceBeautifyView: UIView {
         return button
     }()
     
+    var beautyData: FaceBeautifyData!
     var currentTypeItem: BeautyTypeItem!
     var currentAbility: BeautyAbility!
         
@@ -86,8 +87,8 @@ class FaceBeautifyView: UIView {
     
     func initData() {        
         configUI()
-        
-        currentTypeItem = FaceBeautifyData.data.first
+        beautyData = FaceBeautifyData()
+        currentTypeItem = beautyData.data.first
         titleCollectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
     }
     
@@ -150,7 +151,7 @@ extension FaceBeautifyView: UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == titleCollectionView {
-            return FaceBeautifyData.data.count
+            return beautyData.data.count
         } else {
             return currentTypeItem.items.count
         }
@@ -159,7 +160,7 @@ extension FaceBeautifyView: UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == titleCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BeautyTitleCell.reuseIdentifier, for: indexPath) as! BeautyTitleCell
-            cell.updateTitle(FaceBeautifyData.data[indexPath.row].title)
+            cell.updateTitle(beautyData.data[indexPath.row].title)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BeautyItemCell.reuseIdentifier, for: indexPath) as! BeautyItemCell
@@ -174,7 +175,7 @@ extension FaceBeautifyView: UICollectionViewDataSource,
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
         if collectionView == titleCollectionView {
-            currentTypeItem = FaceBeautifyData.data[indexPath.row]
+            currentTypeItem = beautyData.data[indexPath.row]
             slider.isHidden = true
             selectBeautyItem(currentTypeItem)
         } else {
@@ -223,7 +224,7 @@ extension FaceBeautifyView: UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == titleCollectionView {
-            let w = FaceBeautifyData.data[indexPath.row].titleWidth
+            let w = beautyData.data[indexPath.row].titleWidth
             return CGSize(width: w, height: 25)
         } else {
             return CGSize(width: 85, height: 68)

@@ -42,7 +42,7 @@ public class ZegoSDKManager: NSObject {
     }
     
     public func unInit() {
-        zimService.unInit()
+        beautyService.uninit()
     }
     
     public func connectUser(userID: String,

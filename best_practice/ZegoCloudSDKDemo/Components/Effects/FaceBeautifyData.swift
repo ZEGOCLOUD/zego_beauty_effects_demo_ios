@@ -7,361 +7,25 @@
 
 import Foundation
 
-struct FaceBeautifyData {
+class FaceBeautifyData: NSObject {
     
-    static var beautyAbilities: [BeautyType: BeautyAbility] = ZegoEffectsService.shared.beautyAbilities
+    var beautyAbilities: [BeautyType: BeautyAbility] = [:]
     
-    static var data: [BeautyTypeItem] {
-        return [
-            basicItem,
-            advancedItem,
-            filtersItem,
-            lipsItem,
-            blusherItem,
-            eyelashesItem,
-            eyelinerItem,
-            eyeshadowItem,
-            coloredContactsItem,
-            styleMakeupItem,
-            stickersItem,
-            backgroundItem,
-        ]
-    }
+    var data: [BeautyTypeItem]!
+    var basicItem: BeautyTypeItem!
+    var advancedItem: BeautyTypeItem!
+    var filtersItem: BeautyTypeItem!
+    var lipsItem: BeautyTypeItem!
+    var blusherItem: BeautyTypeItem!
+    var eyelashesItem: BeautyTypeItem!
+    var eyelinerItem: BeautyTypeItem!
+    var eyeshadowItem: BeautyTypeItem!
+    var coloredContactsItem: BeautyTypeItem!
+    var styleMakeupItem: BeautyTypeItem!
+    var stickersItem: BeautyTypeItem!
+    var backgroundItem: BeautyTypeItem!
     
-    static var basicItem: BeautyTypeItem = {
-        let types: [BeautyType] = [
-            .beautyBasicReset,
-            .beautyBasicSmoothing,
-            .beautyBasicSkinTone,
-            .beautyBasicBlusher,
-            .beautyBasicSharpening,
-            .beautyBasicWrinkles,
-            .beautyBasicDarkCircles,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyBasicReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .basic,
-                                       items: items,
-                                       title: "Basic",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var advancedItem: BeautyTypeItem = {
-        let types: [BeautyType] = [
-            .beautyAdvancedReset,
-            .beautyAdvancedFaceSlimming,
-            .beautyAdvancedEyesEnlarging,
-            .beautyAdvancedEyesBrightening,
-            .beautyAdvancedChinLengthening,
-            .beautyAdvancedMouthReshape,
-            .beautyAdvancedTeethWhitening,
-            .beautyAdvancedNoseSlimming,
-            .beautyAdvancedNoseLengthening,
-            .beautyAdvancedFaceShortening,
-            .beautyAdvancedMandibleSlimming,
-            .beautyAdvancedCheekboneSlimming,
-            .beautyAdvancedForeheadSlimming,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyAdvancedReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .advanced,
-                                       items: items,
-                                       title: "Advanced",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var filtersItem: BeautyTypeItem = {
-        let types: [BeautyType] = [
-            .filterReset,
-            .filterNaturalCreamy,
-            .filterNaturalBrighten,
-            .filterNaturalFresh,
-            .filterNaturalAutumn,
-            .filterGrayMonet,
-            .filterGrayNight,
-            .filterGrayFilmlike,
-            .filterDreamySunset,
-            .filterDreamyCozily,
-            .filterDreamySweet,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .filterReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .filter,
-                                       items: items,
-                                       title: "Filters",
-                                       titleWidth: 80.0,
-                                       iconRadius: 5.0)
-        return titleItem
-    }()
-    
-    static var lipsItem: BeautyTypeItem = {
-        let types: [BeautyType] = [
-            .beautyMakeupLipstickReset,
-            .beautyMakeupLipstickCameoPink,
-            .beautyMakeupLipstickSweetOrange,
-            .beautyMakeupLipstickRustRed,
-            .beautyMakeupLipstickCoral,
-            .beautyMakeupLipstickRedVelvet,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupLipstickReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .lipstick,
-                                       items: items,
-                                       title: "Lipstick",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var blusherItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyMakeupBlusherReset,
-            .beautyMakeupBlusherSlightlyDrunk,
-            .beautyMakeupBlusherPeach,
-            .beautyMakeupBlusherMilkyOrange,
-            .beautyMakeupBlusherApricotPink,
-            .beautyMakeupBlusherSweetOrange,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupBlusherReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .blusher,
-                                       items: items,
-                                       title: "Blusher",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var eyelashesItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyMakeupEyelashesReset,
-            .beautyMakeupEyelashesNatural,
-            .beautyMakeupEyelashesTender,
-            .beautyMakeupEyelashesCurl,
-            .beautyMakeupEyelashesEverlong,
-            .beautyMakeupEyelashesThick,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupEyelashesReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .eyelash,
-                                       items: items,
-                                       title: "Eyelashes",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var eyelinerItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyMakeupEyelinerReset,
-            .beautyMakeupEyelinerNatural,
-            .beautyMakeupEyelinerCatEye,
-            .beautyMakeupEyelinerNaughty,
-            .beautyMakeupEyelinerInnocent,
-            .beautyMakeupEyelinerDignified,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupEyelinerReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .eyeliner,
-                                       items: items,
-                                       title: "Eyeliner",
-                                       titleWidth: 80.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var eyeshadowItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyMakeupEyeshadowReset,
-            .beautyMakeupEyeshadowPinkMist,
-            .beautyMakeupEyeshadowShimmerPink,
-            .beautyMakeupEyeshadowTeaBrown,
-            .beautyMakeupEyeshadowBrightOrange,
-            .beautyMakeupEyeshadowMochaBrown,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupEyeshadowReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .eyeshadow,
-                                       items: items,
-                                       title: "Eyeshadow",
-                                       titleWidth: 90.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var coloredContactsItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyMakeupColoredContactsReset,
-            .beautyMakeupColoredContactsDarknightBlack,
-            .beautyMakeupColoredContactsStarryBlue,
-            .beautyMakeupColoredContactsBrownGreen,
-            .beautyMakeupColoredContactsLightsBrown,
-            .beautyMakeupColoredContactsChocolateBrown,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyMakeupColoredContactsReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .coloredContacts,
-                                       items: items,
-                                       title: "Colored Contacts",
-                                       titleWidth: 140.0,
-                                       iconRadius: 22.0)
-        return titleItem
-    }()
-    
-    static var styleMakeupItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .beautyStyleMakeupReset,
-            .beautyStyleMakeupInnocentEyes,
-            .beautyStyleMakeupMilkyEyes,
-            .beautyStyleMakeupCutieCool,
-            .beautyStyleMakeupPureSexy,
-            .beautyStyleMakeupFlawless,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .beautyStyleMakeupReset {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .style,
-                                       items: items,
-                                       title: "Style",
-                                       titleWidth: 80.0,
-                                       iconRadius: 5.0)
-        return titleItem
-    }()
-        
-    static var stickersItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .stickerReset,
-            .stickerAnimal,
-            .stickerDive,
-            .stickerCat,
-            .stickerWatermelon,
-            .stickerDeer,
-            .stickerCoolGirl,
-            .stickerClown,
-            .stickerClawMachine,
-            .stickerSailorMoon,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            item.hasSlider = false
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .sticker,
-                                       items: items,
-                                       title: "Stickers",
-                                       titleWidth: 80.0,
-                                       iconRadius: 5.0)
-        return titleItem
-    }()
-    
-    static var backgroundItem: BeautyTypeItem = {
-        
-        let types: [BeautyType] = [
-            .backgroundReset,
-            .backgroundPortraitSegmentation,
-            .backgroundMosaicing,
-            .backgroundGaussianBlur,
-        ]
-        
-        let items = types.compactMap { type in
-            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
-            if type == .backgroundReset || type == .backgroundPortraitSegmentation {
-                item.hasSlider = false
-            }
-            return item
-        }
-        
-        let titleItem = BeautyTypeItem(type: .background,
-                                       items: items,
-                                       title: "Background",
-                                       titleWidth: 100.0,
-                                       iconRadius: 5.0)
-        return titleItem
-    }()
-    
-    static func itemTitle(_ type: BeautyType) -> String {
+    func itemTitle(_ type: BeautyType) -> String {
         switch type {
         case .beautyBasicReset: return "Reset"
         case .beautyBasicSmoothing: return "Smoothing"
@@ -462,5 +126,357 @@ struct FaceBeautifyData {
         case .backgroundMosaicing: return "Mosaicing"
         case .backgroundGaussianBlur: return "Gaussian Blur"
         }
+    }
+    
+    override init() {
+        super.init()
+        
+        beautyAbilities = ZegoSDKManager.shared.beautyService.beautyAbilities
+        
+        initBaseItem()
+        initAdvancedItem()
+        initFiltersItem()
+        initLipsItem()
+        initBlusherItem()
+        initEyelashesItem()
+        initEyelinerItem()
+        initEyeshadowItem()
+        initColoredContactsItem()
+        initStyleMakeupItem()
+        initStickersItem()
+        initBackgroundItem()
+        initData()
+    }
+    
+    func initBaseItem() {
+        let types: [BeautyType] = [
+            .beautyBasicReset,
+            .beautyBasicSmoothing,
+            .beautyBasicSkinTone,
+            .beautyBasicBlusher,
+            .beautyBasicSharpening,
+            .beautyBasicWrinkles,
+            .beautyBasicDarkCircles,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyBasicReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        basicItem = BeautyTypeItem(type: .basic,
+                                       items: items,
+                                       title: "Basic",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initAdvancedItem() {
+        let types: [BeautyType] = [
+            .beautyAdvancedReset,
+            .beautyAdvancedFaceSlimming,
+            .beautyAdvancedEyesEnlarging,
+            .beautyAdvancedEyesBrightening,
+            .beautyAdvancedChinLengthening,
+            .beautyAdvancedMouthReshape,
+            .beautyAdvancedTeethWhitening,
+            .beautyAdvancedNoseSlimming,
+            .beautyAdvancedNoseLengthening,
+            .beautyAdvancedFaceShortening,
+            .beautyAdvancedMandibleSlimming,
+            .beautyAdvancedCheekboneSlimming,
+            .beautyAdvancedForeheadSlimming,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyAdvancedReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        advancedItem = BeautyTypeItem(type: .advanced,
+                                       items: items,
+                                       title: "Advanced",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initFiltersItem() {
+        let types: [BeautyType] = [
+            .filterReset,
+            .filterNaturalCreamy,
+            .filterNaturalBrighten,
+            .filterNaturalFresh,
+            .filterNaturalAutumn,
+            .filterGrayMonet,
+            .filterGrayNight,
+            .filterGrayFilmlike,
+            .filterDreamySunset,
+            .filterDreamyCozily,
+            .filterDreamySweet,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .filterReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        filtersItem = BeautyTypeItem(type: .filter,
+                                       items: items,
+                                       title: "Filters",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
+    }
+    
+    func initLipsItem() {
+        let types: [BeautyType] = [
+            .beautyMakeupLipstickReset,
+            .beautyMakeupLipstickCameoPink,
+            .beautyMakeupLipstickSweetOrange,
+            .beautyMakeupLipstickRustRed,
+            .beautyMakeupLipstickCoral,
+            .beautyMakeupLipstickRedVelvet,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupLipstickReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        lipsItem = BeautyTypeItem(type: .lipstick,
+                                       items: items,
+                                       title: "Lipstick",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initBlusherItem() {
+        let types: [BeautyType] = [
+            .beautyMakeupBlusherReset,
+            .beautyMakeupBlusherSlightlyDrunk,
+            .beautyMakeupBlusherPeach,
+            .beautyMakeupBlusherMilkyOrange,
+            .beautyMakeupBlusherApricotPink,
+            .beautyMakeupBlusherSweetOrange,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupBlusherReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        blusherItem = BeautyTypeItem(type: .blusher,
+                                       items: items,
+                                       title: "Blusher",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initEyelashesItem() {
+        let types: [BeautyType] = [
+            .beautyMakeupEyelashesReset,
+            .beautyMakeupEyelashesNatural,
+            .beautyMakeupEyelashesTender,
+            .beautyMakeupEyelashesCurl,
+            .beautyMakeupEyelashesEverlong,
+            .beautyMakeupEyelashesThick,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyelashesReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        eyelashesItem = BeautyTypeItem(type: .eyelash,
+                                       items: items,
+                                       title: "Eyelashes",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initEyelinerItem() {
+        let types: [BeautyType] = [
+            .beautyMakeupEyelinerReset,
+            .beautyMakeupEyelinerNatural,
+            .beautyMakeupEyelinerCatEye,
+            .beautyMakeupEyelinerNaughty,
+            .beautyMakeupEyelinerInnocent,
+            .beautyMakeupEyelinerDignified,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: self.itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyelinerReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        eyelinerItem = BeautyTypeItem(type: .eyeliner,
+                                       items: items,
+                                       title: "Eyeliner",
+                                       titleWidth: 80.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initEyeshadowItem() {
+        let types: [BeautyType] = [
+            .beautyMakeupEyeshadowReset,
+            .beautyMakeupEyeshadowPinkMist,
+            .beautyMakeupEyeshadowShimmerPink,
+            .beautyMakeupEyeshadowTeaBrown,
+            .beautyMakeupEyeshadowBrightOrange,
+            .beautyMakeupEyeshadowMochaBrown,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupEyeshadowReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        eyeshadowItem = BeautyTypeItem(type: .eyeshadow,
+                                       items: items,
+                                       title: "Eyeshadow",
+                                       titleWidth: 90.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initColoredContactsItem() {
+        
+        let types: [BeautyType] = [
+            .beautyMakeupColoredContactsReset,
+            .beautyMakeupColoredContactsDarknightBlack,
+            .beautyMakeupColoredContactsStarryBlue,
+            .beautyMakeupColoredContactsBrownGreen,
+            .beautyMakeupColoredContactsLightsBrown,
+            .beautyMakeupColoredContactsChocolateBrown,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyMakeupColoredContactsReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        coloredContactsItem = BeautyTypeItem(type: .coloredContacts,
+                                       items: items,
+                                       title: "Colored Contacts",
+                                       titleWidth: 140.0,
+                                       iconRadius: 22.0)
+    }
+    
+    func initStyleMakeupItem() {
+        let types: [BeautyType] = [
+            .beautyStyleMakeupReset,
+            .beautyStyleMakeupInnocentEyes,
+            .beautyStyleMakeupMilkyEyes,
+            .beautyStyleMakeupCutieCool,
+            .beautyStyleMakeupPureSexy,
+            .beautyStyleMakeupFlawless,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .beautyStyleMakeupReset {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        styleMakeupItem = BeautyTypeItem(type: .style,
+                                       items: items,
+                                       title: "Style",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
+    }
+    
+    func initStickersItem() {
+        let types: [BeautyType] = [
+            .stickerReset,
+            .stickerAnimal,
+            .stickerDive,
+            .stickerCat,
+            .stickerWatermelon,
+            .stickerDeer,
+            .stickerCoolGirl,
+            .stickerClown,
+            .stickerClawMachine,
+            .stickerSailorMoon,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            item.hasSlider = false
+            return item
+        }
+        
+        stickersItem = BeautyTypeItem(type: .sticker,
+                                       items: items,
+                                       title: "Stickers",
+                                       titleWidth: 80.0,
+                                       iconRadius: 5.0)
+    }
+    
+    func initBackgroundItem() {
+        
+        let types: [BeautyType] = [
+            .backgroundReset,
+            .backgroundPortraitSegmentation,
+            .backgroundMosaicing,
+            .backgroundGaussianBlur,
+        ]
+        
+        let items = types.compactMap { type in
+            var item = BeautyItem(title: itemTitle(type), icon: type.rawValue, info: beautyAbilities[type]!)
+            if type == .backgroundReset || type == .backgroundPortraitSegmentation {
+                item.hasSlider = false
+            }
+            return item
+        }
+        
+        backgroundItem = BeautyTypeItem(type: .background,
+                                       items: items,
+                                       title: "Background",
+                                       titleWidth: 100.0,
+                                       iconRadius: 5.0)
+    }
+    
+    func initData() {
+       data = [
+            basicItem,
+            advancedItem,
+            filtersItem,
+            lipsItem,
+            blusherItem,
+            eyelashesItem,
+            eyelinerItem,
+            eyeshadowItem,
+            coloredContactsItem,
+            styleMakeupItem,
+            stickersItem,
+            backgroundItem,
+        ]
     }
 }

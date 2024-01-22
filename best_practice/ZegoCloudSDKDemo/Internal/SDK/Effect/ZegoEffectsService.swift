@@ -58,6 +58,13 @@ public class ZegoEffectsService: NSObject {
         effects?.uninitEnv()
     }
     
+    public func uninit() {
+        isInitialized = false
+        effects?.destroy()
+        effects = nil
+        beautyAbilities.removeAll()
+    }
+    
     public func processImageBuffer(_ buffer: CVPixelBuffer) {
         effects?.processImageBuffer(buffer)
     }

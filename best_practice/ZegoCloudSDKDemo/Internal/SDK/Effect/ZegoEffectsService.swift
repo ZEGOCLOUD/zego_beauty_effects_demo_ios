@@ -65,6 +65,10 @@ public class ZegoEffectsService: NSObject {
         beautyAbilities.removeAll()
     }
     
+    public func reset() {
+        clearAllBeauty()
+    }
+    
     public func processImageBuffer(_ buffer: CVPixelBuffer) {
         effects?.processImageBuffer(buffer)
     }

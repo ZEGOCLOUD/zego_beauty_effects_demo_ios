@@ -85,7 +85,7 @@ class LiveStreamingViewController: UIViewController {
     deinit {
         ZegoSDKManager.shared.expressService.stopPreview()
         ZegoSDKManager.shared.expressService.stopPublishingStream()
-        ZegoSDKManager.shared.unInit()
+        ZegoSDKManager.shared.beautyService.reset()
     }
 
     

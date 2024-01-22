@@ -157,4 +157,12 @@ extension ZegoEffectsService {
     private func stickerAbility(_ type: BeautyType) -> BeautyAbility {
         return BeautyAbility(minValue: 0, maxValue: 100, defaultValue: 50, editor: StickerEditor(effects: effects, path: type.path), type: type)
     }
+    
+    func clearAllBeauty() {
+        let effectTypes: [BeautyAbility] = Array(beautyAbilities.values)
+        for effectItem in effectTypes {
+            effectItem.reset()
+            effectItem.editor.enable(false)
+        }
+    }
 }

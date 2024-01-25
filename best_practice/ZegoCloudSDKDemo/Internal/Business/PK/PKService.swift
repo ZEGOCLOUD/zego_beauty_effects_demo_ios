@@ -11,7 +11,7 @@ import ZegoExpressEngine
 
 typealias UserRequestCallback = (_ code: UInt, _ requestID: String) -> ()
 
-let MixVideoSize: CGSize = CGSize(width: 486 * 2, height: 864)
+let MixVideoSize: CGSize = CGSize(width: 405 * 2, height: 720)
 
 @objc protocol PKServiceDelegate: AnyObject {
     
@@ -225,7 +225,7 @@ class PKService: NSObject {
               let row: Int = 2
               let column: Int = 2
               let cellWidth = Int(Int(MixVideoSize.width) / column)
-              let cellHeight = Int(Int(MixVideoSize.width) / row)
+              let cellHeight = Int(Int(MixVideoSize.height) / row)
               var left: Int
               var top: Int
               for i in 0...(streamList.count - 1) {
@@ -240,7 +240,7 @@ class PKService: NSObject {
             }
           } else if (streamList.count == 5) {
               var lastLeft: Int = 0
-              var height: Int = 432
+              let height: Int = Int(MixVideoSize.height / 2)
               for i in 0...(streamList.count - 1) {
                   if (i == 2) {
                       lastLeft = 0
@@ -264,7 +264,7 @@ class PKService: NSObject {
               var top: Int
               for i in 0...(streamList.count - 1) {
                   left = cellWidth * (i % column)
-                  top = cellHeight * (i < column ? 0 : 1)
+                  top = cellHeight * (i / column)
                   let rect = CGRect(x: left, y: top, width: cellWidth, height: cellHeight)
                   let input = ZegoMixerInput(streamID: streamList[i], contentType: .video, layout: rect)
                   input.renderMode = .fill

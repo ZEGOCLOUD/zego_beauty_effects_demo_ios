@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aIH-P7-q2b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aIH-P7-q2b">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -543,7 +543,7 @@
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWP-ge-Dpu" customClass="PKButton" customModule="ZegoCloudSDKDemo" customModuleProvider="target">
                                         <rect key="frame" x="258" y="751" width="120" height="29"/>
-                                        <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="1" alpha="0.70643504899999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="1" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="thJ-cz-7Aq"/>
                                         </constraints>
@@ -565,6 +565,22 @@
                                             <action selector="beautyAction:" destination="863-Jx-pjQ" eventType="touchUpInside" id="VSD-dr-RlP"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhR-Cg-k1w">
+                                        <rect key="frame" x="258" y="711" width="120" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="1" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="YQr-ur-SWy"/>
+                                            <constraint firstAttribute="width" constant="120" id="ZGJ-Ia-9pl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="send gift">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sendGiftClick:" destination="863-Jx-pjQ" eventType="touchUpInside" id="EQT-Lb-uP7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -575,10 +591,12 @@
                                     <constraint firstAttribute="trailing" secondItem="uXH-J3-8ih" secondAttribute="trailing" constant="16" id="Hgr-l2-21M"/>
                                     <constraint firstAttribute="bottom" secondItem="c51-7G-4ED" secondAttribute="bottom" constant="20" id="M7y-kD-sHR"/>
                                     <constraint firstItem="DRD-oZ-0uI" firstAttribute="centerY" secondItem="uXH-J3-8ih" secondAttribute="centerY" id="Qof-kw-6hn"/>
+                                    <constraint firstAttribute="trailing" secondItem="MhR-Cg-k1w" secondAttribute="trailing" constant="15" id="RNA-1G-fQj"/>
                                     <constraint firstItem="e3R-i2-ROm" firstAttribute="leading" secondItem="5aG-0x-eH2" secondAttribute="trailing" constant="10" id="Rd0-ga-3bh"/>
                                     <constraint firstAttribute="trailing" secondItem="c51-7G-4ED" secondAttribute="trailing" constant="16" id="VDe-ee-fkw"/>
                                     <constraint firstItem="uXH-J3-8ih" firstAttribute="leading" secondItem="DRD-oZ-0uI" secondAttribute="trailing" constant="10" id="XQy-8p-giY"/>
                                     <constraint firstAttribute="trailing" secondItem="1OS-Bv-SOj" secondAttribute="trailing" constant="16" id="ZH6-Id-683"/>
+                                    <constraint firstItem="YWP-ge-Dpu" firstAttribute="top" secondItem="MhR-Cg-k1w" secondAttribute="bottom" constant="10" id="dtI-Mc-LEl"/>
                                     <constraint firstItem="1OS-Bv-SOj" firstAttribute="leading" secondItem="NnR-vj-zBW" secondAttribute="trailing" constant="10" id="dtg-9X-7if"/>
                                     <constraint firstAttribute="trailing" secondItem="YWP-ge-Dpu" secondAttribute="trailing" constant="15" id="eKA-xB-pSd"/>
                                     <constraint firstItem="c51-7G-4ED" firstAttribute="top" secondItem="YWP-ge-Dpu" secondAttribute="bottom" constant="10" id="fra-yW-A7N"/>
@@ -697,6 +715,7 @@
                         <outlet property="endCoHostButton" destination="rCu-Fc-Vde" id="ERF-kX-G7Q"/>
                         <outlet property="flipButton" destination="uXH-J3-8ih" id="wqr-pV-FOE"/>
                         <outlet property="flipButtonConstraint" destination="Hgr-l2-21M" id="Qob-zY-ePo"/>
+                        <outlet property="giftButton" destination="MhR-Cg-k1w" id="LKy-Ps-GHG"/>
                         <outlet property="liveContainerView" destination="V3d-Bj-QLI" id="XNM-ai-853"/>
                         <outlet property="mainVideoView" destination="YIG-Vo-AtC" id="bDj-UU-Ubt"/>
                         <outlet property="memberButton" destination="NnR-vj-zBW" id="pJc-Uv-UD4"/>
@@ -853,14 +872,32 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp5-jN-nlu">
+                                <rect key="frame" x="258" y="742" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.33333333329999998" blue="1" alpha="0.70999999999999996" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="HWb-az-5cN"/>
+                                    <constraint firstAttribute="height" constant="30" id="J76-Wa-ozk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="send gift">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendGiftClick:" destination="S6s-H3-HoD" eventType="touchUpInside" id="v9M-VL-J8i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="p2g-n8-zAV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="a2L-HF-Lhg" firstAttribute="top" secondItem="cp5-jN-nlu" secondAttribute="bottom" constant="20" id="9N6-NW-Zre"/>
                             <constraint firstItem="3GQ-XR-CIt" firstAttribute="leading" secondItem="p2g-n8-zAV" secondAttribute="leading" constant="30" id="9iG-Pq-kJJ"/>
                             <constraint firstItem="a2L-HF-Lhg" firstAttribute="trailing" secondItem="p2g-n8-zAV" secondAttribute="trailing" id="FRZ-Ba-59u"/>
                             <constraint firstItem="p2g-n8-zAV" firstAttribute="trailing" secondItem="khX-aN-Ynq" secondAttribute="trailing" constant="30" id="JCF-DR-P9J"/>
                             <constraint firstItem="a2L-HF-Lhg" firstAttribute="leading" secondItem="p2g-n8-zAV" secondAttribute="leading" id="QUX-x0-49u"/>
+                            <constraint firstItem="p2g-n8-zAV" firstAttribute="trailing" secondItem="cp5-jN-nlu" secondAttribute="trailing" constant="15" id="RBV-My-qxD"/>
                             <constraint firstItem="YVd-QY-VqM" firstAttribute="top" secondItem="3GQ-XR-CIt" secondAttribute="bottom" constant="5" id="arV-Vc-KSX"/>
                             <constraint firstItem="YVd-QY-VqM" firstAttribute="leading" secondItem="p2g-n8-zAV" secondAttribute="leading" constant="30" id="jIj-FX-RV7"/>
                             <constraint firstItem="3GQ-XR-CIt" firstAttribute="top" secondItem="p2g-n8-zAV" secondAttribute="top" constant="40" id="n6j-7K-Lhn"/>
@@ -872,6 +909,7 @@
                     <connections>
                         <outlet property="applyBecomeSpeakerButton" destination="gf7-zI-sRc" id="n0O-gs-aw3"/>
                         <outlet property="bottomSeatButton" destination="DIq-7j-R2r" id="cNy-AY-ZZI"/>
+                        <outlet property="giftButton" destination="cp5-jN-nlu" id="nGa-yD-17u"/>
                         <outlet property="memberButton" destination="LHh-al-TG5" id="iad-2n-5wV"/>
                         <outlet property="micButton" destination="VPm-ku-15x" id="0KN-ML-n2c"/>
                         <outlet property="roomIDLabel" destination="YVd-QY-VqM" id="5u4-mc-KXP"/>
@@ -988,16 +1026,16 @@
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

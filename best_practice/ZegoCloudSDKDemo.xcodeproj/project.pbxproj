@@ -11,6 +11,8 @@
 		864697212B5E470C008B3005 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 864697202B5E470C008B3005 /* Toast */; };
 		864697242B5E472C008B3005 /* ZegoExpressEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 864697232B5E472C008B3005 /* ZegoExpressEngine */; };
 		864697272B5E474A008B3005 /* ZIM in Frameworks */ = {isa = PBXBuildFile; productRef = 864697262B5E474A008B3005 /* ZIM */; };
+		8646974F2B63B0D6008B3005 /* GiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8646974E2B63B0D6008B3005 /* GiftView.swift */; };
+		864697512B63B0F8008B3005 /* Mp4PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864697502B63B0F8008B3005 /* Mp4PlayerManager.swift */; };
 		868F03132B359B3F0088CEC1 /* ZegoCallManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03112B359B3F0088CEC1 /* ZegoCallManagerInterface.swift */; };
 		868F03142B359B3F0088CEC1 /* ZegoCallManager+EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03122B359B3F0088CEC1 /* ZegoCallManager+EventHandler.swift */; };
 		868F03162B359B550088CEC1 /* ZegoCallExtendedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868F03152B359B550088CEC1 /* ZegoCallExtendedData.swift */; };
@@ -111,6 +113,8 @@
 		217DD8A8123CE75AC7257A41 /* Pods-ZegoCloudSDKDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoCloudSDKDemo.debug.xcconfig"; path = "Target Support Files/Pods-ZegoCloudSDKDemo/Pods-ZegoCloudSDKDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		2F397B0136CD337546B1B0F6 /* Pods_ZegoCloudSDKDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoCloudSDKDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		860624742AF34344006B04A8 /* KeyCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
+		8646974E2B63B0D6008B3005 /* GiftView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiftView.swift; sourceTree = "<group>"; };
+		864697502B63B0F8008B3005 /* Mp4PlayerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mp4PlayerManager.swift; sourceTree = "<group>"; };
 		868F03112B359B3F0088CEC1 /* ZegoCallManagerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoCallManagerInterface.swift; sourceTree = "<group>"; };
 		868F03122B359B3F0088CEC1 /* ZegoCallManager+EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ZegoCallManager+EventHandler.swift"; sourceTree = "<group>"; };
 		868F03152B359B550088CEC1 /* ZegoCallExtendedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoCallExtendedData.swift; sourceTree = "<group>"; };
@@ -241,6 +245,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8646974D2B63B0D6008B3005 /* Gift */ = {
+			isa = PBXGroup;
+			children = (
+				8646974E2B63B0D6008B3005 /* GiftView.swift */,
+			);
+			path = Gift;
+			sourceTree = "<group>";
+		};
 		86DE8E1C2B0466F400B1C4B8 /* PK */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +278,7 @@
 		8E30347F2A6E6B7A00B77973 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8646974D2B63B0D6008B3005 /* Gift */,
 				86DE8E1C2B0466F400B1C4B8 /* PK */,
 				8E1B926A29DBD1250097C9ED /* VideoView.swift */,
 				8EBB67522A06045300832D8D /* Effects */,
@@ -421,6 +434,7 @@
 				8E3034A32A6FBEF100B77973 /* ZegoLiveAudioRoomManager.swift */,
 				8E3034A42A6FBEF100B77973 /* ZegoLiveStreamingManager.swift */,
 				86DE8E292B04671700B1C4B8 /* ZegoLiveStreamingManager+ExpressEventHandler.swift */,
+				864697502B63B0F8008B3005 /* Mp4PlayerManager.swift */,
 				8E318D8929D5802F001596F3 /* Utils.swift */,
 				8E7CB8E42A56978E004849EF /* ZegoDefine.swift */,
 				8E318D7529D573D4001596F3 /* Main.storyboard */,
@@ -693,9 +707,11 @@
 				8E1B926629DAD0160097C9ED /* ExpressService+Room.swift in Sources */,
 				86DE8E2E2B04686A00B1C4B8 /* Array+Extension.swift in Sources */,
 				8EEE4C032A09F8E20051F6B2 /* ZegoSlider.swift in Sources */,
+				8646974F2B63B0D6008B3005 /* GiftView.swift in Sources */,
 				86DE8E282B0466F400B1C4B8 /* PKBattleView.swift in Sources */,
 				8EEE4BFB2A08987D0051F6B2 /* BeautyAbility.swift in Sources */,
 				8EEE4BFF2A08D78D0051F6B2 /* BeautyItem.swift in Sources */,
+				864697512B63B0F8008B3005 /* Mp4PlayerManager.swift in Sources */,
 				8E30349E2A6FBCF600B77973 /* CoHostService.swift in Sources */,
 				86DE8E232B0466F400B1C4B8 /* PKBattleMixView.swift in Sources */,
 				8E1B926829DAD2CF0097C9ED /* ExpressService+EventHandler.swift in Sources */,

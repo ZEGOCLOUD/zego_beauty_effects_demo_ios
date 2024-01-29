@@ -61,6 +61,15 @@ class CallingViewController: UIViewController {
         }
     }
     
+    lazy var addUserButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        button.setTitle("+", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        button.addTarget(self, action: #selector(addMemberClick), for: .touchUpInside)
+        return button
+    }()
+    
     private var margin: CGFloat {
         get {
             if type == .voice {
@@ -90,6 +99,7 @@ class CallingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupNavBar()
         ZegoCallManager.shared.addCallEventHandler(self)
         ZegoSDKManager.shared.zimService.addEventHandler(self)
         setDeviceStatus()
@@ -108,6 +118,11 @@ class CallingViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func setupNavBar() {
+        self.navigationItem.title =  "Call Page"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: addUserButton)
     }
     
     func setupCallSubView() {
@@ -264,13 +279,13 @@ class CallingViewController: UIViewController {
         beautySheet.isHidden = false
     }
     
-    @IBAction func addMemberClick(_ sender: Any) {
+    @objc func addMemberClick(_ sender: Any) {
         let addAlterView: UIAlertController = UIAlertController(title: "add member", message: nil, preferredStyle: .alert)
         addAlterView.addTextField { textField in
             textField.placeholder = "userID"
         }
         
-        let sureAction: UIAlertAction = UIAlertAction(title: "sure", style: .default) { [weak self] action in
+        let sureAction: UIAlertAction = UIAlertAction(title: "sure", style: .default) { action in
             var addMemberList: [String] = []
             if let textField = addAlterView.textFields?[0] {
                 if let userID = textField.text,

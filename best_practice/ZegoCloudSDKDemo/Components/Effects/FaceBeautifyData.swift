@@ -132,7 +132,9 @@ class FaceBeautifyData: NSObject {
         super.init()
         
         beautyAbilities = ZegoSDKManager.shared.beautyService.beautyAbilities
-        
+        if beautyAbilities.count <= 0 {
+            return
+        }
         initBaseItem()
         initAdvancedItem()
         initFiltersItem()

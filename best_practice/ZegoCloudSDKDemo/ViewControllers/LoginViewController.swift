@@ -48,6 +48,10 @@ class LoginViewController: UIViewController {
         UserDefaults.standard.set(userID, forKey: "userID")
         UserDefaults.standard.set(userName, forKey: "userName")
         
+        if ZegoSDKManager.shared.beautyService.effects == nil {
+            ZegoSDKManager.shared.initWith(appID: appID, appSign: appSign, enableBeauty: true)
+        }
+        
         ZegoSDKManager.shared.connectUser(userID: userID, userName: userName) { code , message in
             if code == 0 {
                 ZegoSDKManager.shared.zimService.updateUserAvatarUrl("https://robohash.org/\(userID)?set=set4") { userAvatarUrl, error in

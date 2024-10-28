@@ -37,6 +37,7 @@ public class ZegoEffectsService: NSObject {
         EffectsSDKHelper.getLicence(BACKEND_API_URL,
                                     appID: appID,
                                     appSign: appSign) { code, license in
+            print("getLicence code:\(code)")
             if code == 0, let license = license {
                 self.isInitialized = true
                 // step 3 create effect
